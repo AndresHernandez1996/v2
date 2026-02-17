@@ -1,0 +1,197 @@
+/* =========================================
+   DESIGN TOKENS — Single Theme (Dark)
+   Naming:
+   - Palette: $color-*
+   - Semantics (use in UI): $ui-*
+   ========================================= */
+
+/* =========================
+   Typography
+   ========================= */
+
+/* Font families */
+
+/* =========================
+   Typography — Families
+   ========================= */
+
+$font-sans:
+  'Host Grotesk',
+  system-ui,
+  -apple-system,
+  Segoe UI,
+  Roboto,
+  Arial,
+  sans-serif;
+
+$font-serif: 'Lora', ui-serif, Georgia, 'Times New Roman', serif;
+
+/* Host Grotesk supports 300–800 */
+$font-sans-weight-min: 300;
+$font-sans-weight-max: 800;
+
+/* Lora supports 400–700 */
+$font-serif-weight-min: 400;
+$font-serif-weight-max: 700;
+
+/* Common weights (use these in UI) */
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+/* Optional: defaults for your UI */
+$ui-font-family: $font-sans;
+$ui-font-family-serif: $font-serif;
+
+/* Font weights */
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+/* Font sizes (rem) */
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-size-3xl: 1.875rem; // 30px
+$font-size-4xl: 2.25rem; // 36px
+$font-size-5xl: 3rem; // 48px
+
+/* Line heights */
+$line-height-tight: 1.15;
+$line-height-snug: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.65;
+
+/* Letter spacing */
+$letter-spacing-tight: -0.02em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.02em;
+
+/* UI text semantics (use these) */
+$ui-text-font-family: $font-sans;
+$ui-text-font-size: $font-size-md;
+$ui-text-line-height: $line-height-normal;
+$ui-text-font-weight: $font-weight-regular;
+
+$ui-h1-size: $font-size-5xl;
+$ui-h1-line-height: $line-height-tight;
+$ui-h1-weight: $font-weight-bold;
+$ui-h1-tracking: $letter-spacing-tight;
+
+$ui-h2-size: $font-size-4xl;
+$ui-h2-line-height: $line-height-snug;
+$ui-h2-weight: $font-weight-semibold;
+$ui-h2-tracking: $letter-spacing-tight;
+
+$ui-h3-size: $font-size-3xl;
+$ui-h3-line-height: $line-height-snug;
+$ui-h3-weight: $font-weight-semibold;
+
+$ui-h4-size: $font-size-2xl;
+$ui-h4-line-height: $line-height-snug;
+$ui-h4-weight: $font-weight-semibold;
+
+$ui-body-sm-size: $font-size-sm;
+$ui-body-sm-line-height: $line-height-normal;
+
+$ui-caption-size: $font-size-xs;
+$ui-caption-line-height: $line-height-normal;
+$ui-caption-weight: $font-weight-medium;
+
+$ui-label-size: $font-size-sm;
+$ui-label-weight: $font-weight-medium;
+$ui-label-tracking: $letter-spacing-wide;
+
+/* =========================
+   Palette (raw colors)
+   ========================= */
+
+/* Brand */
+$color-brand-900: #08261c; // deep green (main background)
+
+/* Accent */
+$color-accent-500: #e5ab08; // mustard
+$color-accent-600: #f2b705; // mustard bright (focus/hover)
+
+/* Neutrals (for text on dark) */
+$color-neutral-0: #f2f7f4; // near-white (high contrast)
+$color-neutral-100: #cfe0d9;
+$color-neutral-200: #9fb5ac;
+$color-neutral-300: #8c9b97;
+$color-neutral-400: #5c6b68;
+$color-neutral-500: #2e3a38;
+$color-neutral-600: #1f2a28;
+
+/* =========================
+   UI semantics (use these)
+   ========================= */
+
+$ui-bg: $color-brand-900;
+
+$ui-surface: rgba(255, 255, 255, 0.03); // subtle panel/card
+$ui-surface-strong: rgba(255, 255, 255, 0.06); // stronger elevation
+
+$ui-border: rgba(255, 255, 255, 0.1);
+
+$ui-text: $color-neutral-0; // main text on dark
+$ui-text-muted: $color-neutral-200; // paragraphs
+$ui-text-subtle: $color-neutral-400; // captions/labels
+
+$ui-accent: $color-accent-500;
+$ui-accent-hover: $color-accent-600;
+
+$ui-on-accent: $color-neutral-600; // text/icon on accent buttons
+
+$ui-link: $ui-accent;
+$ui-link-hover: $ui-accent-hover;
+
+/* Accessibility */
+$ui-focus: $color-accent-600; // focus ring color
+
+/* =========================
+   Radius
+   ========================= */
+
+$radius-xs: 0.25rem; // 4px
+$radius-sm: 0.5rem; // 8px
+$radius-md: 0.75rem; // 12px
+$radius-lg: 1rem; // 16px
+$radius-xl: 2rem; // 32px
+
+/* =========================
+   Shadows
+   ========================= */
+
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-md: 0 6px 18px rgba(0, 0, 0, 0.3);
+
+/* =========================
+   Spacing
+   ========================= */
+
+$space-1: 0.25rem; // 4px
+$space-2: 0.5rem; // 8px
+$space-3: 0.75rem; // 12px
+$space-4: 1rem; // 16px
+$space-5: 1.5rem; // 24px
+$space-6: 2rem; // 32px
+
+/* =========================
+   Breakpoints
+   ========================= */
+
+$break-sm: 480px;
+$break-md: 768px;
+$break-lg: 1024px;
+$break-xl: 1280px;
+
+/* =========================
+   Layout
+   ========================= */
+
+$layout-container-max: 1512px;
