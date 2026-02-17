@@ -113,6 +113,7 @@ $ui-label-tracking: $letter-spacing-wide;
 
 /* Brand */
 $color-brand-900: #08261c; // deep green (main background)
+$color-brand-800: #19372d; // dark pine green
 
 /* Accent */
 $color-accent-500: #e5ab08; // mustard
@@ -132,6 +133,7 @@ $color-neutral-600: #1f2a28;
    ========================= */
 
 $ui-bg: $color-brand-900;
+$ui-bg-contrast: $color-brand-800;
 
 $ui-surface: rgba(255, 255, 255, 0.03); // subtle panel/card
 $ui-surface-strong: rgba(255, 255, 255, 0.06); // stronger elevation
@@ -139,6 +141,7 @@ $ui-surface-strong: rgba(255, 255, 255, 0.06); // stronger elevation
 $ui-border: rgba(255, 255, 255, 0.1);
 
 $ui-text: $color-neutral-0; // main text on dark
+$ui-text-secondary: $color-neutral-100; // secondary text (e.g., metadata)
 $ui-text-muted: $color-neutral-200; // paragraphs
 $ui-text-subtle: $color-neutral-400; // captions/labels
 

@@ -36,6 +36,10 @@ body {
   font-size: t.$ui-text-font-size;
 }
 
+body.hidden {
+  overflow: hidden;
+}
+
 /* Links */
 a {
   color: t.$ui-link;

@@ -22,11 +22,14 @@
     ]
   },
   "dependencies": {
+    "animejs": "^4.3.6",
     "i18next": "^25.8.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-helmet": "^6.1.0",
-    "react-i18next": "^16.5.4"
+    "react-i18next": "^16.5.4",
+    "react-transition-group": "^4.4.5",
+    "scrollreveal": "^4.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
@@ -34,6 +37,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/react-helmet": "^6.1.11",
+    "@types/react-transition-group": "^4.4.12",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
