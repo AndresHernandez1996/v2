@@ -47,6 +47,10 @@ body.mobile-menu-open main {
   transition: filter 240ms ease;
 }
 
+h1 {
+  margin: 0 !important;
+}
+
 /* Links */
 a {
   color: t.$ui-link;
