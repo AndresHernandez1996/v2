@@ -8,8 +8,8 @@ export const es = {
   language_current: 'Actual: {{lng}}',
   language_switch_to_english: 'Inglés',
   language_switch_to_spanish: 'Español',
-  language_short_en: 'En',
-  language_short_es: 'Es',
+  language_short_en: 'EN',
+  language_short_es: 'ES',
   nav_aria_main: 'Navegación principal',
   nav_links_label: 'Enlaces de secciones',
   nav_mobile_panel_label: 'Menú de navegación móvil',
@@ -20,4 +20,11 @@ export const es = {
   nav_experience: 'Experiencia',
   nav_work: 'Proyectos',
   nav_contact: 'Contacto',
+  hero_kicker: 'Hola, mi nombre es',
+  hero_title: 'Andres Hernandez.',
+  hero_subtitle: 'Convirtiendo ideas en aplicaciones.',
+  hero_text:
+    'Soy un desarrollador front-end que disfruta construir aplicaciones web escalables y confiables, con un fuerte enfoque en UX/UI y diseño centrado en las personas.',
+  hero_cta: 'Descargar CV',
+  hero_cta_aria: 'Descargar currículum',
 } as const satisfies TranslationSchema;

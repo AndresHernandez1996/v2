@@ -50,6 +50,30 @@
   z-index: 30;
 }
 
+.navItem {
+  display: inline-flex;
+  align-items: center;
+}
+
+.navFadeEnter {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+
+.navFadeEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 320ms ease,
+    transform 320ms ease;
+  transition-delay: var(--nav-stagger-delay, 0ms);
+}
+
+.navFadeEnterDone {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .desktopActions {
   display: flex;
   align-items: center;
@@ -134,6 +158,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .header {
+    transition: none;
+  }
+
+  .navFadeEnter,
+  .navFadeEnterActive,
+  .navFadeEnterDone {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 }

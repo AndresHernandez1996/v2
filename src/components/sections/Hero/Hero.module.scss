@@ -1,24 +1,123 @@
 @use '../../../styles/tokens' as t;
 
 .section {
-  padding-block: 7rem 5rem;
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(5.25rem, 6vw, 7rem);
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    t.$ui-bg-contrast 5%,
+    t.$ui-bg 50%
+  );
+
+  filter: blur(0);
+}
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.item {
+  width: 100%;
+}
+
+.fadeupEnter {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.fadeupEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.fadeupEnterDone {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .kicker {
   margin: 0 0 t.$space-2;
   color: t.$ui-accent;
+  font-family: t.$ui-font-family-serif;
   font-size: t.$ui-label-size;
   letter-spacing: t.$ui-label-tracking;
 }
 
 .title {
-  margin: 0;
+  margin: 0 0 30px;
   max-width: 20ch;
-  font-size: t.$ui-h2-size;
+  font-size: clamp(2.5rem, 5vw, 5rem);
   line-height: t.$ui-h2-line-height;
 }
 
+.subtitle {
+  margin: 0 0 2.125rem;
+  color: t.$ui-text-muted;
+  font-size: clamp(2.25rem, 4.813vw, 4.813rem);
+  line-height: t.$ui-h3-line-height;
+  font-weight: t.$font-weight-bold;
+}
+
 .text {
+  margin: 0;
   max-width: 56ch;
   color: t.$ui-text-muted;
+  font-size: t.$font-size-xl;
+}
+
+.resumeButton {
+  margin-top: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 1rem 1.5rem;
+  border: 0;
+  border-radius: t.$radius-sm;
+  background: t.$ui-accent;
+  color: t.$ui-bg-contrast;
+  font-size: t.$font-size-md;
+  font-weight: t.$font-weight-semibold;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+
+  &:hover {
+    background: t.$ui-accent-hover;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeupEnter,
+  .fadeupEnterActive,
+  .fadeupEnterDone {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

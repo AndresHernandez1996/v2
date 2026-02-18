@@ -9,19 +9,6 @@
   width: 100%;
   height: 100%;
   background-color: t.$ui-bg;
-  background-image:
-    radial-gradient(
-      circle at center,
-      t.$ui-bg-contrast 0%,
-      t.$ui-bg-contrast 22%,
-      t.$ui-bg 62%,
-      t.$ui-bg 100%
-    ),
-    radial-gradient(
-      ellipse at center,
-      transparent 48%,
-      rgba(0, 0, 0, 0.18) 100%
-    );
 }
 
 .logoWrapper {
