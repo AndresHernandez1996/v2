@@ -6,4 +6,8 @@ export const en = {
   language_current: 'Current: {{lng}}',
   language_switch_to_english: 'English',
   language_switch_to_spanish: 'Spanish',
+  nav_about: 'About',
+  nav_experience: 'Experience',
+  nav_work: 'Work',
+  nav_contact: 'Contact',
 } as const;

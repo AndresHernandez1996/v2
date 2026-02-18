@@ -11,8 +11,8 @@
   z-index: 11;
   height: var(--nav-height);
   background-color: rgba(t.$ui-bg, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
+  -webkit-backdrop-filter: blur(0.625rem);
   transition: var(--transition);
 }
 
@@ -45,6 +45,12 @@
   color: inherit;
   text-decoration: none;
   z-index: 30;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2vw, 2rem);
 }
 
 .links {
@@ -99,6 +105,10 @@
 
   .nav {
     padding-inline: t.$nav-padding-mobile;
+  }
+
+  .actions {
+    gap: t.$space-4;
   }
 
   .links {

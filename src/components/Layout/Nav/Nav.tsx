@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Isotipo } from '@/components/icons/Isotipo';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
 import styles from './Nav.module.scss';
 
-const LINKS = [
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#work', label: 'Work' },
-  { href: '#contact', label: 'Contact' },
-];
-
 export function Nav() {
+  const { t } = useTranslation();
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
   const [scrolledToTop, setScrolledToTop] = useState(() =>
     typeof window === 'undefined' ? true : window.scrollY < 50,
   );
+
+  const links = [
+    { href: '#about', label: t('nav_about') },
+    { href: '#experience', label: t('nav_experience') },
+    { href: '#work', label: t('nav_work') },
+    { href: '#contact', label: t('nav_contact') },
+  ];
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -54,13 +57,18 @@ export function Nav() {
             <Isotipo className={styles.logoIcon} />
           </div>
         </a>
-        <ul className={styles.links}>
-          {LINKS.map((link) => (
-            <li key={link.href}>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
-        </ul>
+
+        <div className={styles.actions}>
+          <ul className={styles.links}>
+            {links.map((link) => (
+              <li key={link.href}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+
+          <LanguageSwitcher />
+        </div>
       </nav>
     </header>
   );
