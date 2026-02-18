@@ -1,0 +1,31 @@
+@use '../../../styles/tokens' as t;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, t.$ui-bg 86%, transparent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+}
+
+.brand {
+  font-weight: t.$font-weight-bold;
+  letter-spacing: t.$letter-spacing-wide;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: t.$space-4;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

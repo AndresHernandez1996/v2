@@ -1,0 +1,24 @@
+@use '../../../styles/tokens' as t;
+
+.section {
+  padding-block: 7rem 5rem;
+}
+
+.kicker {
+  margin: 0 0 t.$space-2;
+  color: t.$ui-accent;
+  font-size: t.$ui-label-size;
+  letter-spacing: t.$ui-label-tracking;
+}
+
+.title {
+  margin: 0;
+  max-width: 20ch;
+  font-size: t.$ui-h2-size;
+  line-height: t.$ui-h2-line-height;
+}
+
+.text {
+  max-width: 56ch;
+  color: t.$ui-text-muted;
+}
