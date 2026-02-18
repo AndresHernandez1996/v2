@@ -114,6 +114,7 @@ $ui-label-tracking: $letter-spacing-wide;
 /* Brand */
 $color-brand-900: #08261c; // deep green (main background)
 $color-brand-800: #19372d; // dark pine green
+$color-brand-shadow: #041f18; // for shadows on dark bg
 
 /* Accent */
 $color-accent-500: #e5ab08; // mustard
@@ -134,6 +135,7 @@ $color-neutral-600: #1f2a28;
 
 $ui-bg: $color-brand-900;
 $ui-bg-contrast: $color-brand-800;
+$ui-bg-shadow: $color-brand-shadow;
 
 $ui-surface: rgba(255, 255, 255, 0.03); // subtle panel/card
 $ui-surface-strong: rgba(255, 255, 255, 0.06); // stronger elevation
@@ -198,3 +200,12 @@ $break-xl: 1280px;
    ========================= */
 
 $layout-container-max: 1512px;
+$nav-height: 5.625rem; // 90px
+$nav-scroll-height: 4rem; // 64px
+$nav-height-mobile: 4rem; // 64px
+$nav-scroll-height-mobile: 3.75rem; // 60px
+$nav-padding-desktop: 3.125rem; // 50px
+$nav-padding-tablet: 2.5rem; // 40px
+$nav-padding-mobile: 1.5625rem; // 25px
+$nav-logo-size: 2.625rem; // 42px
+$break-nav-tablet: 67.5rem; // 1080px

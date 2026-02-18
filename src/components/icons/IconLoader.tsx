@@ -1,12 +1,6 @@
 import headVectorRaw from '@/assets/headVector.svg?raw';
 import yVectorRaw from '@/assets/yVector.svg?raw';
-
-const cleanSvg = (raw: string) =>
-  raw
-    .replace(/<\?xml[\s\S]*?\?>/g, '')
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/#000000/gi, 'currentColor')
-    .trim();
+import { cleanSvg } from '@/lib/cleanSvg';
 
 const headVector = cleanSvg(headVectorRaw);
 const yVector = cleanSvg(yVectorRaw);

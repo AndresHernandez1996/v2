@@ -6,4 +6,20 @@ export const en = {
   language_current: 'Current: {{lng}}',
   language_switch_to_english: 'English',
   language_switch_to_spanish: 'Spanish',
+  language_short_en: 'En',
+  language_short_es: 'Es',
+  nav_aria_main: 'Main navigation',
+  nav_links_label: 'Section links',
+  nav_mobile_panel_label: 'Mobile navigation menu',
+  nav_go_to_hero: 'Go to hero section',
+  nav_open_menu: 'Open menu',
+  nav_close_menu: 'Close menu',
+  nav_about: 'About',
+  nav_experience: 'Experience',
+  nav_work: 'Work',
+  nav_contact: 'Contact',
 } as const;
+
+export type TranslationSchema = {
+  [K in keyof typeof en]: string;
+};

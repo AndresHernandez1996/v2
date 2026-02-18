@@ -1,0 +1,6 @@
+@use '../../../styles/tokens' as t;
+
+.section {
+  padding-block: 4rem;
+  border-top: 1px solid t.$ui-border;
+}

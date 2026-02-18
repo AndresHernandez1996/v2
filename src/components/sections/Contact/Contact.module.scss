@@ -1,0 +1,15 @@
+@use '../../../styles/tokens' as t;
+
+.section {
+  padding-block: 4rem 6rem;
+  border-top: 1px solid t.$ui-border;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: t.$space-3;
+  padding: t.$space-2 t.$space-4;
+  border: 1px solid t.$ui-accent;
+  border-radius: t.$radius-sm;
+  text-decoration: none;
+}

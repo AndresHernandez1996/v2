@@ -1,0 +1,88 @@
+@use '../../styles/tokens' as t;
+
+.switcher {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: t.$ui-text-secondary;
+  font-size: t.$font-size-sm;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 220ms ease;
+
+  &:hover {
+    color: t.$ui-link-hover;
+  }
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(0.04em);
+}
+
+.chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: block;
+  transform: rotate(0deg);
+  transition: transform 220ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 220ms ease;
+}
+
+.menuOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menuClosed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-0.375rem);
+}
+
+.option {
+  border: 0;
+  border-radius: 1.375rem;
+  background-color: t.$ui-text-secondary;
+  color: t.$ui-bg;
+  padding: 0.5rem 1rem;
+  font-size: t.$font-size-sm;
+  font-weight: t.$font-weight-semibold;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: t.$break-md) {
+  .trigger {
+    font-size: t.$font-size-sm;
+  }
+
+  .option {
+    font-size: t.$font-size-sm;
+  }
+}

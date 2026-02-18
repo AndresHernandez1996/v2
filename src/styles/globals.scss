@@ -40,6 +40,13 @@ body.hidden {
   overflow: hidden;
 }
 
+body.mobile-menu-open main {
+  filter: blur(0.5rem);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 240ms ease;
+}
+
 /* Links */
 a {
   color: t.$ui-link;
@@ -54,4 +61,10 @@ a {
 :focus-visible {
   outline: 2px solid t.$ui-focus;
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.mobile-menu-open main {
+    transition: none;
+  }
 }
