@@ -3,6 +3,7 @@ import {
   useState,
 } from 'react';
 import { Layout } from './components/Layout/Layout';
+import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
@@ -43,13 +44,13 @@ export default function App() {
         ]}
       />
       <Nav />
-      <main>
+      <MainContainer>
         <Hero />
         <About />
         <Experience />
         <Work />
         <Contact />
-      </main>
+      </MainContainer>
     </Layout>
   );
 }
