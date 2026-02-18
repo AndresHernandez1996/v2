@@ -51,8 +51,12 @@ export function Nav() {
 
   return (
     <header className={headerClassName}>
-      <nav className={styles.nav} aria-label="Main">
-        <a className={styles.brand} href="#hero" aria-label="Go to hero">
+      <nav className={styles.nav} aria-label={t('nav_aria_main')}>
+        <a
+          className={styles.brand}
+          href="#hero"
+          aria-label={t('nav_go_to_hero')}
+        >
           <div className={styles.logo} aria-hidden="true">
             <Isotipo className={styles.logoIcon} />
           </div>

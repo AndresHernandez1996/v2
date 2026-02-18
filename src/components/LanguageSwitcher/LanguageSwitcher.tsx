@@ -6,10 +6,6 @@ import styles from './LanguageSwitcher.module.scss';
 type SupportedLanguage = 'en' | 'es';
 
 const LANGUAGES: SupportedLanguage[] = ['en', 'es'];
-const LABELS: Record<SupportedLanguage, string> = {
-  en: 'En',
-  es: 'Es',
-};
 
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
@@ -59,6 +55,9 @@ export function LanguageSwitcher() {
     setIsOpen(false);
   };
 
+  const getLanguageLabel = (language: SupportedLanguage) =>
+    language === 'en' ? t('language_short_en') : t('language_short_es');
+
   return (
     <div ref={rootRef} className={styles.switcher}>
       <button
@@ -69,7 +68,9 @@ export function LanguageSwitcher() {
         aria-haspopup="menu"
         aria-label={t('language_label')}
       >
-        <span className={styles.label}>{LABELS[currentLanguage]}</span>
+        <span className={styles.label}>
+          {getLanguageLabel(currentLanguage)}
+        </span>
         <ChevronDown
           className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}
         />
@@ -89,7 +90,7 @@ export function LanguageSwitcher() {
             role="menuitem"
             onClick={() => handleLanguageChange(language)}
           >
-            {LABELS[language]}
+            {getLanguageLabel(language)}
           </button>
         ))}
       </div>
