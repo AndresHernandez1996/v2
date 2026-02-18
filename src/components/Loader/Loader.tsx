@@ -14,7 +14,7 @@ export function Loader({ finishLoading }: LoaderProps) {
   const logoRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const mountTimeout = window.setTimeout(() => setIsMounted(true), 10);
+    const mountTimeout = window.setTimeout(() => setIsMounted(true), 80);
     const loaderEl = loaderRef.current;
     const logoEl = logoRef.current?.querySelector<HTMLElement>('#loader-logo');
     const headLayerEl =
@@ -56,8 +56,8 @@ export function Loader({ finishLoading }: LoaderProps) {
 
     if (headLayerEl) {
       timeline.add(headLayerEl, {
-        delay: 100,
-        duration: 520,
+        delay: 320,
+        duration: 800,
         ease: 'inOutSine',
         clipPath: 'inset(0% 0% 0% 0%)',
       });
@@ -65,7 +65,8 @@ export function Loader({ finishLoading }: LoaderProps) {
 
     timeline
       .add(headPaths ?? [], {
-        duration: 900,
+        delay: 120,
+        duration: 700,
         ease: 'inOutQuart',
         strokeDashoffset: 0,
       })
