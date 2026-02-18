@@ -1,0 +1,57 @@
+@use 'tokens' as t;
+@use 'reset';
+
+:root {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background: t.$ui-bg;
+  color: t.$ui-text;
+
+  font-family: t.$ui-font-family;
+  font-optical-sizing: auto;
+  font-weight: t.$font-weight-regular;
+  font-style: normal;
+
+  line-height: t.$ui-text-line-height;
+  font-size: t.$ui-text-font-size;
+}
+
+body.hidden {
+  overflow: hidden;
+}
+
+/* Links */
+a {
+  color: t.$ui-link;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: t.$ui-link-hover;
+  }
+}
+
+/* Focus (a11y) */
+:focus-visible {
+  outline: 2px solid t.$ui-focus;
+  outline-offset: 3px;
+}

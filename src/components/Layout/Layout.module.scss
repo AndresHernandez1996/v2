@@ -1,0 +1,5 @@
+@use '../../styles/mixins' as m;
+
+.layout {
+  @include m.container;
+}
