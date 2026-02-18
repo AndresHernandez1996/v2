@@ -25,6 +25,22 @@ export const en = {
     "I'm a front-end developer who enjoys building scalable and reliable web applications with a strong focus on UX/UI and user-centered design.",
   hero_cta: 'Download Resume',
   hero_cta_aria: 'Download resume',
+  about_title: 'About me',
+  about_p1:
+    "Hi! I'm Andrés Hernández. I enjoy building management applications from scratch. My passion for development began in 2019 after experimenting with my browser developer tools and discovering how the web actually works behind the scenes.",
+  about_p2_prefix: "I've had the opportunity to work with a ",
+  about_p2_highlight_1: 'start-up, large companies',
+  about_p2_middle: ', and a ',
+  about_p2_highlight_2: 'consulting firm',
+  about_p2_suffix: ', collaborating with cross-functional teams on ',
+  about_p2_highlight_3: 'international projects.',
+  about_p3_prefix: 'My goal is to ',
+  about_p3_highlight: 'grow into a software engineer',
+  about_p3_suffix:
+    ' capable of designing and building applications with robust architecture, scalability, and clean system design.',
+  about_tech_label: 'Some technologies I work with:',
+  about_tech_aria: 'Technologies',
+  about_image_alt: 'Andrés Hernández portrait',
 } as const;
 
 export type TranslationSchema = {

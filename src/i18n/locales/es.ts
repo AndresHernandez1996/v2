@@ -27,4 +27,20 @@ export const es = {
     'Soy un desarrollador front-end que disfruta construir aplicaciones web escalables y confiables, con un fuerte enfoque en UX/UI y diseño centrado en las personas.',
   hero_cta: 'Descargar CV',
   hero_cta_aria: 'Descargar currículum',
+  about_title: 'Sobre mí',
+  about_p1:
+    '¡Hola! Soy Andrés Hernández. Disfruto construir aplicaciones de gestión desde cero. Mi pasión por el desarrollo comenzó en 2019 después de experimentar con las herramientas de desarrollador del navegador y descubrir cómo funciona realmente la web detrás de escena.',
+  about_p2_prefix: 'He tenido la oportunidad de trabajar en una ',
+  about_p2_highlight_1: 'start-up y grandes empresas',
+  about_p2_middle: ', además de una ',
+  about_p2_highlight_2: 'firma de consultoría',
+  about_p2_suffix: ', colaborando con equipos multidisciplinarios en ',
+  about_p2_highlight_3: 'proyectos internacionales.',
+  about_p3_prefix: 'Mi objetivo es ',
+  about_p3_highlight: 'crecer como ingeniero de software',
+  about_p3_suffix:
+    ' capaz de diseñar y construir aplicaciones con arquitectura robusta, escalabilidad y diseño de sistemas limpio.',
+  about_tech_label: 'Algunas tecnologías con las que trabajo:',
+  about_tech_aria: 'Tecnologías',
+  about_image_alt: 'Retrato de Andrés Hernández',
 } as const satisfies TranslationSchema;

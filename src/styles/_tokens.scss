@@ -39,6 +39,7 @@ $ui-font-family: $font-sans;
 $ui-font-family-serif: $font-serif;
 
 /* Font weights */
+$font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
@@ -77,7 +78,7 @@ $ui-h1-line-height: $line-height-tight;
 $ui-h1-weight: $font-weight-bold;
 $ui-h1-tracking: $letter-spacing-tight;
 
-$ui-h2-size: $font-size-4xl;
+$ui-h2-size: 2rem; // 32px
 $ui-h2-line-height: $line-height-snug;
 $ui-h2-weight: $font-weight-semibold;
 $ui-h2-tracking: $letter-spacing-tight;
