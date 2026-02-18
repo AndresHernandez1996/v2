@@ -10,6 +10,8 @@ export const es = {
   language_short_es: 'Es',
   nav_aria_main: 'Navegación principal',
   nav_go_to_hero: 'Ir a la sección hero',
+  nav_open_menu: 'Abrir menú',
+  nav_close_menu: 'Cerrar menú',
   nav_about: 'Sobre mí',
   nav_experience: 'Experiencia',
   nav_work: 'Proyectos',

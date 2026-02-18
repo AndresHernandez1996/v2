@@ -3,12 +3,15 @@
 .header {
   --nav-height: #{t.$nav-height};
   --nav-scroll-height: #{t.$nav-scroll-height};
-  --transition: transform 300ms ease, height 300ms ease, box-shadow 300ms ease;
+  --transition:
+    transform 300ms ease, height 300ms ease, box-shadow 300ms ease,
+    background-color 300ms ease;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 11;
+  width: 100%;
   height: var(--nav-height);
   background-color: rgba(t.$ui-bg, 0.75);
   backdrop-filter: blur(0.625rem);
@@ -16,20 +19,19 @@
   transition: var(--transition);
 }
 
-.headerScrolled {
-  height: var(--nav-scroll-height);
-  box-shadow: 0 0.375rem 1rem 0 t.$color-brand-shadow;
-}
-
-.headerUp {
+.headerMenuOpen {
   transform: translateY(0);
 }
 
-.headerDown {
-  transform: translateY(calc(var(--nav-scroll-height) * -1));
+.headerScrolled {
+  height: var(--nav-scroll-height);
+  box-shadow: 0 0.625rem 1.875rem -0.625rem t.$color-brand-shadow;
 }
 
 .nav {
+  position: relative;
+  z-index: 12;
+  width: 100%;
   max-width: t.$layout-container-max;
   margin-inline: auto;
   padding: 0 t.$nav-padding-desktop;
@@ -37,6 +39,7 @@
   height: 100%;
   align-items: center;
   justify-content: space-between;
+  transition: padding-inline 300ms ease;
 }
 
 .brand {
@@ -47,7 +50,7 @@
   z-index: 30;
 }
 
-.actions {
+.desktopActions {
   display: flex;
   align-items: center;
   gap: clamp(1.25rem, 2vw, 2rem);
@@ -77,6 +80,7 @@
 .logo {
   width: t.$nav-logo-size;
   aspect-ratio: 587.85822 / 568.02051;
+  transition: width 300ms ease;
 }
 
 .logoIcon {
@@ -99,24 +103,32 @@
 
 @media (max-width: t.$break-md) {
   .header {
-    --nav-height: #{t.$nav-height-mobile};
-    --nav-scroll-height: #{t.$nav-scroll-height-mobile};
+    --nav-height: 5.525rem;
+    --nav-scroll-height: 5.25rem;
   }
 
   .nav {
     padding-inline: t.$nav-padding-mobile;
   }
 
-  .actions {
-    gap: t.$space-4;
+  .desktopActions {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .headerUp {
+    transform: translateY(0);
   }
 
-  .links {
-    gap: t.$space-4;
+  .headerDown {
+    transform: translateY(calc(var(--nav-scroll-height) * -1));
+  }
+}
 
-    a {
-      font-size: t.$font-size-md;
-    }
+@media (max-width: t.$break-sm) {
+  .nav {
+    padding-inline: 1.5rem;
   }
 }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
+import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
 export function Nav() {
@@ -10,6 +11,7 @@ export function Nav() {
   const [scrolledToTop, setScrolledToTop] = useState(() =>
     typeof window === 'undefined' ? true : window.scrollY < 50,
   );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const links = [
     { href: '#about', label: t('nav_about') },
@@ -22,6 +24,10 @@ export function Nav() {
     let lastScrollY = window.scrollY;
 
     const onScroll = () => {
+      if (isMenuOpen) {
+        return;
+      }
+
       const current = window.scrollY;
       setScrolledToTop(current < 50);
 
@@ -38,10 +44,11 @@ export function Nav() {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   const headerClassName = [
     styles.header,
+    isMenuOpen ? styles.headerMenuOpen : '',
     !scrolledToTop ? styles.headerScrolled : '',
     !scrolledToTop && scrollDirection === 'up' ? styles.headerUp : '',
     !scrolledToTop && scrollDirection === 'down' ? styles.headerDown : '',
@@ -62,7 +69,7 @@ export function Nav() {
           </div>
         </a>
 
-        <div className={styles.actions}>
+        <div className={styles.desktopActions}>
           <ul className={styles.links}>
             {links.map((link) => (
               <li key={link.href}>
@@ -73,6 +80,13 @@ export function Nav() {
 
           <LanguageSwitcher />
         </div>
+
+        <MobileMenu
+          links={links}
+          openLabel={t('nav_open_menu')}
+          closeLabel={t('nav_close_menu')}
+          onMenuStateChange={setIsMenuOpen}
+        />
       </nav>
     </header>
   );
