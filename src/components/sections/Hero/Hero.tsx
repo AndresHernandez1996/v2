@@ -1,45 +1,18 @@
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
-import { createRef, useEffect, useMemo, useState } from 'react';
+import { createRef, useMemo } from 'react';
 import styles from './Hero.module.scss';
 import { useTranslation } from 'react-i18next';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useAnimatedMount } from '@/hooks/useAnimatedMount';
+import { HERO_ANIMATION } from '@/utils/animations';
 
-const HERO_NAV_DELAY_MS = 120;
-const HERO_STAGGER_MS = 100;
-const HERO_LOADER_DELAY_MS = 420;
 type HeroItemId = 'kicker' | 'title' | 'subtitle' | 'text' | 'cta';
 
 export function Hero(): ReactElement {
   const { t } = useTranslation();
-  const [isMounted, setIsMounted] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
-    updatePreference();
-
-    mediaQuery.addEventListener('change', updatePreference);
-
-    return () => {
-      mediaQuery.removeEventListener('change', updatePreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const timeoutId = window.setTimeout(
-      () => setIsMounted(true),
-      HERO_NAV_DELAY_MS,
-    );
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [prefersReducedMotion]);
+  const { isMounted, prefersReducedMotion } = useAnimatedMount({
+    delayMs: HERO_ANIMATION.navDelayMs,
+  });
 
   const items: Array<{ id: HeroItemId; node: ReactNode }> = [
     { id: 'kicker', node: <p className={styles.kicker}>{t('hero_kicker')}</p> },
@@ -91,7 +64,7 @@ export function Hero(): ReactElement {
               <CSSTransition
                 key={item.id}
                 nodeRef={nodeRefs[item.id]}
-                timeout={HERO_LOADER_DELAY_MS}
+                timeout={HERO_ANIMATION.itemTimeoutMs}
                 classNames={{
                   enter: styles.fadeupEnter,
                   enterActive: styles.fadeupEnterActive,
@@ -103,7 +76,7 @@ export function Hero(): ReactElement {
                   className={styles.item}
                   style={
                     {
-                      '--stagger-delay': `${(index + 1) * HERO_STAGGER_MS}ms`,
+                      '--stagger-delay': `${(index + 1) * HERO_ANIMATION.staggerMs}ms`,
                     } as CSSProperties
                   }
                 >

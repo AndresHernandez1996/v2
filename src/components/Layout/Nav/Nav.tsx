@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
+import { useAnimatedMount } from '@/hooks/useAnimatedMount';
 import type { NavLink } from '@/types/navigation';
+import { NAV_ANIMATION } from '@/utils/animations';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
@@ -12,9 +14,6 @@ type NavProps = {
   onHomeClick?: () => void;
 };
 
-const NAV_MOUNT_DELAY_MS = 120;
-const NAV_STAGGER_MS = 100;
-const NAV_ITEM_TIMEOUT_MS = 320;
 type NavAnimatedItemId = 'brand' | 'actions';
 
 export function Nav({ onHomeClick }: NavProps) {
@@ -24,8 +23,9 @@ export function Nav({ onHomeClick }: NavProps) {
     typeof window === 'undefined' ? true : window.scrollY < 50,
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const { isMounted, prefersReducedMotion } = useAnimatedMount({
+    delayMs: NAV_ANIMATION.mountDelayMs,
+  });
 
   const links: NavLink[] = [
     { href: '#about', label: t('nav_about') },
@@ -33,29 +33,6 @@ export function Nav({ onHomeClick }: NavProps) {
     { href: '#work', label: t('nav_work') },
     { href: '#contact', label: t('nav_contact') },
   ];
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
-    updatePreference();
-    mediaQuery.addEventListener('change', updatePreference);
-
-    return () => {
-      mediaQuery.removeEventListener('change', updatePreference);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const timeoutId = window.setTimeout(
-      () => setIsMounted(true),
-      NAV_MOUNT_DELAY_MS,
-    );
-    return () => window.clearTimeout(timeoutId);
-  }, [prefersReducedMotion]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -153,7 +130,7 @@ export function Nav({ onHomeClick }: NavProps) {
                 <CSSTransition
                   key={item.id}
                   nodeRef={nodeRefs[item.id]}
-                  timeout={NAV_ITEM_TIMEOUT_MS}
+                  timeout={NAV_ANIMATION.itemTimeoutMs}
                   classNames={{
                     enter: styles.navFadeEnter,
                     enterActive: styles.navFadeEnterActive,
@@ -165,7 +142,7 @@ export function Nav({ onHomeClick }: NavProps) {
                     className={styles.navItem}
                     style={
                       {
-                        '--nav-stagger-delay': `${(index + 1) * NAV_STAGGER_MS}ms`,
+                        '--nav-stagger-delay': `${(index + 1) * NAV_ANIMATION.staggerMs}ms`,
                       } as CSSProperties
                     }
                   >
