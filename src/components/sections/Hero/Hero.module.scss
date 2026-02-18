@@ -1,12 +1,56 @@
 @use '../../../styles/tokens' as t;
 
 .section {
+  position: relative;
   min-height: 100vh;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-block: clamp(5.25rem, 6vw, 7rem);
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    t.$ui-bg-contrast 5%,
+    t.$ui-bg 50%
+  );
+
+  filter: blur(0);
+}
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.item {
+  width: 100%;
+}
+
+.fadeupEnter {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.fadeupEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.fadeupEnterDone {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .kicker {
@@ -49,7 +93,7 @@
   border: 0;
   border-radius: t.$radius-sm;
   background: t.$ui-accent;
-  color: t.$ui-on-accent;
+  color: t.$ui-bg-contrast;
   font-size: t.$font-size-md;
   font-weight: t.$font-weight-semibold;
   line-height: 1;
@@ -65,5 +109,15 @@
 
   &:active {
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeupEnter,
+  .fadeupEnterActive,
+  .fadeupEnterDone {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

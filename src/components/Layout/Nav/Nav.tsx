@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+import { createRef, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
 import type { NavLink } from '@/types/navigation';
@@ -10,6 +12,11 @@ type NavProps = {
   onHomeClick?: () => void;
 };
 
+const NAV_MOUNT_DELAY_MS = 120;
+const NAV_STAGGER_MS = 100;
+const NAV_ITEM_TIMEOUT_MS = 320;
+type NavAnimatedItemId = 'brand' | 'actions';
+
 export function Nav({ onHomeClick }: NavProps) {
   const { t } = useTranslation();
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
@@ -17,6 +24,8 @@ export function Nav({ onHomeClick }: NavProps) {
     typeof window === 'undefined' ? true : window.scrollY < 50,
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const links: NavLink[] = [
     { href: '#about', label: t('nav_about') },
@@ -24,6 +33,29 @@ export function Nav({ onHomeClick }: NavProps) {
     { href: '#work', label: t('nav_work') },
     { href: '#contact', label: t('nav_contact') },
   ];
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    updatePreference();
+    mediaQuery.addEventListener('change', updatePreference);
+
+    return () => {
+      mediaQuery.removeEventListener('change', updatePreference);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(
+      () => setIsMounted(true),
+      NAV_MOUNT_DELAY_MS,
+    );
+    return () => window.clearTimeout(timeoutId);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -61,9 +93,10 @@ export function Nav({ onHomeClick }: NavProps) {
     .filter(Boolean)
     .join(' ');
 
-  return (
-    <header className={headerClassName}>
-      <nav className={styles.nav} aria-label={t('nav_aria_main')}>
+  const animatedItems: Array<{ id: NavAnimatedItemId; node: ReactNode }> = [
+    {
+      id: 'brand',
+      node: (
         <a
           className={styles.brand}
           href="/"
@@ -77,7 +110,11 @@ export function Nav({ onHomeClick }: NavProps) {
             <Isotipo className={styles.logoIcon} />
           </div>
         </a>
-
+      ),
+    },
+    {
+      id: 'actions',
+      node: (
         <div className={styles.desktopActions}>
           <ul className={styles.links} aria-label={t('nav_links_label')}>
             {links.map((link) => (
@@ -86,9 +123,58 @@ export function Nav({ onHomeClick }: NavProps) {
               </li>
             ))}
           </ul>
-
           <LanguageSwitcher />
         </div>
+      ),
+    },
+  ];
+
+  const nodeRefs = useMemo(
+    () => ({
+      brand: createRef<HTMLDivElement>(),
+      actions: createRef<HTMLDivElement>(),
+    }),
+    [],
+  );
+
+  return (
+    <header className={headerClassName}>
+      <nav className={styles.nav} aria-label={t('nav_aria_main')}>
+        {prefersReducedMotion ? (
+          animatedItems.map((item) => (
+            <div key={item.id} className={styles.navItem}>
+              {item.node}
+            </div>
+          ))
+        ) : (
+          <TransitionGroup component={null}>
+            {isMounted &&
+              animatedItems.map((item, index) => (
+                <CSSTransition
+                  key={item.id}
+                  nodeRef={nodeRefs[item.id]}
+                  timeout={NAV_ITEM_TIMEOUT_MS}
+                  classNames={{
+                    enter: styles.navFadeEnter,
+                    enterActive: styles.navFadeEnterActive,
+                    enterDone: styles.navFadeEnterDone,
+                  }}
+                >
+                  <div
+                    ref={nodeRefs[item.id]}
+                    className={styles.navItem}
+                    style={
+                      {
+                        '--nav-stagger-delay': `${(index + 1) * NAV_STAGGER_MS}ms`,
+                      } as CSSProperties
+                    }
+                  >
+                    {item.node}
+                  </div>
+                </CSSTransition>
+              ))}
+          </TransitionGroup>
+        )}
 
         <MobileMenu
           links={links}
