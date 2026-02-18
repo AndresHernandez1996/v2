@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import type { NavLink } from '@/types/navigation';
 import styles from './MobileMenu.module.scss';
 
 const MOBILE_BREAKPOINT = 768;
-
-type NavLink = {
-  href: string;
-  label: string;
-};
 
 type MobileMenuProps = {
   links: NavLink[];
   openLabel: string;
   closeLabel: string;
+  panelLabel: string;
+  linksLabel: string;
   onMenuStateChange?: (isOpen: boolean) => void;
 };
 
@@ -19,6 +17,8 @@ export function MobileMenu({
   links,
   openLabel,
   closeLabel,
+  panelLabel,
+  linksLabel,
   onMenuStateChange,
 }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -136,10 +136,11 @@ export function MobileMenu({
         type="button"
         aria-label={buttonLabel}
         aria-expanded={isOpen}
+        aria-haspopup="dialog"
         aria-controls="mobile-navigation"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span className={styles.hamBox}>
+        <span className={styles.hamBox} aria-hidden="true">
           <span
             className={`${styles.hamBoxInner} ${isOpen ? styles.hamBoxInnerOpen : ''}`}
           />
@@ -155,9 +156,12 @@ export function MobileMenu({
       <aside
         id="mobile-navigation"
         className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}
+        role="dialog"
+        aria-modal={isOpen}
+        aria-label={panelLabel}
         aria-hidden={!isOpen}
       >
-        <nav ref={navRef} className={styles.sidebarNav}>
+        <nav ref={navRef} className={styles.sidebarNav} aria-label={linksLabel}>
           <ol className={styles.sidebarLinks}>
             {links.map((link) => (
               <li key={link.href}>

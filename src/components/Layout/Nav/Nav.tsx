@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
+import type { NavLink } from '@/types/navigation';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
-export function Nav() {
+type NavProps = {
+  onHomeClick?: () => void;
+};
+
+export function Nav({ onHomeClick }: NavProps) {
   const { t } = useTranslation();
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
   const [scrolledToTop, setScrolledToTop] = useState(() =>
@@ -13,7 +18,7 @@ export function Nav() {
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const links = [
+  const links: NavLink[] = [
     { href: '#about', label: t('nav_about') },
     { href: '#experience', label: t('nav_experience') },
     { href: '#work', label: t('nav_work') },
@@ -61,8 +66,12 @@ export function Nav() {
       <nav className={styles.nav} aria-label={t('nav_aria_main')}>
         <a
           className={styles.brand}
-          href="#hero"
+          href="/"
           aria-label={t('nav_go_to_hero')}
+          onClick={(event) => {
+            event.preventDefault();
+            onHomeClick?.();
+          }}
         >
           <div className={styles.logo} aria-hidden="true">
             <Isotipo className={styles.logoIcon} />
@@ -70,7 +79,7 @@ export function Nav() {
         </a>
 
         <div className={styles.desktopActions}>
-          <ul className={styles.links}>
+          <ul className={styles.links} aria-label={t('nav_links_label')}>
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href}>{link.label}</a>
@@ -85,6 +94,8 @@ export function Nav() {
           links={links}
           openLabel={t('nav_open_menu')}
           closeLabel={t('nav_close_menu')}
+          panelLabel={t('nav_mobile_panel_label')}
+          linksLabel={t('nav_links_label')}
           onMenuStateChange={setIsMenuOpen}
         />
       </nav>

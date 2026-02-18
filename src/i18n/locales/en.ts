@@ -9,6 +9,8 @@ export const en = {
   language_short_en: 'En',
   language_short_es: 'Es',
   nav_aria_main: 'Main navigation',
+  nav_links_label: 'Section links',
+  nav_mobile_panel_label: 'Mobile navigation menu',
   nav_go_to_hero: 'Go to hero section',
   nav_open_menu: 'Open menu',
   nav_close_menu: 'Close menu',
@@ -17,3 +19,7 @@ export const en = {
   nav_work: 'Work',
   nav_contact: 'Contact',
 } as const;
+
+export type TranslationSchema = {
+  [K in keyof typeof en]: string;
+};

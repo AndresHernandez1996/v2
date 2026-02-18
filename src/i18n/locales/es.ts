@@ -1,3 +1,5 @@
+import type { TranslationSchema } from './en';
+
 export const es = {
   title: 'Andrés Hernández Frontend Engineer',
   subtitle:
@@ -9,6 +11,8 @@ export const es = {
   language_short_en: 'En',
   language_short_es: 'Es',
   nav_aria_main: 'Navegación principal',
+  nav_links_label: 'Enlaces de secciones',
+  nav_mobile_panel_label: 'Menú de navegación móvil',
   nav_go_to_hero: 'Ir a la sección hero',
   nav_open_menu: 'Abrir menú',
   nav_close_menu: 'Cerrar menú',
@@ -16,4 +20,4 @@ export const es = {
   nav_experience: 'Experiencia',
   nav_work: 'Proyectos',
   nav_contact: 'Contacto',
-} as const;
+} as const satisfies TranslationSchema;

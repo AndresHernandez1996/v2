@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown } from '@/components/icons/ChevronDown';
+import { assertNever } from '@/lib/assertNever';
 import styles from './LanguageSwitcher.module.scss';
 
 type SupportedLanguage = 'en' | 'es';
@@ -55,8 +56,16 @@ export function LanguageSwitcher() {
     setIsOpen(false);
   };
 
-  const getLanguageLabel = (language: SupportedLanguage) =>
-    language === 'en' ? t('language_short_en') : t('language_short_es');
+  const getLanguageLabel = (language: SupportedLanguage) => {
+    switch (language) {
+      case 'en':
+        return t('language_short_en');
+      case 'es':
+        return t('language_short_es');
+      default:
+        return assertNever(language);
+    }
+  };
 
   return (
     <div ref={rootRef} className={styles.switcher}>
