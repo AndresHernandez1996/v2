@@ -31,10 +31,10 @@ export function Nav({ onHomeClick }: NavProps) {
 
   // Navigation links (desktop + mobile menu)
   const links: NavLink[] = [
-    { href: '#about', label: t('nav_about') },
-    { href: '#experience', label: t('nav_experience') },
-    { href: '#work', label: t('nav_work') },
-    { href: '#contact', label: t('nav_contact') },
+    { href: '/#about', label: t('nav_about') },
+    { href: '/#experience', label: t('nav_experience') },
+    { href: '/#work', label: t('nav_work') },
+    { href: '/#contact', label: t('nav_contact') },
   ];
 
   useEffect(() => {

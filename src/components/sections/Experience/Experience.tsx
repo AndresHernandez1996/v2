@@ -1,9 +1,11 @@
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Experience.module.scss';
 import { D20 } from '@/components/icons/D20';
 import { D6 } from '@/components/icons/D6';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { getNextTabIndexByKey } from '@/utils/tabs';
 import { EXPERIENCE_ITEMS } from './Experience.data';
 
 export function Experience() {
@@ -32,11 +34,30 @@ export function Experience() {
     });
   }, [activeIndex, prefersReducedMotion]);
 
+  const focusAndSelectTab = (index: number) => {
+    setActiveIndex(index);
+    tabRefs.current[index]?.focus();
+  };
+
+  const handleTabKeyDown = (
+    event: ReactKeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
+    const lastIndex = EXPERIENCE_ITEMS.length - 1;
+    const nextIndex = getNextTabIndexByKey(event.key, index, lastIndex);
+    if (nextIndex === null) {
+      return;
+    }
+
+    event.preventDefault();
+    focusAndSelectTab(nextIndex);
+  };
+
   return (
     <section
       id="experience"
       className={styles.section}
-      data-sr="text"
+      data-sr={prefersReducedMotion ? undefined : 'text'}
       aria-labelledby="experience-title"
     >
       <h2 id="experience-title" className={styles.title}>
@@ -72,6 +93,7 @@ export function Experience() {
                   company: t(item.companyKey),
                 })}
                 onClick={() => setActiveIndex(index)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
               >
                 {t(item.companyKey)}
               </button>
