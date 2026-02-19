@@ -1,6 +1,183 @@
 @use '../../../styles/tokens' as t;
 
 .section {
-  padding-block: 4rem;
-  border-top: 1px solid t.$ui-border;
+  padding-block: clamp(5.5rem, 6vw, 7rem);
+  margin-inline: clamp(3rem, 8vw, 10rem);
+  transition:
+    padding-block 260ms ease,
+    margin-inline 260ms ease;
+}
+
+.title {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  line-height: 1.1;
+}
+
+.titleIcon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: t.$ui-accent;
+}
+
+.cards {
+  display: grid;
+  row-gap: clamp(3rem, 6vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  transition:
+    row-gap 260ms ease,
+    margin-top 260ms ease;
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  align-items: center;
+  column-gap: clamp(1.5rem, 3vw, 2.5rem);
+  transition:
+    grid-template-columns 260ms ease,
+    column-gap 260ms ease,
+    row-gap 260ms ease;
+}
+
+.cardRowRight {
+  .cardContent {
+    order: 1;
+    text-align: right;
+  }
+
+  .imagePlaceholder {
+    order: 2;
+  }
+}
+
+.cardRowLeft {
+  grid-template-columns: 390px minmax(0, 1fr);
+  transition: grid-template-columns 260ms ease;
+
+  .imagePlaceholder {
+    order: 1;
+  }
+
+  .cardContent {
+    order: 2;
+    text-align: left;
+  }
+}
+
+.kicker {
+  margin: 0 0 0.4rem;
+  font-size: t.$font-size-xs;
+  font-family: t.$ui-font-family-serif;
+  font-weight: t.$font-weight-medium;
+  color: t.$ui-accent;
+}
+
+.cardTitle {
+  margin: 0 0 1rem;
+
+  line-height: t.$line-height-snug;
+}
+
+.cardDescription {
+  margin: 0;
+  padding: 1.4rem 1.5rem;
+  border-radius: t.$radius-sm;
+  background: rgba(t.$ui-bg-contrast, 0.8);
+  box-shadow: t.$shadow-md;
+  color: t.$ui-text-muted;
+  font-size: t.$font-size-md;
+  font-weight: t.$font-weight-light;
+  line-height: 1.35;
+  transition:
+    padding 260ms ease,
+    font-size 260ms ease;
+}
+
+.cardStack {
+  margin: 0.8rem 0 0;
+  color: t.$ui-text-secondary;
+  font-size: t.$font-size-sm;
+  font-family: t.$ui-font-family-serif;
+  transition: font-size 260ms ease;
+}
+
+.imagePlaceholder {
+  width: 390px;
+  height: 250px;
+  display: block;
+  margin-top: 0;
+  border-radius: t.$radius-md;
+  border: 1px solid t.$ui-border;
+  background: rgba(t.$ui-bg-contrast, 0.4);
+  box-shadow: t.$shadow-md;
+  overflow: hidden;
+  transition:
+    width 260ms ease,
+    height 260ms ease,
+    margin 260ms ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+
+    filter: grayscale(100%) contrast(0.9);
+    transition: filter 200ms ease;
+
+    &:hover {
+      filter: none;
+    }
+  }
+}
+
+@media (max-width: t.$break-lg) {
+  .section {
+    margin-inline: 0;
+  }
+  .cardDescription {
+    font-size: t.$font-size-xl;
+  }
+  .cardRow,
+  .cardRowLeft {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+  }
+
+  .cardRowRight,
+  .cardRowLeft {
+    .cardContent,
+    .imagePlaceholder {
+      order: initial;
+      text-align: left;
+    }
+  }
+
+  .imagePlaceholder {
+    width: min(390px, 100%);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: t.$break-md) {
+  .cards {
+    row-gap: 4rem;
+  }
+
+  .cardStack {
+    font-size: t.$font-size-xs;
+  }
+
+  .cardDescription {
+    font-size: t.$font-size-md;
+    line-height: 1.3;
+  }
+
+  .imagePlaceholder {
+    margin-top: 0;
+  }
 }

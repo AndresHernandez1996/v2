@@ -6,7 +6,7 @@ import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
 import { About } from './components/sections/About/About';
 import { Experience } from './components/sections/Experience/Experience';
-// import { Work } from './components/sections/Work/Work';
+import { Work } from './components/sections/Work/Work';
 // import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -92,8 +92,8 @@ export default function App() {
         <Hero />
         <About />
         <Experience />
-        {/*
         <Work />
+        {/*
         <Contact /> */}
       </MainContainer>
       <Analytics />
