@@ -1,11 +1,11 @@
 import styles from './About.module.scss';
-import jsIcon from '@/assets/about/JS.svg';
-import reactIcon from '@/assets/about/React.svg';
-import tsIcon from '@/assets/about/TS.svg';
-import nextIcon from '@/assets/about/NextJs.svg';
-import tailwindIcon from '@/assets/about/Tailwind.svg';
-import sassIcon from '@/assets/about/Sass.svg';
-import antdIcon from '@/assets/about/Antd.svg';
+import jsIcon from '@/assets/about/JS.webp';
+import reactIcon from '@/assets/about/React.webp';
+import tsIcon from '@/assets/about/TS.webp';
+import nextIcon from '@/assets/about/NextJs.webp';
+import tailwindIcon from '@/assets/about/Tailwind.webp';
+import sassIcon from '@/assets/about/Sass.webp';
+import antdIcon from '@/assets/about/Antd.webp';
 import yayoImage from '@/assets/about/yayo.png';
 import { D20 } from '@/components/icons/D20';
 import { useTranslation } from 'react-i18next';

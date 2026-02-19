@@ -130,7 +130,7 @@ export const es = {
   work_project_4_description:
     'Mi proyecto capstone: un sistema de reservaciones totalmente responsivo construido desde cero. El proyecto incluyó investigación UX, wireframing y prototipado, destacando una arquitectura front-end moderna, buenas prácticas de accesibilidad y principios de diseño centrado en el usuario.',
   work_project_4_stack: 'ReactJs | Hooks | CSS | Vercel | Figma',
-  work_project_4_url: 'https://little-lemon-captone.vercel.app',
+  work_project_4_url: 'https://little-lemon-capstone-meta.vercel.app',
   work_project_4_image_alt:
     'Interfaz de reservaciones de Little Lemon del proyecto capstone del curso de Meta',
 } as const satisfies TranslationSchema;

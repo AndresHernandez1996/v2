@@ -57,7 +57,7 @@ export function Experience() {
     <section
       id="experience"
       className={styles.section}
-      data-sr={prefersReducedMotion ? undefined : 'text'}
+      data-sr="text"
       aria-labelledby="experience-title"
     >
       <h2 id="experience-title" className={styles.title}>

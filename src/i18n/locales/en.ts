@@ -128,7 +128,7 @@ export const en = {
   work_project_4_description:
     'My capstone project - a fully responsive reservation system built from scratch. The project included UX research, wireframing, and prototyping, highlighting modern front-end architecture, accessibility best practices, and user-centered design principles.',
   work_project_4_stack: 'ReactJs | Hooks | CSS | Vercel | Figma',
-  work_project_4_url: 'https://little-lemon-captone.vercel.app',
+  work_project_4_url: 'https://little-lemon-capstone-meta.vercel.app',
   work_project_4_image_alt:
     'Little Lemon reservation UI from the Meta Professional Course capstone project',
 } as const;

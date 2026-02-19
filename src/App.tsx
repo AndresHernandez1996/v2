@@ -1,12 +1,9 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useLayoutEffect, useState } from 'react';
 import { Layout } from './components/Layout/Layout';
 import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
-import { About } from './components/sections/About/About';
-import { Experience } from './components/sections/Experience/Experience';
-import { Work } from './components/sections/Work/Work';
 // import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +11,22 @@ import { initScrollReveal } from './lib/scrollReveal';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ENABLE_INITIAL_LOADER } from './utils/animations';
+
+const About = lazy(() =>
+  import('./components/sections/About/About').then((module) => ({
+    default: module.About,
+  })),
+);
+const Experience = lazy(() =>
+  import('./components/sections/Experience/Experience').then((module) => ({
+    default: module.Experience,
+  })),
+);
+const Work = lazy(() =>
+  import('./components/sections/Work/Work').then((module) => ({
+    default: module.Work,
+  })),
+);
 
 export default function App() {
   // i18n data for content and document metadata
@@ -52,20 +65,37 @@ export default function App() {
   }, [isLoading]);
 
   // After loader finishes, honor deep-link hashes like "/#about"
+  // Retry briefly because sections are lazy-loaded.
   useEffect(() => {
     if (isLoading || typeof window === 'undefined' || !window.location.hash) {
       return;
     }
 
     const sectionId = decodeURIComponent(window.location.hash.slice(1));
-    const target = document.getElementById(sectionId);
-    if (!target) {
-      return;
-    }
+    let rafId = 0;
+    let attempts = 0;
+    const maxAttempts = 120;
 
-    window.requestAnimationFrame(() => {
-      target.scrollIntoView({ block: 'start', behavior: 'auto' });
-    });
+    const tryScroll = () => {
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ block: 'start', behavior: 'auto' });
+        return;
+      }
+
+      if (attempts >= maxAttempts) {
+        return;
+      }
+
+      attempts += 1;
+      rafId = window.requestAnimationFrame(tryScroll);
+    };
+
+    rafId = window.requestAnimationFrame(tryScroll);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+    };
   }, [isLoading]);
 
   if (isLoading) {
@@ -90,9 +120,11 @@ export default function App() {
       {/* Main SPA sections */}
       <MainContainer>
         <Hero />
-        <About />
-        <Experience />
-        <Work />
+        <Suspense fallback={null}>
+          <About />
+          <Experience />
+          <Work />
+        </Suspense>
         {/*
         <Contact /> */}
       </MainContainer>
