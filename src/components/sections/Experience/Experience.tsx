@@ -1,12 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Experience.module.scss';
 import { D20 } from '@/components/icons/D20';
 import { D6 } from '@/components/icons/D6';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { EXPERIENCE_ITEMS } from './Experience.data';
 
 export function Experience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = EXPERIENCE_ITEMS[activeIndex];
+  const tabListRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const tabList = tabListRef.current;
+    const activeTab = tabRefs.current[activeIndex];
+    if (!tabList || !activeTab) {
+      return;
+    }
+
+    const targetLeft =
+      activeTab.offsetLeft -
+      tabList.clientWidth / 2 +
+      activeTab.offsetWidth / 2;
+
+    tabList.scrollTo({
+      left: Math.max(0, targetLeft),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+  }, [activeIndex, prefersReducedMotion]);
 
   return (
     <section
@@ -21,7 +43,12 @@ export function Experience() {
       </h2>
 
       <div className={styles.inner}>
-        <div className={styles.tabList} role="tablist" aria-label="Companies">
+        <div
+          ref={tabListRef}
+          className={styles.tabList}
+          role="tablist"
+          aria-label="Companies"
+        >
           {EXPERIENCE_ITEMS.map((item, index) => {
             const isActive = index === activeIndex;
             const tabId = `experience-tab-${index}`;
@@ -31,6 +58,9 @@ export function Experience() {
               <button
                 key={item.company}
                 id={tabId}
+                ref={(node) => {
+                  tabRefs.current[index] = node;
+                }}
                 className={`${styles.tab} ${isActive ? styles.tabActive : ''}`}
                 type="button"
                 role="tab"
@@ -45,8 +75,9 @@ export function Experience() {
         </div>
 
         <div
+          key={activeItem.company}
           id={`experience-panel-${activeIndex}`}
-          className={styles.panel}
+          className={`${styles.panel} ${prefersReducedMotion ? '' : styles.panelEnter}`}
           role="tabpanel"
           aria-labelledby={`experience-tab-${activeIndex}`}
         >

@@ -11,7 +11,7 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     company: 'Atlantia Search',
     role: 'Front-End Developer MD',
     period: 'Sep 2022 - May 2024',
-    website: 'https://shelftia.com/',
+    website: 'https://www.atlantia.ai/',
     highlights: [
       'Collaborate with designers, project managers, and developers to transform creative concepts into production-ready solutions.',
       'Partner with the CTO to lead research, development, and architectural decisions aligned with business goals.',
@@ -23,7 +23,7 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     company: 'Interware',
     role: 'Front-End Developer',
     period: 'Oct 2021 - Sept 2022',
-    website: 'https://www.interware.com.mx/iw-robot',
+    website: 'https://www.interware.com.mx/',
     highlights: [
       'Work closely with the UX team to design product flows and implement feature logic aligned with business requirements.',
       'Apply clean architecture principles to improve maintainability and enhance performance through lazy loading.',
