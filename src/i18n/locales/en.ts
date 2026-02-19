@@ -19,7 +19,7 @@ export const en = {
   nav_work: 'Work',
   nav_contact: 'Contact',
   hero_kicker: 'Hello, my name is',
-  hero_title: 'Andres Hernandez.',
+  hero_title: 'Andrés Hernández.',
   hero_subtitle: 'Turning ideas into apps.',
   hero_text:
     "I'm a front-end developer who enjoys building scalable and reliable web applications with a strong focus on UX/UI and user-centered design.",

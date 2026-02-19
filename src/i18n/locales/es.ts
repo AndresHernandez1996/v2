@@ -21,7 +21,7 @@ export const es = {
   nav_work: 'Proyectos',
   nav_contact: 'Contacto',
   hero_kicker: 'Hola, mi nombre es',
-  hero_title: 'Andres Hernandez.',
+  hero_title: 'Andrés Hernández.',
   hero_subtitle: 'Convirtiendo ideas en aplicaciones.',
   hero_text:
     'Soy un desarrollador front-end que disfruta construir aplicaciones web escalables y confiables, con un fuerte enfoque en UX/UI y diseño centrado en las personas.',
