@@ -9,3 +9,5 @@ export const NAV_ANIMATION = {
   staggerMs: 100,
   itemTimeoutMs: 320,
 } as const;
+
+export const ENABLE_INITIAL_LOADER = false;

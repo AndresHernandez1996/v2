@@ -59,6 +59,14 @@ h2 {
   letter-spacing: t.$ui-h2-tracking;
 }
 
+h3 {
+  margin: 0;
+  font-size: t.$ui-h3-size;
+  line-height: t.$ui-h3-line-height;
+  font-weight: t.$ui-h3-weight;
+  letter-spacing: t.$ui-h2-tracking;
+}
+
 /* Links */
 a {
   color: t.$ui-link;

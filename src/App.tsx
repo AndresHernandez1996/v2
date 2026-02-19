@@ -1,18 +1,19 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Layout } from './components/Layout/Layout';
 import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
 import { About } from './components/sections/About/About';
-// import { Experience } from './components/sections/Experience/Experience';
+import { Experience } from './components/sections/Experience/Experience';
 // import { Work } from './components/sections/Work/Work';
 // import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { initScrollReveal } from './lib/scrollReveal';
-
-const ENABLE_INITIAL_LOADER = false;
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { ENABLE_INITIAL_LOADER } from './utils/animations';
 
 export default function App() {
   // i18n data for content and document metadata
@@ -50,6 +51,23 @@ export default function App() {
     return initScrollReveal();
   }, [isLoading]);
 
+  // After loader finishes, honor deep-link hashes like "/#about"
+  useEffect(() => {
+    if (isLoading || typeof window === 'undefined' || !window.location.hash) {
+      return;
+    }
+
+    const sectionId = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(sectionId);
+    if (!target) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      target.scrollIntoView({ block: 'start', behavior: 'auto' });
+    });
+  }, [isLoading]);
+
   if (isLoading) {
     return <Loader finishLoading={() => setIsLoading(false)} />;
   }
@@ -73,10 +91,13 @@ export default function App() {
       <MainContainer>
         <Hero />
         <About />
-        {/* <Experience />
+        <Experience />
+        {/*
         <Work />
         <Contact /> */}
       </MainContainer>
+      <Analytics />
+      <SpeedInsights />
     </Layout>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createTimeline } from 'animejs';
 import { Helmet } from 'react-helmet';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { IconLoader } from '../icons/IconLoader';
 import styles from './Loader.module.scss';
 
@@ -12,8 +13,16 @@ export function Loader({ finishLoading }: LoaderProps) {
   const [isMounted, setIsMounted] = useState(false);
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      const rafId = window.requestAnimationFrame(() => finishLoading());
+      return () => {
+        window.cancelAnimationFrame(rafId);
+      };
+    }
+
     const mountTimeout = window.setTimeout(() => setIsMounted(true), 80);
     const loaderEl = loaderRef.current;
     const logoEl = logoRef.current?.querySelector<HTMLElement>('#loader-logo');
@@ -114,7 +123,7 @@ export function Loader({ finishLoading }: LoaderProps) {
       window.clearTimeout(mountTimeout);
       timeline.pause();
     };
-  }, [finishLoading]);
+  }, [finishLoading, prefersReducedMotion]);
 
   return (
     <div ref={loaderRef} className={styles.loader}>

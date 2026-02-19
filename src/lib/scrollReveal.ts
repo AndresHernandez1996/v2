@@ -1,7 +1,7 @@
 import ScrollReveal from 'scrollreveal';
 
 const BASE_CONFIG = {
-  distance: '28px',
+  distance: '16px',
   duration: 700,
   easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
   opacity: 0,
@@ -32,11 +32,20 @@ export function initScrollReveal() {
     delay: 200,
   });
 
-  sr.reveal('[data-sr="text"]', {
+  sr.reveal('[data-sr="text"]:not(#about)', {
     ...BASE_CONFIG,
     origin: 'bottom',
     interval: 110,
     delay: 260,
+  });
+
+  sr.reveal('#about[data-sr="text"]', {
+    ...BASE_CONFIG,
+    distance: '26px',
+    duration: 900,
+    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    origin: 'bottom',
+    delay: 300,
   });
 
   sr.reveal('[data-sr="actions"]', {

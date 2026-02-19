@@ -41,6 +41,62 @@ export const en = {
   about_tech_label: 'Some technologies I work with:',
   about_tech_aria: 'Technologies',
   about_image_alt: 'Andrés Hernández portrait',
+  experience_title: 'Experience',
+  experience_tablist_aria: 'Companies',
+  experience_tab_aria: 'Show experience for {{company}}',
+  experience_panel_aria: 'Experience details for {{company}}',
+  experience_company_link_aria: 'Open {{company}} website',
+  experience_company_atlantia: 'Atlantia Search',
+  experience_role_atlantia: 'Front-End Developer MD',
+  experience_period_atlantia: 'Sep 2022 - May 2024',
+  experience_highlight_atlantia_1:
+    'Collaborate with designers, project managers, and developers to transform creative concepts into production-ready solutions.',
+  experience_highlight_atlantia_2:
+    'Partner with the CTO to lead research, development, and architectural decisions aligned with business goals.',
+  experience_highlight_atlantia_3:
+    'Refactor legacy code to improve maintainability, readability, and performance.',
+  experience_highlight_atlantia_4:
+    'Design and implement optimized algorithms to improve performance in large-scale data processing.',
+  experience_company_interware: 'Interware',
+  experience_role_interware: 'Front-End Developer',
+  experience_period_interware: 'Oct 2021 - Sept 2022',
+  experience_highlight_interware_1:
+    'Work closely with the UX team to design product flows and implement feature logic aligned with business requirements.',
+  experience_highlight_interware_2:
+    'Apply clean architecture principles to improve maintainability and enhance performance through lazy loading.',
+  experience_highlight_interware_3:
+    'Implement a role-based architecture with scalable permission management.',
+  experience_highlight_interware_4:
+    'Develop the system from scratch, from initial setup to production deployment.',
+  experience_company_monte: 'Nacional Monte de Piedad',
+  experience_role_monte: 'Front-End Developer',
+  experience_period_monte: 'Nov 2020 - Oct 2021',
+  experience_highlight_monte_1:
+    'Collaborate with engineers and the UX department to design the interface and workflows for a ticketing system.',
+  experience_highlight_monte_2:
+    'Implement a multi-role permission system with granular access control.',
+  experience_highlight_monte_3:
+    'Integrate microservices architecture alongside WebSocket-based real-time updates.',
+  experience_highlight_monte_4:
+    'Deliver high-quality production code following best practices and maintainability standards.',
+  experience_company_metlife: 'MetLife',
+  experience_role_metlife: 'Front-End Developer Jr',
+  experience_period_metlife: 'Jan 2020 - Nov 2020',
+  experience_highlight_metlife_1:
+    'Develop and integrate dynamic components across the application using a custom UI library built on top of Bootstrap.',
+  experience_highlight_metlife_2:
+    'Generate unit and integration tests to ensure application performance and browser compatibility.',
+  experience_highlight_metlife_3:
+    'Apply ARIA accessibility standards for users with disabilities.',
+  experience_company_zurich: 'Zurich',
+  experience_role_zurich: 'Developer',
+  experience_period_zurich: 'Oct 2019 - Jan 2020',
+  experience_highlight_zurich_1:
+    'Build small reusable UI components based on UX designs using CSS.',
+  experience_highlight_zurich_2:
+    'Maintain responsive layouts across different screen sizes.',
+  experience_highlight_zurich_3:
+    'Integrate backend services to populate dynamic data tables.',
 } as const;
 
 export type TranslationSchema = {
