@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styles from './About.module.scss';
 import jsIcon from '@/assets/about/JS.webp';
 import reactIcon from '@/assets/about/React.webp';
@@ -8,10 +9,25 @@ import sassIcon from '@/assets/about/Sass.webp';
 import antdIcon from '@/assets/about/Antd.webp';
 import yayoImage from '@/assets/about/yayo.png';
 import { D20 } from '@/components/icons/D20';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import sr from '@/utils/sr';
+import { srConfig } from '@/utils/srConfig';
 import { useTranslation } from 'react-i18next';
 
 export function About() {
   const { t } = useTranslation();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const revealContainer = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = revealContainer.current;
+    if (prefersReducedMotion || !sr || !node) {
+      return;
+    }
+
+    sr.reveal(node, srConfig());
+  }, [prefersReducedMotion]);
+
   const technologies = [
     { src: jsIcon, alt: 'JavaScript' },
     { src: reactIcon, alt: 'React' },
@@ -24,9 +40,9 @@ export function About() {
 
   return (
     <section
+      ref={revealContainer}
       id="about"
       className={styles.section}
-      data-sr="text"
       aria-labelledby="about-title"
       aria-describedby="about-summary"
     >

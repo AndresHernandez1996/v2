@@ -1,5 +1,9 @@
+import { useEffect, useRef } from 'react';
 import styles from './Work.module.scss';
 import { D20 } from '@/components/icons/D20';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import sr from '@/utils/sr';
+import { srConfig } from '@/utils/srConfig';
 import { useTranslation } from 'react-i18next';
 import { WorkCard } from './WorkCard';
 import work1Image from '@/assets/work/work1.png';
@@ -9,6 +13,18 @@ import capstoneImage from '@/assets/work/capstone.png';
 
 export function Work() {
   const { t } = useTranslation();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const revealContainer = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = revealContainer.current;
+    if (prefersReducedMotion || !sr || !node) {
+      return;
+    }
+
+    sr.reveal(node, srConfig());
+  }, [prefersReducedMotion]);
+
   const projects = [
     {
       title: t('work_project_1_title'),
@@ -54,9 +70,9 @@ export function Work() {
 
   return (
     <section
+      ref={revealContainer}
       id="work"
       className={styles.section}
-      data-sr="text"
       aria-labelledby="work-title"
     >
       <h2 id="work-title" className={styles.title}>

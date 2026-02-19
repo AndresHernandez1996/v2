@@ -1,26 +1,17 @@
 @use '../../../styles/tokens' as t;
+@use '../../../styles/mixins' as m;
 
 .section {
   padding-block: clamp(5.5rem, 6vw, 7rem);
   margin-inline: clamp(3rem, 8vw, 10rem);
-  transition:
-    padding-block 260ms ease,
-    margin-inline 260ms ease;
 }
 
 .title {
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  line-height: 1.1;
+  @include m.section-title();
 }
 
 .titleIcon {
-  display: block;
-  width: 1.25rem;
-  height: 1.25rem;
-  color: t.$ui-accent;
+  @include m.section-title-icon();
 }
 
 .cards {
@@ -85,7 +76,6 @@
 
 .cardTitle {
   margin: 0 0 1rem;
-
   line-height: t.$line-height-snug;
 }
 
@@ -191,12 +181,17 @@
     row-gap: 4rem;
   }
 
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+
   .cardStack {
     font-size: t.$font-size-xs;
   }
 
   .cardDescription {
     font-size: t.$font-size-md;
+    font-size: 1rem;
     line-height: 1.3;
   }
 

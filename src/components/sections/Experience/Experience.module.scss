@@ -1,4 +1,5 @@
 @use '../../../styles/tokens' as t;
+@use '../../../styles/mixins' as m;
 
 .section {
   padding-block: clamp(5.5rem, 6vw, 7rem);
@@ -6,18 +7,11 @@
 }
 
 .title {
-  margin: 0 0 3rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: 2rem;
-  line-height: 1.1;
+  @include m.section-title(0 0 3rem, 2rem);
 }
 
 .titleIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: t.$ui-accent;
+  @include m.section-title-icon();
 }
 
 .inner {
