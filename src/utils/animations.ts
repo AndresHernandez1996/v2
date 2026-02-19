@@ -9,9 +9,3 @@ export const NAV_ANIMATION = {
   staggerMs: 100,
   itemTimeoutMs: 320,
 } as const;
-
-export const ABOUT_ANIMATION = {
-  mountDelayMs: 160,
-  staggerMs: 120,
-  itemTimeoutMs: 420,
-} as const;
