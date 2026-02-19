@@ -1,6 +1,155 @@
 @use '../../../styles/tokens' as t;
 
 .section {
-  padding-block: 4rem;
-  border-top: 1px solid t.$ui-border;
+  padding-block: clamp(5.5rem, 6vw, 7rem);
+  margin-inline: clamp(4rem, 8vw, 10rem);
+}
+
+.title {
+  margin: 0 0 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.titleIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: t.$ui-accent;
+}
+
+.inner {
+  width: 100%;
+  max-width: 55rem;
+  margin-inline: auto;
+}
+
+.tabList {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid t.$ui-border;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  color: t.$ui-text-muted;
+  font-size: t.$font-size-sm;
+  font-family: t.$ui-font-family-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: t.$ui-text;
+  }
+}
+
+.tabActive {
+  color: t.$ui-accent;
+}
+
+.panel {
+  margin-top: 2.5rem;
+  max-width: 40rem;
+}
+
+.role {
+  margin: 0 0 0.625rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.companyTag {
+  color: t.$ui-accent;
+  text-decoration: none;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: t.$ui-accent-hover;
+    text-decoration: none;
+  }
+}
+
+.period {
+  margin: 0 0 0.5rem;
+  color: t.$ui-text-muted;
+  font-size: t.$font-size-sm;
+  font-family: t.$ui-font-family-serif;
+}
+
+.website {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  color: t.$ui-accent;
+  font-size: t.$font-size-md;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.highlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.875rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 0.875rem 1fr;
+    gap: 0.625rem;
+    align-items: start;
+    color: t.$ui-text-muted;
+    font-size: t.$font-size-lg;
+
+    line-height: 1.35;
+  }
+}
+
+.bulletIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: t.$ui-accent;
+  margin-top: 0.32rem;
+}
+
+@media (max-width: t.$break-md) {
+  .section {
+    margin-inline: 0;
+  }
+
+  .tab {
+    font-size: t.$font-size-md;
+  }
+
+  .highlights li {
+    font-size: t.$font-size-xl;
+  }
+}
+
+@media (max-width: t.$break-sm) {
+  .title {
+    margin-bottom: 2rem;
+  }
+
+  .panel {
+    margin-top: 2rem;
+  }
+
+  .highlights li {
+    font-size: t.$font-size-lg;
+  }
 }
