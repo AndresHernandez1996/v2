@@ -5,9 +5,9 @@ import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
 import { About } from './components/sections/About/About';
-import { Experience } from './components/sections/Experience/Experience';
-import { Work } from './components/sections/Work/Work';
-import { Contact } from './components/sections/Contact/Contact';
+// import { Experience } from './components/sections/Experience/Experience';
+// import { Work } from './components/sections/Work/Work';
+// import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { initScrollReveal } from './lib/scrollReveal';
@@ -73,9 +73,9 @@ export default function App() {
       <MainContainer>
         <Hero />
         <About />
-        <Experience />
+        {/* <Experience />
         <Work />
-        <Contact />
+        <Contact /> */}
       </MainContainer>
     </Layout>
   );
