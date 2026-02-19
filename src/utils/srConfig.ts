@@ -1,4 +1,4 @@
-export const srConfig = () => ({
+export const srConfig = (delay = 260) => ({
   distance: '16px',
   duration: 500,
   easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
@@ -8,5 +8,5 @@ export const srConfig = () => ({
   mobile: true,
   viewFactor: 0.2,
   origin: 'bottom' as const,
-  delay: 260,
+  delay,
 });
