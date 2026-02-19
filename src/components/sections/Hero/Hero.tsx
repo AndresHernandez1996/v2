@@ -72,7 +72,6 @@ export function Hero(): ReactElement {
     <section
       id="hero"
       className={styles.section}
-      data-sr={prefersReducedMotion ? undefined : 'title'}
       aria-labelledby={`${heroTitleId} ${heroSubtitleId}`}
       aria-describedby={heroDescriptionId}
     >

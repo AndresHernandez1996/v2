@@ -5,6 +5,8 @@ import styles from './Experience.module.scss';
 import { D20 } from '@/components/icons/D20';
 import { D6 } from '@/components/icons/D6';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import sr from '@/utils/sr';
+import { srConfig } from '@/utils/srConfig';
 import { getNextTabIndexByKey } from '@/utils/tabs';
 import { EXPERIENCE_ITEMS } from './Experience.data';
 
@@ -12,9 +14,19 @@ export function Experience() {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = EXPERIENCE_ITEMS[activeIndex];
+  const revealContainer = useRef<HTMLElement | null>(null);
   const tabListRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const node = revealContainer.current;
+    if (prefersReducedMotion || !sr || !node) {
+      return;
+    }
+
+    sr.reveal(node, srConfig());
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const tabList = tabListRef.current;
@@ -55,9 +67,9 @@ export function Experience() {
 
   return (
     <section
+      ref={revealContainer}
       id="experience"
       className={styles.section}
-      data-sr={prefersReducedMotion ? undefined : 'text'}
       aria-labelledby="experience-title"
     >
       <h2 id="experience-title" className={styles.title}>
