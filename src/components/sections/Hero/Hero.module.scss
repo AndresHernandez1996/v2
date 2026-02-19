@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   padding-block: clamp(5.25rem, 6vw, 7rem);
+  margin-inline: clamp(0rem, 3vw, 4rem);
 }
 
 .section::before {

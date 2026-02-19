@@ -1,7 +1,4 @@
-import {
-  // useLayoutEffect,
-  useState,
-} from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Layout } from './components/Layout/Layout';
 import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
@@ -13,7 +10,7 @@ import { Work } from './components/sections/Work/Work';
 import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-// import { initScrollReveal } from './lib/scrollReveal';
+import { initScrollReveal } from './lib/scrollReveal';
 
 const ENABLE_INITIAL_LOADER = false;
 
@@ -45,13 +42,13 @@ export default function App() {
   };
 
   // Section reveal animations after loader completes
-  // useLayoutEffect(() => {
-  //   if (isLoading) {
-  //     return;
-  //   }
+  useLayoutEffect(() => {
+    if (isLoading) {
+      return;
+    }
 
-  //   return initScrollReveal();
-  // }, [isLoading]);
+    return initScrollReveal();
+  }, [isLoading]);
 
   if (isLoading) {
     return <Loader finishLoading={() => setIsLoading(false)} />;

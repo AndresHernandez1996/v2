@@ -1,6 +1,180 @@
 @use '../../../styles/tokens' as t;
 
 .section {
-  padding-block: 4rem;
-  border-top: 1px solid t.$ui-border;
+  padding-block: clamp(5.5rem, 6vw, 7rem);
+  margin-inline: clamp(4rem, 8vw, 10rem);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: clamp(1.25rem, 2.2vw, 2rem);
+  align-items: start;
+  width: 100%;
+}
+
+.textColumn {
+  grid-column: 1;
+  justify-self: center;
+}
+
+.title {
+  margin: 0 0 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.titleIcon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: t.$ui-accent;
+}
+
+.paragraph {
+  margin: 0 0 1.5rem;
+
+  color: t.$ui-text-muted;
+  font-size: t.$font-size-lg;
+  font-weight: t.$font-weight-light;
+  line-height: 1.35;
+}
+
+.accent {
+  color: t.$ui-accent;
+}
+
+.techLabel {
+  margin: 1.125rem 0 2rem;
+  color: t.$ui-text-muted;
+  font-size: t.$font-size-lg;
+  font-weight: t.$font-weight-light;
+}
+
+.techList {
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  width: 100%;
+  max-width: 41.25rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.5rem, 1.8vw, 1rem);
+  border-radius: 999px;
+  background: t.$ui-text-secondary;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.techItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.25rem, 5vw, 3rem);
+  height: clamp(2.25rem, 5vw, 3rem);
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: t.$ui-text-secondary;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.imagePlaceholder {
+  grid-column: 2;
+  width: auto;
+  height: auto;
+  margin-inline-start: 1rem;
+  justify-self: left;
+  align-self: start;
+  margin-top: clamp(3.25rem, 4vw, 4.5rem);
+  border-radius: t.$radius-md;
+  border: 1px solid t.$ui-border;
+  background: rgba(t.$ui-bg-contrast, 0.4);
+  box-shadow: t.$shadow-md;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+
+    filter: grayscale(100%) contrast(0.9);
+    transition: filter 200ms ease;
+
+    &:hover {
+      filter: none;
+    }
+  }
+}
+
+@media (max-width: t.$break-md) {
+  .inner {
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+  }
+
+  .textColumn {
+    grid-column: auto;
+  }
+
+  .section {
+    margin-inline: 0;
+  }
+
+  .paragraph {
+    font-size: t.$font-size-xl;
+  }
+
+  .techLabel {
+    font-size: t.$font-size-xl;
+  }
+
+  .imagePlaceholder {
+    grid-column: auto;
+    margin: 2rem auto 0;
+    width: 70%;
+    max-width: 20rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: t.$break-sm) {
+  .title {
+    font-size: t.$font-size-4xl;
+  }
+
+  .paragraph {
+    font-size: t.$font-size-lg;
+  }
+
+  .techLabel {
+    font-size: t.$font-size-lg;
+  }
+
+  .techList {
+    max-width: 100%;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .imagePlaceholder {
+    margin: 2rem auto 0;
+    width: 70%;
+    max-width: 20rem;
+  }
 }

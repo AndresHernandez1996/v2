@@ -1,3 +1,15 @@
+@use '../../../styles/tokens' as t;
+
 .main {
-  padding-inline: clamp(1.563rem, 8.5vw, 9.375rem);
+  width: 100%;
+  padding-inline: clamp(1.5rem, 8vw, 10rem);
+  max-width: t.$layout-container-max;
+  margin-inline: auto;
+  transition: padding-inline 200ms ease;
+}
+
+@media (max-width: t.$break-sm) {
+  .main {
+    padding-inline: 1.5rem;
+  }
 }

@@ -29,20 +29,20 @@ export function initScrollReveal() {
   sr.reveal('[data-sr="title"]', {
     ...BASE_CONFIG,
     origin: 'bottom',
-    delay: 80,
+    delay: 200,
   });
 
   sr.reveal('[data-sr="text"]', {
     ...BASE_CONFIG,
     origin: 'bottom',
-    interval: 90,
-    delay: 120,
+    interval: 110,
+    delay: 260,
   });
 
   sr.reveal('[data-sr="actions"]', {
     ...BASE_CONFIG,
     origin: 'bottom',
-    delay: 220,
+    delay: 360,
   });
 
   return () => sr.destroy();

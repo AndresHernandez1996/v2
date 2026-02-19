@@ -13,15 +13,36 @@ export function Hero(): ReactElement {
   const { isMounted, prefersReducedMotion } = useAnimatedMount({
     delayMs: HERO_ANIMATION.navDelayMs,
   });
+  const heroTitleId = 'hero-title';
+  const heroSubtitleId = 'hero-subtitle';
+  const heroDescriptionId = 'hero-description';
 
   const items: Array<{ id: HeroItemId; node: ReactNode }> = [
     { id: 'kicker', node: <p className={styles.kicker}>{t('hero_kicker')}</p> },
-    { id: 'title', node: <h1 className={styles.title}>{t('hero_title')}</h1> },
+    {
+      id: 'title',
+      node: (
+        <h1 id={heroTitleId} className={styles.title}>
+          {t('hero_title')}
+        </h1>
+      ),
+    },
     {
       id: 'subtitle',
-      node: <p className={styles.subtitle}>{t('hero_subtitle')}</p>,
+      node: (
+        <p id={heroSubtitleId} className={styles.subtitle}>
+          {t('hero_subtitle')}
+        </p>
+      ),
     },
-    { id: 'text', node: <p className={styles.text}>{t('hero_text')}</p> },
+    {
+      id: 'text',
+      node: (
+        <p id={heroDescriptionId} className={styles.text}>
+          {t('hero_text')}
+        </p>
+      ),
+    },
     {
       id: 'cta',
       node: (
@@ -48,7 +69,13 @@ export function Hero(): ReactElement {
   );
 
   return (
-    <section id="hero" className={styles.section} data-sr="title">
+    <section
+      id="hero"
+      className={styles.section}
+      data-sr="title"
+      aria-labelledby={`${heroTitleId} ${heroSubtitleId}`}
+      aria-describedby={heroDescriptionId}
+    >
       {prefersReducedMotion ? (
         <>
           {items.map((item) => (
