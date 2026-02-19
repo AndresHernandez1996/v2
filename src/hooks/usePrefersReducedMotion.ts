@@ -3,6 +3,11 @@ import { useEffect, useState } from 'react';
 const QUERY = '(prefers-reduced-motion: no-preference)';
 const IS_SERVER = typeof window === 'undefined';
 
+type LegacyMediaQueryList = MediaQueryList & {
+  addListener?: (listener: (event: MediaQueryListEvent) => void) => void;
+  removeListener?: (listener: (event: MediaQueryListEvent) => void) => void;
+};
+
 const getInitialState = () =>
   IS_SERVER ? true : !window.matchMedia(QUERY).matches;
 
@@ -11,22 +16,22 @@ export function usePrefersReducedMotion(): boolean {
     useState<boolean>(getInitialState);
 
   useEffect(() => {
-    const mediaQueryList = window.matchMedia(QUERY);
+    const mediaQueryList = window.matchMedia(QUERY) as LegacyMediaQueryList;
 
     const onChange = (event: MediaQueryListEvent) => {
       setPrefersReducedMotion(!event.matches);
     };
 
-    if ('addEventListener' in mediaQueryList) {
+    if (typeof mediaQueryList.addEventListener === 'function') {
       mediaQueryList.addEventListener('change', onChange);
       return () => {
         mediaQueryList.removeEventListener('change', onChange);
       };
     }
 
-    mediaQueryList.addListener(onChange);
+    mediaQueryList.addListener?.(onChange);
     return () => {
-      mediaQueryList.removeListener(onChange);
+      mediaQueryList.removeListener?.(onChange);
     };
   }, []);
 

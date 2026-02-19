@@ -1,68 +1,72 @@
+import type { TranslationSchema } from '@/i18n/locales/en';
+
+type ExperienceTranslationKey = keyof TranslationSchema;
+
 export type ExperienceItem = {
-  company: string;
-  role: string;
-  period: string;
+  companyKey: ExperienceTranslationKey;
+  roleKey: ExperienceTranslationKey;
+  periodKey: ExperienceTranslationKey;
   website: string;
-  highlights: string[];
+  highlightsKeys: ExperienceTranslationKey[];
 };
 
 export const EXPERIENCE_ITEMS: ExperienceItem[] = [
   {
-    company: 'Atlantia Search',
-    role: 'Front-End Developer MD',
-    period: 'Sep 2022 - May 2024',
+    companyKey: 'experience_company_atlantia',
+    roleKey: 'experience_role_atlantia',
+    periodKey: 'experience_period_atlantia',
     website: 'https://www.atlantia.ai/',
-    highlights: [
-      'Collaborate with designers, project managers, and developers to transform creative concepts into production-ready solutions.',
-      'Partner with the CTO to lead research, development, and architectural decisions aligned with business goals.',
-      'Refactor legacy code to improve maintainability, readability, and performance.',
-      'Design and implement optimized algorithms to improve performance in large-scale data processing.',
+    highlightsKeys: [
+      'experience_highlight_atlantia_1',
+      'experience_highlight_atlantia_2',
+      'experience_highlight_atlantia_3',
+      'experience_highlight_atlantia_4',
     ],
   },
   {
-    company: 'Interware',
-    role: 'Front-End Developer',
-    period: 'Oct 2021 - Sept 2022',
+    companyKey: 'experience_company_interware',
+    roleKey: 'experience_role_interware',
+    periodKey: 'experience_period_interware',
     website: 'https://www.interware.com.mx/',
-    highlights: [
-      'Work closely with the UX team to design product flows and implement feature logic aligned with business requirements.',
-      'Apply clean architecture principles to improve maintainability and enhance performance through lazy loading.',
-      'Implement a role-based architecture with scalable permission management.',
-      'Develop the system from scratch, from initial setup to production deployment.',
+    highlightsKeys: [
+      'experience_highlight_interware_1',
+      'experience_highlight_interware_2',
+      'experience_highlight_interware_3',
+      'experience_highlight_interware_4',
     ],
   },
   {
-    company: 'Nacional Monte de Piedad',
-    role: 'Front-End Developer',
-    period: 'Nov 2020 - Oct 2021',
+    companyKey: 'experience_company_monte',
+    roleKey: 'experience_role_monte',
+    periodKey: 'experience_period_monte',
     website: 'https://www.montepiedad.com.mx/',
-    highlights: [
-      'Collaborate with engineers and the UX department to design the interface and workflows for a ticketing system.',
-      'Implement a multi-role permission system with granular access control.',
-      'Integrate microservices architecture alongside WebSocket-based real-time updates.',
-      'Deliver high-quality production code following best practices and maintainability standards.',
+    highlightsKeys: [
+      'experience_highlight_monte_1',
+      'experience_highlight_monte_2',
+      'experience_highlight_monte_3',
+      'experience_highlight_monte_4',
     ],
   },
   {
-    company: 'MetLife',
-    role: 'Front-End Developer Jr',
-    period: 'Jan 2020 - Nov 2020',
+    companyKey: 'experience_company_metlife',
+    roleKey: 'experience_role_metlife',
+    periodKey: 'experience_period_metlife',
     website: 'https://www.metlife.com.mx/',
-    highlights: [
-      'Develop and integrate dynamic components across the application using a custom UI library built on top of Bootstrap.',
-      'Generate unit and integration tests to ensure application performance and browser compatibility.',
-      'Apply ARIA accessibility standards for users with disabilities.',
+    highlightsKeys: [
+      'experience_highlight_metlife_1',
+      'experience_highlight_metlife_2',
+      'experience_highlight_metlife_3',
     ],
   },
   {
-    company: 'Zurich',
-    role: 'Developer',
-    period: 'Oct 2019 - Jan 2020',
+    companyKey: 'experience_company_zurich',
+    roleKey: 'experience_role_zurich',
+    periodKey: 'experience_period_zurich',
     website: 'https://www.zurich.com.mx/',
-    highlights: [
-      'Build small reusable UI components based on UX designs using CSS.',
-      'Maintain responsive layouts across different screen sizes.',
-      'Integrate backend services to populate dynamic data tables.',
+    highlightsKeys: [
+      'experience_highlight_zurich_1',
+      'experience_highlight_zurich_2',
+      'experience_highlight_zurich_3',
     ],
   },
 ];

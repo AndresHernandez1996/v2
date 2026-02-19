@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './Experience.module.scss';
 import { D20 } from '@/components/icons/D20';
 import { D6 } from '@/components/icons/D6';
@@ -6,6 +7,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { EXPERIENCE_ITEMS } from './Experience.data';
 
 export function Experience() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = EXPERIENCE_ITEMS[activeIndex];
   const tabListRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +41,7 @@ export function Experience() {
     >
       <h2 id="experience-title" className={styles.title}>
         <D20 className={styles.titleIcon} />
-        <span>Experience</span>
+        <span>{t('experience_title')}</span>
       </h2>
 
       <div className={styles.inner}>
@@ -47,7 +49,7 @@ export function Experience() {
           ref={tabListRef}
           className={styles.tabList}
           role="tablist"
-          aria-label="Companies"
+          aria-label={t('experience_tablist_aria')}
         >
           {EXPERIENCE_ITEMS.map((item, index) => {
             const isActive = index === activeIndex;
@@ -56,7 +58,7 @@ export function Experience() {
 
             return (
               <button
-                key={item.company}
+                key={item.companyKey}
                 id={tabId}
                 ref={(node) => {
                   tabRefs.current[index] = node;
@@ -66,39 +68,48 @@ export function Experience() {
                 role="tab"
                 aria-selected={isActive}
                 aria-controls={panelId}
+                aria-label={t('experience_tab_aria', {
+                  company: t(item.companyKey),
+                })}
                 onClick={() => setActiveIndex(index)}
               >
-                {item.company}
+                {t(item.companyKey)}
               </button>
             );
           })}
         </div>
 
         <div
-          key={activeItem.company}
+          key={activeItem.companyKey}
           id={`experience-panel-${activeIndex}`}
           className={`${styles.panel} ${prefersReducedMotion ? '' : styles.panelEnter}`}
           role="tabpanel"
           aria-labelledby={`experience-tab-${activeIndex}`}
+          aria-label={t('experience_panel_aria', {
+            company: t(activeItem.companyKey),
+          })}
         >
           <h3 className={styles.role}>
-            {activeItem.role}{' '}
+            {t(activeItem.roleKey)}{' '}
             <a
               className={styles.companyTag}
               href={activeItem.website}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={t('experience_company_link_aria', {
+                company: t(activeItem.companyKey),
+              })}
             >
-              @{activeItem.company}
+              @{t(activeItem.companyKey)}
             </a>
           </h3>
-          <p className={styles.period}>{activeItem.period}</p>
+          <p className={styles.period}>{t(activeItem.periodKey)}</p>
 
           <ul className={styles.highlights}>
-            {activeItem.highlights.map((highlight) => (
-              <li key={highlight}>
+            {activeItem.highlightsKeys.map((highlightKey) => (
+              <li key={highlightKey}>
                 <D6 className={styles.bulletIcon} />
-                <span>{highlight}</span>
+                <span>{t(highlightKey)}</span>
               </li>
             ))}
           </ul>
