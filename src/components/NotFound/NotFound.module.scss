@@ -1,0 +1,52 @@
+@use '../../styles/tokens' as t;
+
+.main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(6rem, 10vw, 8rem) 1.5rem 3rem;
+}
+
+.content {
+  width: min(48rem, 100%);
+  text-align: center;
+}
+
+.code {
+  margin: 0;
+  color: t.$ui-accent;
+  font-family: t.$ui-font-family-serif;
+  font-size: clamp(5rem, 18vw, 9rem);
+  line-height: 0.95;
+  font-weight: t.$font-weight-bold;
+}
+
+.title {
+  margin: 1.4rem 0 0;
+  color: t.$ui-text-secondary;
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: t.$font-weight-light;
+}
+
+.cta {
+  margin-top: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 11rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: t.$radius-sm;
+  background: t.$ui-accent;
+  color: t.$ui-on-accent;
+  font-weight: t.$font-weight-semibold;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+
+  &:hover {
+    background: t.$ui-accent-hover;
+    color: t.$ui-on-accent;
+    transform: translateY(-1px);
+  }
+}

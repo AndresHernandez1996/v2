@@ -20,6 +20,10 @@ export const es = {
   nav_experience: 'Experiencia',
   nav_work: 'Proyectos',
   nav_contact: 'Contacto',
+  notfound_title: 'No hay nada aquí',
+  notfound_text: 'La página que buscas no existe o fue movida.',
+  notfound_cta: 'Volver al inicio',
+  notfound_cta_aria: 'Volver a la página de inicio',
   side_links_aria: 'Enlaces sociales',
   side_mail_aria: 'Enviar correo',
   side_x_aria: 'Abrir perfil de X',
@@ -117,15 +121,15 @@ export const es = {
     'ReactJs | Hooks | NextJS | AntDesign | NextAuth | E-Charts',
   work_project_1_image_alt:
     'Dashboard de Shelftia con analítica de promociones y visualización de líneas',
-  work_project_2_title: 'Estimador en línea',
+  work_project_2_title: 'IW Robot',
   work_project_2_description:
-    'Estimador en línea que ayuda a los usuarios a calcular el valor de sus artículos antes de empeñarlos o venderlos. Ofrece estimaciones rápidas y transparentes según categoría y condición del artículo, facilitando decisiones informadas con resultados de valuación en tiempo real.',
+    'Plataforma avanzada de automatización y monitoreo que simula tareas manuales y semiautomatizadas para optimizar operaciones de negocio. Crea una fuerza de trabajo virtual para automatizar procesos, activar alertas en tiempo real y generar reportes de desempeño con insights accionables.',
   work_project_2_stack: 'ReactJs | Redux | Bootstrap | Auth0 | NodeJS',
   work_project_2_image_alt:
     'Landing page de IW Robot con funcionalidades de valuación automatizada',
-  work_project_3_title: 'Plataforma de automatización',
+  work_project_3_title: 'Estimador en línea',
   work_project_3_description:
-    'Plataforma avanzada de automatización y monitoreo que simula tareas manuales y semiautomatizadas para optimizar operaciones de negocio. Crea una fuerza de trabajo virtual para automatizar procesos, activar alertas en tiempo real y generar reportes de desempeño con insights accionables.',
+    'Estimador en línea que ayuda a los usuarios a calcular el valor de sus artículos antes de empeñarlos o venderlos. Ofrece estimaciones rápidas y transparentes según categoría y condición del artículo, facilitando decisiones informadas con resultados de valuación en tiempo real.',
   work_project_3_stack: 'ReactJs | Context API | Vulma | Styled Components',
   work_project_3_image_alt:
     'Pantalla de marca de Nacional Monte de Piedad usada en el acceso de la plataforma',

@@ -18,6 +18,10 @@ export const en = {
   nav_experience: 'Experience',
   nav_work: 'Work',
   nav_contact: 'Contact',
+  notfound_title: "There's nothing here",
+  notfound_text: "The page you're looking for doesn't exist or was moved.",
+  notfound_cta: 'Go back home',
+  notfound_cta_aria: 'Go back to home page',
   side_links_aria: 'Social links',
   side_mail_aria: 'Send email',
   side_x_aria: 'Open X profile',
@@ -115,15 +119,15 @@ export const en = {
     'ReactJs | Hooks | NextJS | AntDesign | NextAuth | E-Charts',
   work_project_1_image_alt:
     'Shelftia dashboard with promotion analytics and line chart visualization',
-  work_project_2_title: 'Online Estimator',
+  work_project_2_title: 'IW Robot',
   work_project_2_description:
-    'Online estimator that helps users calculate the value of their items before pawning or selling. Provides quick, transparent estimates based on item category and condition, empowering users to make informed decisions with real-time valuation results.',
+    'An advanced automation and monitoring platform that simulates manual and semi-automated tasks to optimize business operations. It creates a virtual workforce to automate processes, trigger real-time alerts, and generate insightful performance reports.',
   work_project_2_stack: 'ReactJs | Redux | Bootstrap | Auth0 | NodeJS',
   work_project_2_image_alt:
     'IW Robot landing page showing automated process valuation features',
-  work_project_3_title: 'Automation Platform',
+  work_project_3_title: 'Online Estimator',
   work_project_3_description:
-    'An advanced automation and monitoring platform that simulates manual and semi-automated tasks to optimize business operations. It creates a virtual workforce to automate processes, trigger real-time alerts, and generate insightful performance reports.',
+    'Online estimator that helps users calculate the value of their items before pawning or selling. Provides quick, transparent estimates based on item category and condition, empowering users to make informed decisions with real-time valuation results.',
   work_project_3_stack: 'ReactJs | Context API | Vulma | Styled Components',
   work_project_3_image_alt:
     'Nacional Monte de Piedad brand screen used in automation platform access',

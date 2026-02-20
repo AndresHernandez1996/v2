@@ -5,6 +5,7 @@ import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Side } from './components/Layout/Side/Side';
 import { Hero } from './components/sections/Hero/Hero';
+import { NotFound } from './components/NotFound/NotFound';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '@vercel/analytics/react';
@@ -43,6 +44,12 @@ export default function App() {
       ? `${siteUrl}${window.location.pathname}`
       : siteUrl;
   const ogImageUrl = siteUrl ? `${siteUrl}/OG.webp` : '/OG.webp';
+  const normalizedPath =
+    typeof window !== 'undefined'
+      ? window.location.pathname.replace(/\/+$/, '') || '/'
+      : '/';
+  const isNotFoundPath =
+    normalizedPath !== '/' && normalizedPath !== '/index.html';
   // Entry loader state (also enabled on browser reload)
   const [isLoading, setIsLoading] = useState(() => {
     if (!ENABLE_INITIAL_LOADER) {
@@ -103,6 +110,25 @@ export default function App() {
 
   if (isLoading) {
     return <Loader finishLoading={() => setIsLoading(false)} />;
+  }
+
+  if (isNotFoundPath) {
+    return (
+      <Layout>
+        <Helmet
+          htmlAttributes={{ lang: i18n.language }}
+          title={`404 | ${t('title')}`}
+          meta={[
+            {
+              name: 'robots',
+              content: 'noindex,nofollow',
+            },
+          ]}
+        />
+        <Nav onHomeClick={handleHomeClick} />
+        <NotFound onGoHome={handleHomeClick} />
+      </Layout>
+    );
   }
 
   return (
