@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { NavLink } from '@/types/navigation';
 import styles from './MobileMenu.module.scss';
 
@@ -21,6 +22,7 @@ export function MobileMenu({
   linksLabel,
   onMenuStateChange,
 }: MobileMenuProps) {
+  const { i18n, t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -74,7 +76,7 @@ export function MobileMenu({
       const focusables = [
         buttonRef.current,
         ...Array.from(
-          navRef.current?.querySelectorAll<HTMLAnchorElement>('a') ?? [],
+          navRef.current?.querySelectorAll<HTMLElement>('a, button') ?? [],
         ),
       ].filter(Boolean) as HTMLElement[];
 
@@ -127,6 +129,19 @@ export function MobileMenu({
   }, [isOpen]);
 
   const buttonLabel = isOpen ? closeLabel : openLabel;
+  const currentLanguage = (i18n.resolvedLanguage ?? i18n.language).startsWith(
+    'es',
+  )
+    ? 'es'
+    : 'en';
+
+  const handleLanguageChange = (language: 'en' | 'es') => {
+    if (currentLanguage === language) {
+      return;
+    }
+
+    void i18n.changeLanguage(language);
+  };
 
   return (
     <div ref={wrapperRef} className={styles.menu}>
@@ -162,6 +177,27 @@ export function MobileMenu({
         aria-hidden={!isOpen}
       >
         <nav ref={navRef} className={styles.sidebarNav} aria-label={linksLabel}>
+          <div className={styles.languageRow} aria-label={t('language_label')}>
+            <button
+              type="button"
+              className={`${styles.languageOption} ${currentLanguage === 'en' ? styles.languageOptionActive : ''}`}
+              onClick={() => handleLanguageChange('en')}
+              aria-pressed={currentLanguage === 'en'}
+            >
+              {t('language_short_en')}
+            </button>
+            <span className={styles.languageDivider} aria-hidden="true">
+              |
+            </span>
+            <button
+              type="button"
+              className={`${styles.languageOption} ${currentLanguage === 'es' ? styles.languageOptionActive : ''}`}
+              onClick={() => handleLanguageChange('es')}
+              aria-pressed={currentLanguage === 'es'}
+            >
+              {t('language_short_es')}
+            </button>
+          </div>
           <ol className={styles.sidebarLinks}>
             {links.map((link) => (
               <li key={link.href}>
