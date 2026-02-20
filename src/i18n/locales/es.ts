@@ -1,9 +1,9 @@
 import type { TranslationSchema } from './en';
 
 export const es = {
-  title: 'Andrés Hernández Frontend Engineer',
+  title: 'Andrés Hernández Ingeniero Front-end',
   subtitle:
-    'Andrés is a front-end developer who focuses on building scalable, accessible, and user-centered web applications. He transforms ideas into high-performance digital experiences through modern technologies and clean, intentional design.',
+    'Andrés es un desarrollador front-end enfocado en construir aplicaciones web escalables, accesibles y centradas en las personas. Transforma ideas en experiencias digitales de alto rendimiento mediante tecnologías modernas y un diseño limpio e intencional.',
   language_label: 'Idioma',
   language_current: 'Actual: {{lng}}',
   language_switch_to_english: 'Inglés',
@@ -13,7 +13,7 @@ export const es = {
   nav_aria_main: 'Navegación principal',
   nav_links_label: 'Enlaces de secciones',
   nav_mobile_panel_label: 'Menú de navegación móvil',
-  nav_go_to_hero: 'Ir a la sección hero',
+  nav_go_to_hero: 'Ir a la sección de inicio',
   nav_open_menu: 'Abrir menú',
   nav_close_menu: 'Cerrar menú',
   nav_about: 'Sobre mí',
@@ -45,7 +45,7 @@ export const es = {
   about_p3_prefix: 'Mi objetivo es ',
   about_p3_highlight: 'crecer como ingeniero de software',
   about_p3_suffix:
-    ' capaz de diseñar y construir aplicaciones con arquitectura robusta, escalabilidad y diseño de sistemas limpio.',
+    ' capaz de diseñar y construir aplicaciones con arquitectura robusta, escalabilidad y diseño limpio de sistemas.',
   about_tech_label: 'Algunas tecnologías con las que trabajo:',
   about_tech_aria: 'Tecnologías',
   about_image_alt: 'Retrato de Andrés Hernández',
@@ -58,7 +58,7 @@ export const es = {
   experience_role_atlantia: 'Front-End Developer MD',
   experience_period_atlantia: 'Sep 2022 - May 2024',
   experience_highlight_atlantia_1:
-    'Colaborar con diseñadores, project managers y desarrolladores para transformar ideas creativas en soluciones listas para producción.',
+    'Colaborar con diseñadores, gerentes de proyecto y desarrolladores para transformar ideas creativas en soluciones listas para producción.',
   experience_highlight_atlantia_2:
     'Trabajar junto al CTO para liderar investigación, desarrollo y decisiones de arquitectura alineadas con objetivos de negocio.',
   experience_highlight_atlantia_3:
@@ -117,15 +117,15 @@ export const es = {
     'ReactJs | Hooks | NextJS | AntDesign | NextAuth | E-Charts',
   work_project_1_image_alt:
     'Dashboard de Shelftia con analítica de promociones y visualización de líneas',
-  work_project_2_title: 'IW Robot',
+  work_project_2_title: 'Estimador en línea',
   work_project_2_description:
-    'Plataforma avanzada de automatización y monitoreo que simula tareas manuales y semiautomatizadas para optimizar operaciones de negocio. Crea una fuerza de trabajo virtual para automatizar procesos, activar alertas en tiempo real y generar reportes de desempeño con insights accionables.',
+    'Estimador en línea que ayuda a los usuarios a calcular el valor de sus artículos antes de empeñarlos o venderlos. Ofrece estimaciones rápidas y transparentes según categoría y condición del artículo, facilitando decisiones informadas con resultados de valuación en tiempo real.',
   work_project_2_stack: 'ReactJs | Redux | Bootstrap | Auth0 | NodeJS',
   work_project_2_image_alt:
     'Landing page de IW Robot con funcionalidades de valuación automatizada',
-  work_project_3_title: 'Estimador en línea',
+  work_project_3_title: 'Plataforma de automatización',
   work_project_3_description:
-    'Estimador en línea que ayuda a los usuarios a calcular el valor de sus artículos antes de empeñarlos o venderlos. Ofrece estimaciones rápidas y transparentes según categoría y condición del artículo, facilitando decisiones informadas con resultados de valuación en tiempo real.',
+    'Plataforma avanzada de automatización y monitoreo que simula tareas manuales y semiautomatizadas para optimizar operaciones de negocio. Crea una fuerza de trabajo virtual para automatizar procesos, activar alertas en tiempo real y generar reportes de desempeño con insights accionables.',
   work_project_3_stack: 'ReactJs | Context API | Vulma | Styled Components',
   work_project_3_image_alt:
     'Pantalla de marca de Nacional Monte de Piedad usada en el acceso de la plataforma',
@@ -143,8 +143,8 @@ export const es = {
   contact_cta_aria: 'Iniciar una conversación por correo',
   contact_footnote:
     'Desarrollado completamente por Yayo, agradecimiento especial a @bchiang7',
-  contact_back_to_top: 'Quieres volver en el tiempo?',
-  contact_section_aria: 'Seccion de contacto',
+  contact_back_to_top: '¿Quieres volver en el tiempo?',
+  contact_section_aria: 'Sección de contacto',
   contact_overlay_aria: 'Enlaces del pie de contacto',
   contact_credit_aria: 'Abrir perfil de GitHub de @bchiang7',
   contact_v1_aria: 'Abrir portafolio versión 1',

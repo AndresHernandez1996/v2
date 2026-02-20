@@ -127,6 +127,16 @@
   }
 }
 
+@media (max-width: t.$break-md) {
+  .section::before {
+    background: radial-gradient(
+      circle at 50% 50%,
+      t.$ui-bg-contrast 5%,
+      t.$ui-bg 30%
+    );
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section::before {
     opacity: 1;
