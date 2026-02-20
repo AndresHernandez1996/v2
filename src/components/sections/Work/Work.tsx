@@ -11,6 +11,7 @@ import work1Image from '@/assets/work/work1.png';
 import work2Image from '@/assets/work/work2.png';
 import work3Image from '@/assets/work/work3.png';
 import capstoneImage from '@/assets/work/capstone.png';
+import { WORK_PROJECT_LINKS } from '@/utils/links';
 
 export function Work() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_1_description'),
         stack: t('work_project_1_stack'),
-        projectUrl: t('work_project_1_url'),
+        projectUrl: WORK_PROJECT_LINKS.shelftia,
         imageAlt: t('work_project_1_image_alt'),
         align: 'right' as const,
         image: work1Image,
@@ -33,7 +34,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_2_description'),
         stack: t('work_project_2_stack'),
-        projectUrl: t('work_project_2_url'),
+        projectUrl: WORK_PROJECT_LINKS.iwRobot,
         imageAlt: t('work_project_2_image_alt'),
         align: 'left' as const,
         image: work2Image,
@@ -43,7 +44,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_3_description'),
         stack: t('work_project_3_stack'),
-        projectUrl: t('work_project_3_url'),
+        projectUrl: WORK_PROJECT_LINKS.automationPlatform,
         imageAlt: t('work_project_3_image_alt'),
         align: 'right' as const,
         image: work3Image,
@@ -53,7 +54,7 @@ export function Work() {
         kicker: t('work_capstone_label'),
         description: t('work_project_4_description'),
         stack: t('work_project_4_stack'),
-        projectUrl: t('work_project_4_url'),
+        projectUrl: WORK_PROJECT_LINKS.capstone,
         imageAlt: t('work_project_4_image_alt'),
         align: 'left' as const,
         image: capstoneImage,
