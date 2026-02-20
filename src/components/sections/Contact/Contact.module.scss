@@ -79,6 +79,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 2;
   display: grid;
   justify-items: center;
   gap: 0.4rem;
@@ -89,6 +90,16 @@
     rgba(t.$ui-bg-contrast, 0.78) 36%,
     rgba(t.$ui-bg-contrast, 0.94) 100%
   );
+}
+
+.mobileSide {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3.9rem;
+  z-index: 3;
+  display: none;
+  justify-items: center;
 }
 
 .footnote {
@@ -131,6 +142,14 @@
     padding-top: 8rem;
     padding-bottom: 0;
     align-items: start;
+  }
+
+  .card {
+    padding-bottom: 8.2rem;
+  }
+
+  .mobileSide {
+    display: grid;
   }
 
   .overlay {

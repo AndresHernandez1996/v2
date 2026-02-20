@@ -1,14 +1,29 @@
 @use '../../../styles/tokens' as t;
 
 .side {
-  position: fixed;
-  right: 3.125rem;
-  bottom: 0;
-  z-index: 9;
   display: grid;
   justify-items: center;
   gap: 1rem;
   animation: sideDropIn 420ms ease-out both;
+}
+
+.sideFixed {
+  position: fixed;
+  right: 3.125rem;
+  bottom: 0;
+  z-index: 9;
+}
+
+.sideInline {
+  position: static;
+  z-index: 2;
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.35rem;
+  }
 }
 
 .list {
@@ -36,18 +51,18 @@
 
 .icon {
   display: block;
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .line {
   width: 0.125rem;
-  height: 11.25rem;
+  height: 6rem;
   background-color: t.$ui-text-subtle;
 }
 
 @media (max-width: t.$break-md) {
-  .side {
+  .sideFixed {
     display: none;
   }
 }

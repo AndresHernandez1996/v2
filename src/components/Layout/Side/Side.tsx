@@ -11,7 +11,11 @@ type SideItem = {
   ariaLabel: string;
 };
 
-export function Side() {
+type SideProps = {
+  mode?: 'fixed' | 'inline';
+};
+
+export function Side({ mode = 'fixed' }: SideProps) {
   const { t } = useTranslation();
 
   const items: SideItem[] = [
@@ -48,7 +52,10 @@ export function Side() {
   ];
 
   return (
-    <aside className={styles.side} aria-label={t('side_links_aria')}>
+    <aside
+      className={`${styles.side} ${mode === 'inline' ? styles.sideInline : styles.sideFixed}`}
+      aria-label={t('side_links_aria')}
+    >
       <ul className={styles.list}>
         {items.map((item) => (
           <li key={item.key}>
@@ -63,7 +70,9 @@ export function Side() {
           </li>
         ))}
       </ul>
-      <span className={styles.line} aria-hidden="true" />
+      {mode === 'fixed' ? (
+        <span className={styles.line} aria-hidden="true" />
+      ) : null}
     </aside>
   );
 }
