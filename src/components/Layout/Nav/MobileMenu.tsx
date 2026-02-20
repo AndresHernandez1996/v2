@@ -136,6 +136,8 @@ export function MobileMenu({
     : 'en';
 
   const handleLanguageChange = (language: 'en' | 'es') => {
+    setIsOpen(false);
+
     if (currentLanguage === language) {
       return;
     }
