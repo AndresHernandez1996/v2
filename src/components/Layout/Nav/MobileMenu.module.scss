@@ -165,12 +165,14 @@
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
-    margin-bottom: 2.25rem;
+    margin-top: 1.5rem;
   }
 
   .languageOption {
     border: 0;
     background: transparent;
+    color: t.$ui-text;
+    -webkit-text-fill-color: currentColor;
 
     font-size: clamp(t.$font-size-md, 4vw, t.$font-size-xl);
     line-height: 1;
@@ -182,11 +184,26 @@
     &:hover {
       color: t.$ui-text;
     }
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-text;
+      -webkit-text-fill-color: currentColor;
+    }
   }
 
   .languageOptionActive {
     color: t.$ui-accent;
+    -webkit-text-fill-color: currentColor;
     font-weight: t.$font-weight-regular;
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-accent;
+      -webkit-text-fill-color: currentColor;
+    }
   }
 
   .languageDivider {

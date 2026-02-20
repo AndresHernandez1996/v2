@@ -177,6 +177,15 @@ export function MobileMenu({
         aria-hidden={!isOpen}
       >
         <nav ref={navRef} className={styles.sidebarNav} aria-label={linksLabel}>
+          <ol className={styles.sidebarLinks}>
+            {links.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} onClick={() => setIsOpen(false)}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ol>
           <div className={styles.languageRow} aria-label={t('language_label')}>
             <button
               type="button"
@@ -198,15 +207,6 @@ export function MobileMenu({
               {t('language_short_es')}
             </button>
           </div>
-          <ol className={styles.sidebarLinks}>
-            {links.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} onClick={() => setIsOpen(false)}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ol>
         </nav>
       </aside>
     </div>

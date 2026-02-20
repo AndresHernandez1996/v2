@@ -88,7 +88,7 @@
   display: grid;
   justify-items: center;
   gap: 0.4rem;
-  padding: 0.95rem 1rem 0.7rem;
+  padding: 0.95rem 1rem 0.95rem;
   background: linear-gradient(
     180deg,
     rgba(t.$ui-bg-contrast, 0) 0%,
@@ -127,7 +127,7 @@
   margin: 0;
   color: rgba(t.$ui-text-subtle, 0.9);
   font-family: t.$ui-font-family-serif;
-  font-size: 0.65rem;
+  font-size: 0.575rem;
   font-style: italic;
   text-decoration: none;
   transition:
