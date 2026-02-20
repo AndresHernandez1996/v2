@@ -4,7 +4,6 @@ import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
-// import { Contact } from './components/sections/Contact/Contact';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '@vercel/analytics/react';
@@ -24,6 +23,11 @@ const Experience = lazy(() =>
 const Work = lazy(() =>
   import('./components/sections/Work/Work').then((module) => ({
     default: module.Work,
+  })),
+);
+const Contact = lazy(() =>
+  import('./components/sections/Contact/Contact').then((module) => ({
+    default: module.Contact,
   })),
 );
 
@@ -114,9 +118,8 @@ export default function App() {
           <About />
           <Experience />
           <Work />
+          <Contact />
         </Suspense>
-        {/*
-        <Contact /> */}
       </MainContainer>
       <Analytics />
       <SpeedInsights />

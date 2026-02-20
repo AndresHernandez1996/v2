@@ -131,6 +131,19 @@ export const en = {
   work_project_4_url: 'https://little-lemon-capstone-meta.vercel.app',
   work_project_4_image_alt:
     'Little Lemon reservation UI from the Meta Professional Course capstone project',
+  contact_kicker: "Let's build something meaningful",
+  contact_title: 'Get In Touch',
+  contact_text:
+    "Whether it's a product idea, a collaboration, or just a conversation about tech - I'm always open to connecting.",
+  contact_cta: 'Start a conversation',
+  contact_cta_aria: 'Start a conversation by email',
+  contact_email_href: 'mailto:hello@example.com',
+  contact_footnote: 'Fully developed by Yayo, special thanks to @bchiang7',
+  contact_back_to_top: 'Wanna go back in time?',
+  contact_section_aria: 'Contact section',
+  contact_overlay_aria: 'Contact footer links',
+  contact_credit_aria: 'Open @bchiang7 GitHub profile',
+  contact_v1_aria: 'Open version 1 portfolio',
 } as const;
 
 export type TranslationSchema = {

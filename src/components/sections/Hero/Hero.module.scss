@@ -23,7 +23,21 @@
     t.$ui-bg 50%
   );
 
-  filter: blur(0);
+  opacity: 0;
+  filter: blur(8px);
+  animation: heroGradientReveal 520ms ease forwards;
+}
+
+@keyframes heroGradientReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 .section > * {
@@ -114,6 +128,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .section::before {
+    opacity: 1;
+    filter: none;
+    animation: none;
+  }
+
   .fadeupEnter,
   .fadeupEnterActive,
   .fadeupEnterDone {
