@@ -47,16 +47,15 @@ export function Hero(): ReactElement {
     {
       id: 'cta',
       node: (
-        <button
+        <a
           className={styles.resumeButton}
-          type="button"
+          href={RESUME_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label={t('hero_cta_aria')}
-          onClick={() =>
-            window.open(RESUME_LINK, '_blank', 'noopener,noreferrer')
-          }
         >
           {t('hero_cta')}
-        </button>
+        </a>
       ),
     },
   ];

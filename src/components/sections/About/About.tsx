@@ -77,14 +77,28 @@ export function About() {
           <ul className={styles.techList} aria-label={t('about_tech_aria')}>
             {technologies.map((technology) => (
               <li key={technology.alt} className={styles.techItem}>
-                <img src={technology.src} alt={technology.alt} />
+                <img
+                  src={technology.src}
+                  alt={technology.alt}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
+                />
               </li>
             ))}
           </ul>
         </div>
 
         <div className={styles.imagePlaceholder}>
-          <img src={yayoImage} alt={t('about_image_alt')} />
+          <img
+            src={yayoImage}
+            alt={t('about_image_alt')}
+            width={512}
+            height={512}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>

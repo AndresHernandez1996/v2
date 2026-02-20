@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://v2-andreshernandez.vercel.app/sitemap.xml

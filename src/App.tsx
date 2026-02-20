@@ -35,6 +35,14 @@ const Contact = lazy(() =>
 export default function App() {
   // i18n data for content and document metadata
   const { t, i18n } = useTranslation();
+  const siteUrl =
+    (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') ??
+    (typeof window !== 'undefined' ? window.location.origin : '');
+  const canonicalUrl =
+    typeof window !== 'undefined'
+      ? `${siteUrl}${window.location.pathname}`
+      : siteUrl;
+  const ogImageUrl = siteUrl ? `${siteUrl}/OG.webp` : '/OG.webp';
   // Entry loader state (also enabled on browser reload)
   const [isLoading, setIsLoading] = useState(() => {
     if (!ENABLE_INITIAL_LOADER) {
@@ -103,10 +111,48 @@ export default function App() {
       <Helmet
         htmlAttributes={{ lang: i18n.language }}
         title={`${t('title')} | v2`}
+        link={[
+          {
+            rel: 'canonical',
+            href: canonicalUrl,
+          },
+        ]}
         meta={[
           {
             name: 'description',
             content: t('subtitle'),
+          },
+          {
+            property: 'og:title',
+            content: `${t('title')} | v2`,
+          },
+          {
+            property: 'og:description',
+            content: t('subtitle'),
+          },
+          {
+            property: 'og:url',
+            content: canonicalUrl,
+          },
+          {
+            property: 'og:image',
+            content: ogImageUrl,
+          },
+          {
+            property: 'og:image:alt',
+            content: t('title'),
+          },
+          {
+            name: 'twitter:title',
+            content: `${t('title')} | v2`,
+          },
+          {
+            name: 'twitter:description',
+            content: t('subtitle'),
+          },
+          {
+            name: 'twitter:image',
+            content: ogImageUrl,
           },
         ]}
       />
