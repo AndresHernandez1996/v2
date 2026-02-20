@@ -19,8 +19,13 @@
   min-height: clamp(35rem, 40vh, 60rem);
   padding: clamp(2rem, 6.5vw, 7rem) clamp(1.5rem, 4vw, 2.5rem) 5.5rem;
   border-radius: t.$radius-lg t.$radius-lg 0 0;
-  box-shadow: t.$shadow-xl;
+  box-shadow: t.$shadow-lg;
+  transition:
+    box-shadow 260ms ease,
+    padding 260ms ease,
+    border-radius 260ms ease;
   display: grid;
+  margin-inline: clamp(1.5rem, 4vw, 2.5rem);
   justify-items: center;
   align-content: start;
   text-align: center;
@@ -79,6 +84,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 2;
   display: grid;
   justify-items: center;
   gap: 0.4rem;
@@ -89,6 +95,16 @@
     rgba(t.$ui-bg-contrast, 0.78) 36%,
     rgba(t.$ui-bg-contrast, 0.94) 100%
   );
+}
+
+.mobileSide {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3.9rem;
+  z-index: 3;
+  display: none;
+  justify-items: center;
 }
 
 .footnote {
@@ -131,6 +147,20 @@
     padding-top: 8rem;
     padding-bottom: 0;
     align-items: start;
+  }
+
+  .card {
+    padding-bottom: 8.2rem;
+    box-shadow: t.$shadow-md;
+  }
+
+  .title {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+    line-height: t.$line-height-snug;
+  }
+
+  .mobileSide {
+    display: grid;
   }
 
   .overlay {

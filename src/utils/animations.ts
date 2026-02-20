@@ -10,4 +10,4 @@ export const NAV_ANIMATION = {
   itemTimeoutMs: 320,
 } as const;
 
-export const ENABLE_INITIAL_LOADER = false;
+export const ENABLE_INITIAL_LOADER = true;

@@ -55,6 +55,8 @@ export const WorkCard = forwardRef<HTMLLIElement, WorkCardProps>(
             <img
               src={imageSrc}
               alt={imageAlt}
+              width={390}
+              height={250}
               loading="lazy"
               decoding="async"
             />

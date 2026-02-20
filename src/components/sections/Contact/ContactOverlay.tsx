@@ -1,5 +1,6 @@
 import styles from './Contact.module.scss';
 import { useTranslation } from 'react-i18next';
+import { CONTACT_LINKS } from '@/utils/links';
 
 type ContactOverlayProps = {
   footnote: string;
@@ -21,7 +22,7 @@ export function ContactOverlay({ footnote, goToVOne }: ContactOverlayProps) {
         {beforeCredit}
         <a
           className={styles.creditLink}
-          href="https://github.com/bchiang7"
+          href={CONTACT_LINKS.creditGithub}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t('contact_credit_aria')}
@@ -32,7 +33,7 @@ export function ContactOverlay({ footnote, goToVOne }: ContactOverlayProps) {
       </p>
       <a
         className={styles.goToVOne}
-        href="https://v1-andreshernandez.vercel.app"
+        href={CONTACT_LINKS.legacyPortfolio}
         aria-label={t('contact_v1_aria')}
       >
         {goToVOne}

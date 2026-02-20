@@ -18,6 +18,16 @@ export const en = {
   nav_experience: 'Experience',
   nav_work: 'Work',
   nav_contact: 'Contact',
+  notfound_title: "There's nothing here",
+  notfound_text: "The page you're looking for doesn't exist or was moved.",
+  notfound_cta: 'Go back home',
+  notfound_cta_aria: 'Go back to home page',
+  side_links_aria: 'Social links',
+  side_mail_aria: 'Send email',
+  side_x_aria: 'Open X profile',
+  side_github_aria: 'Open GitHub profile',
+  side_linkedin_aria: 'Open LinkedIn profile',
+  side_instagram_aria: 'Open Instagram profile',
   hero_kicker: 'Hello, my name is',
   hero_title: 'Andrés Hernández.',
   hero_subtitle: 'Turning ideas into apps.',
@@ -107,28 +117,24 @@ export const en = {
     'A web-based inventory management platform to help businesses organize, track, and monitor products in real time. It features dynamic dashboards, role-based access control, and scalable architecture for efficient operations and data visibility.',
   work_project_1_stack:
     'ReactJs | Hooks | NextJS | AntDesign | NextAuth | E-Charts',
-  work_project_1_url: 'https://shelftia.com',
   work_project_1_image_alt:
     'Shelftia dashboard with promotion analytics and line chart visualization',
   work_project_2_title: 'IW Robot',
   work_project_2_description:
     'An advanced automation and monitoring platform that simulates manual and semi-automated tasks to optimize business operations. It creates a virtual workforce to automate processes, trigger real-time alerts, and generate insightful performance reports.',
   work_project_2_stack: 'ReactJs | Redux | Bootstrap | Auth0 | NodeJS',
-  work_project_2_url: 'https://www.interware.com.mx/iw-robot',
   work_project_2_image_alt:
     'IW Robot landing page showing automated process valuation features',
-  work_project_3_title: 'Automation Platform',
+  work_project_3_title: 'Online Estimator',
   work_project_3_description:
     'Online estimator that helps users calculate the value of their items before pawning or selling. Provides quick, transparent estimates based on item category and condition, empowering users to make informed decisions with real-time valuation results.',
   work_project_3_stack: 'ReactJs | Context API | Vulma | Styled Components',
-  work_project_3_url: 'https://mimonte.montepiedad.com.mx/login',
   work_project_3_image_alt:
     'Nacional Monte de Piedad brand screen used in automation platform access',
   work_project_4_title: 'Meta Professional Course',
   work_project_4_description:
     'My capstone project - a fully responsive reservation system built from scratch. The project included UX research, wireframing, and prototyping, highlighting modern front-end architecture, accessibility best practices, and user-centered design principles.',
   work_project_4_stack: 'ReactJs | Hooks | CSS | Vercel | Figma',
-  work_project_4_url: 'https://little-lemon-capstone-meta.vercel.app',
   work_project_4_image_alt:
     'Little Lemon reservation UI from the Meta Professional Course capstone project',
   contact_kicker: "Let's build something meaningful",
@@ -137,7 +143,6 @@ export const en = {
     "Whether it's a product idea, a collaboration, or just a conversation about tech - I'm always open to connecting.",
   contact_cta: 'Start a conversation',
   contact_cta_aria: 'Start a conversation by email',
-  contact_email_href: 'mailto:hello@example.com',
   contact_footnote: 'Fully developed by Yayo, special thanks to @bchiang7',
   contact_back_to_top: 'Wanna go back in time?',
   contact_section_aria: 'Contact section',

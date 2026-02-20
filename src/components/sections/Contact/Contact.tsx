@@ -5,6 +5,8 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
 import { ContactOverlay } from './ContactOverlay';
+import { CONTACT_LINKS } from '@/utils/links';
+import { Side } from '@/components/Layout/Side/Side';
 
 export function Contact() {
   const { t } = useTranslation();
@@ -40,11 +42,14 @@ export function Contact() {
 
         <a
           className={styles.cta}
-          href={t('contact_email_href')}
+          href={CONTACT_LINKS.email}
           aria-label={t('contact_cta_aria')}
         >
           {t('contact_cta')}
         </a>
+        <div className={styles.mobileSide}>
+          <Side mode="inline" />
+        </div>
         <ContactOverlay
           footnote={t('contact_footnote')}
           goToVOne={t('contact_back_to_top')}

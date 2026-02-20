@@ -1,0 +1,13 @@
+export { Burger } from './Burger';
+export { ChevronDown } from './ChevronDown';
+export { Cross } from './Cross';
+export { D6 } from './D6';
+export { D20 } from './D20';
+export { GitHub } from './GitHub';
+export { IconLoader } from './IconLoader';
+export { Instagram } from './Instagram';
+export { Isotipo } from './Isotipo';
+export { LinkedIn } from './LinkedIn';
+export { Mail } from './Mail';
+export { Twitter } from './Twitter';
+export { X } from './X';
