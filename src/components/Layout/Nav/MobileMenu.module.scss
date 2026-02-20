@@ -161,6 +161,58 @@
     text-align: center;
   }
 
+  .languageRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  .languageOption {
+    border: 0;
+    background: transparent;
+    color: t.$ui-text;
+    -webkit-text-fill-color: currentColor;
+
+    font-size: clamp(t.$font-size-md, 4vw, t.$font-size-xl);
+    line-height: 1;
+    font-weight: t.$font-weight-regular;
+    cursor: pointer;
+    padding: 0;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: t.$ui-text;
+    }
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-text;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  .languageOptionActive {
+    color: t.$ui-accent;
+    -webkit-text-fill-color: currentColor;
+    font-weight: t.$font-weight-regular;
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-accent;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  .languageDivider {
+    color: t.$ui-text-secondary;
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    line-height: 1;
+    transform: translateY(-0.08em);
+  }
+
   .sidebarLinks {
     margin: 0;
     padding: 0;
