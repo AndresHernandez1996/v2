@@ -1,0 +1,21 @@
+type XProps = {
+  className?: string;
+};
+
+export function X({ className }: XProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M15.7511 0H18.8178L12.1179 8.47193L20 20H13.8282L8.99457 13.0081L3.46363 20H0.394883L7.56109 10.9385L0 0H6.32809L10.6975 6.39068L15.7511 0ZM14.6747 17.9691H16.3741L5.4048 1.92425H3.58137L14.6747 17.9691Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}

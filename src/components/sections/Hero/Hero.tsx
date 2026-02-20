@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
 import { HERO_ANIMATION } from '@/utils/animations';
+import { RESUME_LINK } from '@/utils/links';
 
 type HeroItemId = 'kicker' | 'title' | 'subtitle' | 'text' | 'cta';
 
@@ -50,6 +51,9 @@ export function Hero(): ReactElement {
           className={styles.resumeButton}
           type="button"
           aria-label={t('hero_cta_aria')}
+          onClick={() =>
+            window.open(RESUME_LINK, '_blank', 'noopener,noreferrer')
+          }
         >
           {t('hero_cta')}
         </button>

@@ -26,10 +26,13 @@ export const NAV_SECTION_LINKS = {
   contact: '/#contact',
 } as const;
 
+export const RESUME_LINK =
+  'https://drive.google.com/file/d/1S9CrXxrYCksJM7h62672ftC6szfO-_Sh/view' as const;
+
 export const SOCIAL_LINKS = {
   github: 'https://github.com/AndresHernandez1996/',
   linkedin: 'https://www.linkedin.com/in/andreshernandez1996/',
   x: 'https://x.com/ElLomitologo/',
   instagram: 'https://www.instagram.com/yayo._/',
-  mail: 'mailto:andres.hidal1996@gmail.com',
+  email: 'mailto:andres.hidal1996@gmail.com',
 } as const;

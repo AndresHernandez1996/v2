@@ -3,6 +3,7 @@ import { Layout } from './components/Layout/Layout';
 import { MainContainer } from './components/Layout/MainContainer/MainContainer';
 import { Loader } from './components/Loader/Loader';
 import { Nav } from './components/Layout/Nav/Nav';
+import { Side } from './components/Layout/Side/Side';
 import { Hero } from './components/sections/Hero/Hero';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -111,6 +112,7 @@ export default function App() {
       />
       {/* Fixed navigation */}
       <Nav onHomeClick={handleHomeClick} />
+      <Side />
       {/* Main SPA sections */}
       <MainContainer>
         <Hero />
