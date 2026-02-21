@@ -11,6 +11,7 @@ import { useViewportBreakpoint } from '@/hooks/useViewportBreakpoint';
 import type { NavLink } from '@/types/navigation';
 import { NAV_ANIMATION } from '@/utils/animations';
 import { LINKS } from '@/constants/links';
+import { MEDIA_QUERIES } from '@/constants/breakpoints';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
@@ -19,15 +20,13 @@ type NavProps = {
   onHomeClick?: () => void;
 };
 
-const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
-
 const cx = (...values: Array<string | false>) =>
   values.filter(Boolean).join(' ');
 
 export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isMobileViewport = useViewportBreakpoint(MOBILE_MEDIA_QUERY);
+  const isMobileViewport = useViewportBreakpoint(MEDIA_QUERIES.maxMd);
   const { scrollDirection, scrolledToTop } = useNavScrollState({
     isLocked: isMenuOpen,
   });

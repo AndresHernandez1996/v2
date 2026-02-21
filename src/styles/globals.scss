@@ -41,7 +41,7 @@ body.hidden {
 }
 
 body.mobile-menu-open main {
-  filter: blur(0.5rem);
+  filter: blur(0.3rem);
   pointer-events: none;
   user-select: none;
   transition: filter 240ms ease;
