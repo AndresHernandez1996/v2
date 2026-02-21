@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -26,6 +26,7 @@ const cx = (...values: Array<string | false>) =>
 export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedHref, setSelectedHref] = useState<string | null>(null);
   const isMobileViewport = useViewportBreakpoint(MEDIA_QUERIES.maxMd);
   const { scrollDirection, scrolledToTop } = useNavScrollState({
     isLocked: isMenuOpen,
@@ -38,12 +39,39 @@ export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const shouldAnimateNav = isHome && !prefersReducedMotion && !isMobileViewport;
 
   // Single link source used by desktop links and mobile menu.
-  const links: NavLink[] = [
-    { href: LINKS.navigation.sections.about, label: t('nav_about') },
-    { href: LINKS.navigation.sections.experience, label: t('nav_experience') },
-    { href: LINKS.navigation.sections.work, label: t('nav_work') },
-    { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
-  ];
+  const links: NavLink[] = useMemo(
+    () => [
+      { href: LINKS.navigation.sections.about, label: t('nav_about') },
+      {
+        href: LINKS.navigation.sections.experience,
+        label: t('nav_experience'),
+      },
+      { href: LINKS.navigation.sections.work, label: t('nav_work') },
+      { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
+    ],
+    [t],
+  );
+
+  useEffect(() => {
+    if (!selectedHref) {
+      return;
+    }
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      const clickedNavLink = target?.closest('[data-nav-link="true"]');
+
+      if (!clickedNavLink) {
+        setSelectedHref(null);
+      }
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [selectedHref]);
 
   const headerClassName = cx(
     styles.header,
@@ -89,7 +117,16 @@ export function Nav({ onHomeClick, isHome = false }: NavProps) {
       <ul className={styles.links} aria-label={t('nav_links_label')}>
         {links.map((link) => (
           <li key={link.href}>
-            <a href={link.href}>{link.label}</a>
+            <a
+              href={link.href}
+              data-nav-link="true"
+              className={
+                link.href === selectedHref ? styles.linkActive : undefined
+              }
+              onClick={() => setSelectedHref(link.href)}
+            >
+              {link.label}
+            </a>
           </li>
         ))}
       </ul>

@@ -102,6 +102,10 @@
   }
 }
 
+.linkActive {
+  color: t.$ui-accent !important;
+}
+
 .logo {
   width: t.$nav-logo-size;
   aspect-ratio: 587.85822 / 568.02051;
