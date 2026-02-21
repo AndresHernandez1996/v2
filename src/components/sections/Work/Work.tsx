@@ -1,6 +1,6 @@
 import { createRef, useEffect, useMemo, useRef } from 'react';
 import styles from './Work.module.scss';
-import { D20 } from '@/components/icons/D20';
+import { Icon } from '@/components/icons';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
@@ -89,7 +89,7 @@ export function Work() {
   return (
     <section id="work" className={styles.section} aria-labelledby="work-title">
       <h2 ref={revealTitle} id="work-title" className={styles.title}>
-        <D20 className={styles.titleIcon} />
+        <Icon name="D20" className={styles.titleIcon} />
         <span>{t('work_title')}</span>
       </h2>
 

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import styles from './Side.module.scss';
 import { useTranslation } from 'react-i18next';
 import { LINKS } from '@/constants/links';
-import { GitHub, Instagram, LinkedIn, Mail, X } from '@/components/icons';
+import { Icon } from '@/components/icons';
 
 type SideItem = {
   key: 'mail' | 'x' | 'github' | 'linkedin' | 'instagram';
@@ -24,31 +24,31 @@ export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
     {
       key: 'mail',
       href: LINKS.contact.email,
-      icon: <Mail className={styles.icon} />,
+      icon: <Icon name="Mail" className={styles.icon} />,
       ariaLabel: t('side_mail_aria'),
     },
     {
       key: 'x',
       href: LINKS.social.x,
-      icon: <X className={styles.icon} />,
+      icon: <Icon name="X" className={styles.icon} />,
       ariaLabel: t('side_x_aria'),
     },
     {
       key: 'github',
       href: LINKS.social.github,
-      icon: <GitHub className={styles.icon} />,
+      icon: <Icon name="GitHub" className={styles.icon} />,
       ariaLabel: t('side_github_aria'),
     },
     {
       key: 'linkedin',
       href: LINKS.social.linkedin,
-      icon: <LinkedIn className={styles.icon} />,
+      icon: <Icon name="LinkedIn" className={styles.icon} />,
       ariaLabel: t('side_linkedin_aria'),
     },
     {
       key: 'instagram',
       href: LINKS.social.instagram,
-      icon: <Instagram className={styles.icon} />,
+      icon: <Icon name="Instagram" className={styles.icon} />,
       ariaLabel: t('side_instagram_aria'),
     },
   ];
