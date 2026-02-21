@@ -1,10 +1,13 @@
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
+import { useNavScrollState } from '@/hooks/useNavScrollState';
+import { useViewportBreakpoint } from '@/hooks/useViewportBreakpoint';
 import type { NavLink } from '@/types/navigation';
 import { NAV_ANIMATION } from '@/utils/animations';
 import { LINKS } from '@/constants/links';
@@ -16,23 +19,26 @@ type NavProps = {
   onHomeClick?: () => void;
 };
 
-export function Nav({ onHomeClick, isHome: _isHome }: NavProps) {
-  console.log(_isHome);
-  const { t } = useTranslation();
-  // Viewport + header behavior state
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
-  const [scrolledToTop, setScrolledToTop] = useState(() =>
-    typeof window === 'undefined' ? true : window.scrollY < 50,
-  );
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Shared mount animation control (disabled on mobile / reduced motion)
-  const { isMounted, prefersReducedMotion } = useAnimatedMount({
-    delayMs: isMobileViewport ? 0 : NAV_ANIMATION.mountDelayMs,
-  });
-  const shouldAnimateNav = !prefersReducedMotion && !isMobileViewport;
+const MOBILE_MEDIA_QUERY = '(max-width: 768px)';
 
-  // Navigation links (desktop + mobile menu)
+const cx = (...values: Array<string | false>) =>
+  values.filter(Boolean).join(' ');
+
+export function Nav({ onHomeClick, isHome = false }: NavProps) {
+  const { t } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMobileViewport = useViewportBreakpoint(MOBILE_MEDIA_QUERY);
+  const { scrollDirection, scrolledToTop } = useNavScrollState({
+    isLocked: isMenuOpen,
+  });
+
+  // Shared mount animation state (disabled later on mobile/reduced-motion paths).
+  const { isMounted, prefersReducedMotion } = useAnimatedMount({
+    delayMs: isHome && !isMobileViewport ? NAV_ANIMATION.mountDelayMs : 0,
+  });
+  const shouldAnimateNav = isHome && !prefersReducedMotion && !isMobileViewport;
+
+  // Single link source used by desktop links and mobile menu.
   const links: NavLink[] = [
     { href: LINKS.navigation.sections.about, label: t('nav_about') },
     { href: LINKS.navigation.sections.experience, label: t('nav_experience') },
@@ -40,73 +46,43 @@ export function Nav({ onHomeClick, isHome: _isHome }: NavProps) {
     { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
   ];
 
-  useEffect(() => {
-    // Track mobile breakpoint to avoid initial nav animation glitches
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-    const updateViewport = () => setIsMobileViewport(mobileQuery.matches);
-    updateViewport();
-    mobileQuery.addEventListener('change', updateViewport);
-
-    return () => {
-      mobileQuery.removeEventListener('change', updateViewport);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Hide/reveal header based on scroll direction when menu is closed
-    let lastScrollY = window.scrollY;
-
-    const onScroll = () => {
-      if (isMenuOpen) {
-        return;
-      }
-
-      const current = window.scrollY;
-      setScrolledToTop(current < 50);
-
-      if (Math.abs(current - lastScrollY) < 6) {
-        return;
-      }
-
-      setScrollDirection(current > lastScrollY ? 'down' : 'up');
-      lastScrollY = current > 0 ? current : 0;
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [isMenuOpen]);
-
-  const headerClassName = [
+  const headerClassName = cx(
     styles.header,
-    isMenuOpen ? styles.headerMenuOpen : '',
-    !scrolledToTop ? styles.headerScrolled : '',
-    !scrolledToTop && scrollDirection === 'up' ? styles.headerUp : '',
-    !scrolledToTop && scrollDirection === 'down' ? styles.headerDown : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+    isMenuOpen && styles.headerMenuOpen,
+    !scrolledToTop && styles.headerScrolled,
+    !scrolledToTop && scrollDirection === 'up' && styles.headerUp,
+    !scrolledToTop && scrollDirection === 'down' && styles.headerDown,
+  );
 
   // Required by CSSTransition to avoid findDOMNode
   const brandRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
 
-  const brandNode = (
+  // Home uses callback flow (e.g., replay loader); non-home uses router navigation.
+  const brandNode = isHome ? (
     <a
       className={styles.brand}
       href="/"
       aria-label={t('nav_go_to_hero')}
       onClick={(event) => {
+        if (!onHomeClick) {
+          return;
+        }
+
         event.preventDefault();
-        onHomeClick?.();
+        onHomeClick();
       }}
     >
       <div className={styles.logo} aria-hidden="true">
         <Isotipo className={styles.logoIcon} />
       </div>
     </a>
+  ) : (
+    <Link className={styles.brand} to="/" aria-label={t('nav_go_to_hero')}>
+      <div className={styles.logo} aria-hidden="true">
+        <Isotipo className={styles.logoIcon} />
+      </div>
+    </Link>
   );
 
   const actionsNode = (
@@ -125,14 +101,14 @@ export function Nav({ onHomeClick, isHome: _isHome }: NavProps) {
   return (
     <header className={headerClassName}>
       <nav className={styles.nav} aria-label={t('nav_aria_main')}>
-        {/* On mobile/reduced-motion: render immediately without transitions */}
+        {/* Mobile/reduced motion path: render immediately without mount transitions. */}
         {!shouldAnimateNav ? (
           <>
             <div className={styles.navItem}>{brandNode}</div>
             <div className={styles.navItem}>{actionsNode}</div>
           </>
         ) : (
-          // On desktop: staggered mount animation for brand and desktop actions
+          // Desktop path: stagger brand and actions for a simple nav entrance.
           <TransitionGroup component={null}>
             {isMounted ? (
               <CSSTransition

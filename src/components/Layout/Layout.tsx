@@ -3,6 +3,7 @@ import { MainContainer } from '@/components/Layout/MainContainer/MainContainer';
 import { Nav } from '@/components/Layout/Nav/Nav';
 import { Side } from '@/components/Layout/Side/Side';
 import { Loader } from '@/components/Loader/Loader';
+import { isHomePath } from '@/utils/paths';
 import { useLocation } from 'react-router-dom';
 import styles from './Layout.module.scss';
 
@@ -12,9 +13,7 @@ type LayoutProps = {
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
-  // Normalizes pathname so "/" and "/index.html" can be handled consistently upstream.
-  const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
-  const isHome = normalizedPath === '/' || normalizedPath === '/index.html';
+  const isHome = isHomePath(location.pathname);
 
   // Global entry loader gate for home route.
   const [isLoading, setIsLoading] = useState(isHome); // For deactivation set to false, otherwise isHome to show loader on initial load.

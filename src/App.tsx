@@ -8,6 +8,7 @@ import { lazyNamed } from './utils/lazyNamed';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useLocation } from 'react-router-dom';
+import { isHomePath } from './utils/paths';
 
 // Lazy-loaded sections keep the initial bundle focused on above-the-fold content.
 const About = lazyNamed(
@@ -26,10 +27,7 @@ const Contact = lazyNamed(
 
 export default function App() {
   const location = useLocation();
-  // Normalize trailing slashes to classify routes consistently.
-  const normalizedPath = location.pathname.replace(/\/+$/, '') || '/';
-  const isNotFoundPath =
-    normalizedPath !== '/' && normalizedPath !== '/index.html';
+  const isNotFoundPath = !isHomePath(location.pathname);
 
   if (isNotFoundPath) {
     return (
