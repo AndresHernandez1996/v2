@@ -7,7 +7,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
 import type { NavLink } from '@/types/navigation';
 import { NAV_ANIMATION } from '@/utils/animations';
-import { NAV_SECTION_LINKS } from '@/utils/links';
+import { LINKS } from '@/constants/links';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
@@ -34,10 +34,10 @@ export function Nav({ onHomeClick, isHome: _isHome }: NavProps) {
 
   // Navigation links (desktop + mobile menu)
   const links: NavLink[] = [
-    { href: NAV_SECTION_LINKS.about, label: t('nav_about') },
-    { href: NAV_SECTION_LINKS.experience, label: t('nav_experience') },
-    { href: NAV_SECTION_LINKS.work, label: t('nav_work') },
-    { href: NAV_SECTION_LINKS.contact, label: t('nav_contact') },
+    { href: LINKS.navigation.sections.about, label: t('nav_about') },
+    { href: LINKS.navigation.sections.experience, label: t('nav_experience') },
+    { href: LINKS.navigation.sections.work, label: t('nav_work') },
+    { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
   ];
 
   useEffect(() => {

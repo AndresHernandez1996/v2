@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
-import { ContactOverlay } from './ContactOverlay';
-import { CONTACT_LINKS } from '@/utils/links';
-import { Side } from '@/components/Layout/Side/Side';
+import { ContactFooter } from './ContactFooter';
+import { LINKS } from '@/constants/links';
 
 export function Contact() {
   const { t } = useTranslation();
@@ -42,18 +41,12 @@ export function Contact() {
 
         <a
           className={styles.cta}
-          href={CONTACT_LINKS.email}
+          href={LINKS.contact.email}
           aria-label={t('contact_cta_aria')}
         >
           {t('contact_cta')}
         </a>
-        <div className={styles.mobileSide}>
-          <Side mode="inline" />
-        </div>
-        <ContactOverlay
-          footnote={t('contact_footnote')}
-          goToVOne={t('contact_back_to_top')}
-        />
+        <ContactFooter />
       </div>
     </section>
   );

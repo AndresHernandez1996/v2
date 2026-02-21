@@ -62,11 +62,11 @@ export function Layout({ children }: LayoutProps) {
       {isLoading && isHome ? (
         <Loader finishLoading={() => setIsLoading(false)} />
       ) : (
-        <MainContainer>
+        <>
           <Nav isHome={isHome} />
           <Side isHome={isHome} />
-          {children}
-        </MainContainer>
+          <MainContainer>{children}</MainContainer>
+        </>
       )}
     </div>
   );

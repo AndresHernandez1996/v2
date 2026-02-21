@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import styles from './Side.module.scss';
 import { useTranslation } from 'react-i18next';
-import { SOCIAL_LINKS } from '@/utils/links';
+import { LINKS } from '@/constants/links';
 import { GitHub, Instagram, LinkedIn, Mail, X } from '@/components/icons';
 
 type SideItem = {
@@ -23,31 +23,31 @@ export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
   const items: SideItem[] = [
     {
       key: 'mail',
-      href: SOCIAL_LINKS.email,
+      href: LINKS.contact.email,
       icon: <Mail className={styles.icon} />,
       ariaLabel: t('side_mail_aria'),
     },
     {
       key: 'x',
-      href: SOCIAL_LINKS.x,
+      href: LINKS.social.x,
       icon: <X className={styles.icon} />,
       ariaLabel: t('side_x_aria'),
     },
     {
       key: 'github',
-      href: SOCIAL_LINKS.github,
+      href: LINKS.social.github,
       icon: <GitHub className={styles.icon} />,
       ariaLabel: t('side_github_aria'),
     },
     {
       key: 'linkedin',
-      href: SOCIAL_LINKS.linkedin,
+      href: LINKS.social.linkedin,
       icon: <LinkedIn className={styles.icon} />,
       ariaLabel: t('side_linkedin_aria'),
     },
     {
       key: 'instagram',
-      href: SOCIAL_LINKS.instagram,
+      href: LINKS.social.instagram,
       icon: <Instagram className={styles.icon} />,
       ariaLabel: t('side_instagram_aria'),
     },
