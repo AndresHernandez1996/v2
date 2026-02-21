@@ -12,10 +12,12 @@ import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
 type NavProps = {
+  isHome?: boolean;
   onHomeClick?: () => void;
 };
 
-export function Nav({ onHomeClick }: NavProps) {
+export function Nav({ onHomeClick, isHome: _isHome }: NavProps) {
+  console.log(_isHome);
   const { t } = useTranslation();
   // Viewport + header behavior state
   const [isMobileViewport, setIsMobileViewport] = useState(false);
