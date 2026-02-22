@@ -5,6 +5,37 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  //  Gradient background to create a subtle fade effect at the bottom of the page,
-  background: linear-gradient(180deg, t.$ui-bg 92%, t.$ui-bg-contrast 100%);
+}
+
+//  Gradient background to create a subtle fade effect at the bottom of the page,
+.layout::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: min(40vh, 24rem);
+  pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(t.$ui-bg, 0) 0%,
+    t.$ui-bg-contrast 100%
+  );
+
+  opacity: 0;
+  filter: blur(8px);
+  animation: heroGradientReveal 200ms ease forwards;
+}
+
+@keyframes heroGradientReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
 }

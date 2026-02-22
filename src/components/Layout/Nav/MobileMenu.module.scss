@@ -230,6 +230,10 @@
       width: 100%;
       display: inline-block;
       padding: 0.1875rem 1.25rem 1.25rem;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 }
