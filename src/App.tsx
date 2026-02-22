@@ -1,82 +1,56 @@
-import { useLayoutEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { Layout } from './components/Layout/Layout';
-import { MainContainer } from './components/Layout/MainContainer/MainContainer';
-import { Loader } from './components/Loader/Loader';
-import { Nav } from './components/Layout/Nav/Nav';
 import { Hero } from './components/sections/Hero/Hero';
-import { About } from './components/sections/About/About';
-// import { Experience } from './components/sections/Experience/Experience';
-// import { Work } from './components/sections/Work/Work';
-// import { Contact } from './components/sections/Contact/Contact';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
-import { initScrollReveal } from './lib/scrollReveal';
+import { NotFound } from './components/NotFound/NotFound';
+import { MainSeo } from './components/SEO/MainSeo.tsx';
+import { NotFoundSeo } from './components/SEO/NotFoundSeo';
+import { lazyNamed } from './utils/lazyNamed';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { useLocation } from 'react-router-dom';
+import { isHomePath } from './utils/paths';
 
-const ENABLE_INITIAL_LOADER = false;
+// Lazy-loaded sections keep the initial bundle focused on above-the-fold content.
+const About = lazyNamed(
+  () => import('./components/sections/About/About'),
+  'About',
+);
+const Experience = lazyNamed(
+  () => import('./components/sections/Experience/Experience'),
+  'Experience',
+);
+const Work = lazyNamed(() => import('./components/sections/Work/Work'), 'Work');
+const Contact = lazyNamed(
+  () => import('./components/sections/Contact/Contact'),
+  'Contact',
+);
 
 export default function App() {
-  // i18n data for content and document metadata
-  const { t, i18n } = useTranslation();
-  // Entry loader state (also enabled on browser reload)
-  const [isLoading, setIsLoading] = useState(() => {
-    if (!ENABLE_INITIAL_LOADER) {
-      return false;
-    }
+  const location = useLocation();
+  const isNotFoundPath = !isHomePath(location.pathname);
 
-    if (typeof window === 'undefined') {
-      return false;
-    }
-
-    const [navigationEntry] = performance.getEntriesByType(
-      'navigation',
-    ) as PerformanceNavigationTiming[];
-
-    return navigationEntry?.type === 'reload';
-  });
-
-  // Home logo action: reset route/scroll and replay loader
-  const handleHomeClick = () => {
-    window.history.replaceState(null, '', '/');
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    setIsLoading(true);
-  };
-
-  // Section reveal animations after loader completes
-  useLayoutEffect(() => {
-    if (isLoading) {
-      return;
-    }
-
-    return initScrollReveal();
-  }, [isLoading]);
-
-  if (isLoading) {
-    return <Loader finishLoading={() => setIsLoading(false)} />;
+  if (isNotFoundPath) {
+    return (
+      <Layout>
+        <NotFoundSeo />
+        <NotFound />
+      </Layout>
+    );
   }
 
   return (
     <Layout>
-      {/* SEO and document-level metadata */}
-      <Helmet
-        htmlAttributes={{ lang: i18n.language }}
-        title={`${t('title')} | v2`}
-        meta={[
-          {
-            name: 'description',
-            content: t('subtitle'),
-          },
-        ]}
-      />
-      {/* Fixed navigation */}
-      <Nav onHomeClick={handleHomeClick} />
-      {/* Main SPA sections */}
-      <MainContainer>
-        <Hero />
+      <MainSeo />
+      <Hero />
+      <Suspense fallback={null}>
         <About />
-        {/* <Experience />
+        <Experience />
         <Work />
-        <Contact /> */}
-      </MainContainer>
+        <Contact />
+      </Suspense>
+      {/* Runtime analytics for production monitoring */}
+      <Analytics />
+      <SpeedInsights />
     </Layout>
   );
 }

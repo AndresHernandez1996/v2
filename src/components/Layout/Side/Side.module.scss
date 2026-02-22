@@ -1,0 +1,86 @@
+@use '../../../styles/tokens' as t;
+
+.side {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  animation: sideDropIn 420ms ease-out both;
+}
+
+.sideFixed {
+  position: fixed;
+  right: 3.125rem;
+  bottom: 0;
+  z-index: 9;
+}
+
+.sideInline {
+  position: static;
+  z-index: 2;
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.35rem;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+
+  a {
+    display: inline-grid;
+    place-items: center;
+    color: t.$ui-text-subtle;
+    transition:
+      color 240ms ease,
+      transform 240ms ease;
+
+    &:hover {
+      color: t.$ui-text-secondary;
+      transform: translateY(-0.125rem);
+    }
+  }
+}
+
+.icon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.line {
+  width: 0.125rem;
+  height: 6rem;
+  background-color: t.$ui-text-subtle;
+}
+
+@media (max-width: t.$break-md) {
+  .sideFixed {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side {
+    animation: none;
+  }
+}
+
+@keyframes sideDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

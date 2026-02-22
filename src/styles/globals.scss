@@ -41,7 +41,7 @@ body.hidden {
 }
 
 body.mobile-menu-open main {
-  filter: blur(0.5rem);
+  filter: blur(0.3rem);
   pointer-events: none;
   user-select: none;
   transition: filter 240ms ease;
@@ -56,6 +56,22 @@ h2 {
   font-size: t.$ui-h2-size;
   line-height: t.$ui-h2-line-height;
   font-weight: t.$ui-h2-weight;
+  letter-spacing: t.$ui-h2-tracking;
+}
+
+h3 {
+  margin: 0;
+  font-size: t.$ui-h3-size;
+  line-height: t.$ui-h3-line-height;
+  font-weight: t.$ui-h3-weight;
+  letter-spacing: t.$ui-h2-tracking;
+}
+
+h4 {
+  margin: 0;
+  font-size: t.$ui-h4-size;
+  line-height: t.$ui-h4-line-height;
+  font-weight: t.$ui-h4-weight;
   letter-spacing: t.$ui-h2-tracking;
 }
 

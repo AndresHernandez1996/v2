@@ -11,21 +11,6 @@
   margin-inline: clamp(0rem, 3vw, 4rem);
 }
 
-.section::before {
-  content: '';
-  position: absolute;
-  inset: 0%;
-  pointer-events: none;
-
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    t.$ui-bg-contrast 5%,
-    t.$ui-bg 50%
-  );
-
-  filter: blur(0);
-}
-
 .section > * {
   position: relative;
   z-index: 1;
@@ -37,7 +22,7 @@
 
 .fadeupEnter {
   opacity: 0;
-  transform: translateY(1rem);
+  transform: translateY(1.5rem);
 }
 
 .fadeupEnterActive {
@@ -95,6 +80,7 @@
   border-radius: t.$radius-sm;
   background: t.$ui-accent;
   color: t.$ui-bg-contrast;
+  text-decoration: none;
   font-size: t.$font-size-md;
   font-weight: t.$font-weight-semibold;
   line-height: 1;
@@ -105,6 +91,7 @@
 
   &:hover {
     background: t.$ui-accent-hover;
+    color: t.$ui-on-accent;
     transform: translateY(-1px);
   }
 

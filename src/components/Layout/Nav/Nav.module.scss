@@ -14,6 +14,7 @@
   width: 100%;
   height: var(--nav-height);
   background-color: rgba(t.$ui-bg, 0.75);
+  // Blur for nav background
   backdrop-filter: blur(0.625rem);
   -webkit-backdrop-filter: blur(0.625rem);
   transition: var(--transition);
@@ -101,6 +102,10 @@
   }
 }
 
+.linkActive {
+  color: t.$ui-accent !important;
+}
+
 .logo {
   width: t.$nav-logo-size;
   aspect-ratio: 587.85822 / 568.02051;
@@ -116,7 +121,7 @@
 }
 
 .brand:hover .logoIcon {
-  color: t.$ui-accent;
+  color: t.$ui-accent-hover;
 }
 
 @media (max-width: t.$break-nav-tablet) {

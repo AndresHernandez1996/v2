@@ -1,17 +1,33 @@
+import { useEffect, useRef } from 'react';
 import styles from './About.module.scss';
-import jsIcon from '@/assets/about/JS.svg';
-import reactIcon from '@/assets/about/React.svg';
-import tsIcon from '@/assets/about/TS.svg';
-import nextIcon from '@/assets/about/NextJs.svg';
-import tailwindIcon from '@/assets/about/Tailwind.svg';
-import sassIcon from '@/assets/about/Sass.svg';
-import antdIcon from '@/assets/about/Antd.svg';
+import jsIcon from '@/assets/about/JS.webp';
+import reactIcon from '@/assets/about/React.webp';
+import tsIcon from '@/assets/about/TS.webp';
+import nextIcon from '@/assets/about/NextJs.webp';
+import tailwindIcon from '@/assets/about/Tailwind.webp';
+import sassIcon from '@/assets/about/Sass.webp';
+import antdIcon from '@/assets/about/Antd.webp';
 import yayoImage from '@/assets/about/yayo.png';
-import { D20 } from '@/components/icons/D20';
+import { Icon } from '@/components/icons';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import sr from '@/utils/sr';
+import { srConfig } from '@/utils/srConfig';
 import { useTranslation } from 'react-i18next';
 
 export function About() {
   const { t } = useTranslation();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const revealContainer = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = revealContainer.current;
+    if (prefersReducedMotion || !sr || !node) {
+      return;
+    }
+
+    sr.reveal(node, srConfig());
+  }, [prefersReducedMotion]);
+
   const technologies = [
     { src: jsIcon, alt: 'JavaScript' },
     { src: reactIcon, alt: 'React' },
@@ -24,16 +40,16 @@ export function About() {
 
   return (
     <section
+      ref={revealContainer}
       id="about"
       className={styles.section}
-      data-sr="text"
       aria-labelledby="about-title"
       aria-describedby="about-summary"
     >
       <div className={styles.inner}>
         <div className={styles.textColumn}>
           <h2 id="about-title" className={styles.title}>
-            <D20 className={styles.titleIcon} />
+            <Icon name="D20" className={styles.titleIcon} />
             <span>{t('about_title')}</span>
           </h2>
 
@@ -61,14 +77,28 @@ export function About() {
           <ul className={styles.techList} aria-label={t('about_tech_aria')}>
             {technologies.map((technology) => (
               <li key={technology.alt} className={styles.techItem}>
-                <img src={technology.src} alt={technology.alt} />
+                <img
+                  src={technology.src}
+                  alt={technology.alt}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
+                />
               </li>
             ))}
           </ul>
         </div>
 
         <div className={styles.imagePlaceholder}>
-          <img src={yayoImage} alt={t('about_image_alt')} />
+          <img
+            src={yayoImage}
+            alt={t('about_image_alt')}
+            width={512}
+            height={512}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>

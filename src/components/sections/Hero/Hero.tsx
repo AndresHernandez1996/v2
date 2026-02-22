@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
 import { HERO_ANIMATION } from '@/utils/animations';
+import { LINKS } from '@/constants/links';
 
 type HeroItemId = 'kicker' | 'title' | 'subtitle' | 'text' | 'cta';
 
@@ -46,13 +47,15 @@ export function Hero(): ReactElement {
     {
       id: 'cta',
       node: (
-        <button
+        <a
           className={styles.resumeButton}
-          type="button"
+          href={LINKS.profile.resume}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label={t('hero_cta_aria')}
         >
           {t('hero_cta')}
-        </button>
+        </a>
       ),
     },
   ];
@@ -72,7 +75,6 @@ export function Hero(): ReactElement {
     <section
       id="hero"
       className={styles.section}
-      data-sr="title"
       aria-labelledby={`${heroTitleId} ${heroSubtitleId}`}
       aria-describedby={heroDescriptionId}
     >

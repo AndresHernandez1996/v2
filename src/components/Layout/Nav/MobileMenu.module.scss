@@ -107,8 +107,6 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    backdrop-filter: blur(0);
-    -webkit-backdrop-filter: blur(0);
     background-color: rgba(t.$ui-bg-shadow, 0);
     transition:
       opacity 240ms ease,
@@ -121,8 +119,6 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    backdrop-filter: blur(0.5rem);
-    -webkit-backdrop-filter: blur(0.5rem);
     background-color: rgba(t.$ui-bg-shadow, 0);
   }
 
@@ -161,6 +157,59 @@
     text-align: center;
   }
 
+  .languageRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  .languageOption {
+    border: 0;
+    background: transparent;
+    color: t.$ui-text;
+    -webkit-text-fill-color: currentColor;
+
+    font-size: clamp(t.$font-size-md, 4vw, t.$font-size-xl);
+    line-height: 1;
+    font-weight: t.$font-weight-regular;
+    cursor: pointer;
+    padding: 0;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: t.$ui-text;
+    }
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-text;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  .languageOptionActive {
+    color: t.$ui-accent;
+    -webkit-text-fill-color: currentColor;
+    font-weight: t.$font-weight-regular;
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: t.$ui-accent;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  .languageDivider {
+    color: t.$ui-text-secondary;
+    font-size: clamp(1.2rem, 4.6vw, 1.85rem);
+    line-height: 0.85;
+    font-weight: t.$font-weight-regular;
+    transform: translateY(-0.08em);
+  }
+
   .sidebarLinks {
     margin: 0;
     padding: 0;
@@ -181,6 +230,10 @@
       width: 100%;
       display: inline-block;
       padding: 0.1875rem 1.25rem 1.25rem;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 }

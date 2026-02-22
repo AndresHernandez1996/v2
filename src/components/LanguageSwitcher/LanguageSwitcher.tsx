@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown } from '@/components/icons/ChevronDown';
+import { Icon } from '@/components/icons';
 import { assertNever } from '@/lib/assertNever';
 import styles from './LanguageSwitcher.module.scss';
 
@@ -80,7 +80,8 @@ export function LanguageSwitcher() {
         <span className={styles.label}>
           {getLanguageLabel(currentLanguage)}
         </span>
-        <ChevronDown
+        <Icon
+          name="ChevronDown"
           className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}
         />
       </button>
