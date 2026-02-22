@@ -1,11 +1,8 @@
-import styles from './NotFound.module.scss';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import styles from './NotFound.module.scss';
 
-type NotFoundProps = {
-  onGoHome?: () => void;
-};
-
-export function NotFound({ onGoHome }: NotFoundProps) {
+export function NotFound() {
   const { t } = useTranslation();
 
   return (
@@ -15,17 +12,9 @@ export function NotFound({ onGoHome }: NotFoundProps) {
         <h1 id="notfound-title" className={styles.title}>
           {t('notfound_title')}
         </h1>
-        <a
-          className={styles.cta}
-          href="/"
-          aria-label={t('notfound_cta_aria')}
-          onClick={(event) => {
-            event.preventDefault();
-            onGoHome?.();
-          }}
-        >
+        <Link className={styles.cta} to="/" aria-label={t('notfound_cta_aria')}>
           {t('notfound_cta')}
-        </a>
+        </Link>
       </section>
     </main>
   );

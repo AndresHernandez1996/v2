@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import styles from './Side.module.scss';
 import { useTranslation } from 'react-i18next';
-import { SOCIAL_LINKS } from '@/utils/links';
-import { GitHub, Instagram, LinkedIn, Mail, X } from '@/components/icons';
+import { LINKS } from '@/constants/links';
+import { Icon } from '@/components/icons';
 
 type SideItem = {
   key: 'mail' | 'x' | 'github' | 'linkedin' | 'instagram';
@@ -12,41 +12,43 @@ type SideItem = {
 };
 
 type SideProps = {
+  isHome?: boolean;
   mode?: 'fixed' | 'inline';
 };
 
-export function Side({ mode = 'fixed' }: SideProps) {
+export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
+  console.log(_isHome);
   const { t } = useTranslation();
 
   const items: SideItem[] = [
     {
       key: 'mail',
-      href: SOCIAL_LINKS.email,
-      icon: <Mail className={styles.icon} />,
+      href: LINKS.contact.email,
+      icon: <Icon name="Mail" className={styles.icon} />,
       ariaLabel: t('side_mail_aria'),
     },
     {
       key: 'x',
-      href: SOCIAL_LINKS.x,
-      icon: <X className={styles.icon} />,
+      href: LINKS.social.x,
+      icon: <Icon name="X" className={styles.icon} />,
       ariaLabel: t('side_x_aria'),
     },
     {
       key: 'github',
-      href: SOCIAL_LINKS.github,
-      icon: <GitHub className={styles.icon} />,
+      href: LINKS.social.github,
+      icon: <Icon name="GitHub" className={styles.icon} />,
       ariaLabel: t('side_github_aria'),
     },
     {
       key: 'linkedin',
-      href: SOCIAL_LINKS.linkedin,
-      icon: <LinkedIn className={styles.icon} />,
+      href: LINKS.social.linkedin,
+      icon: <Icon name="LinkedIn" className={styles.icon} />,
       ariaLabel: t('side_linkedin_aria'),
     },
     {
       key: 'instagram',
-      href: SOCIAL_LINKS.instagram,
-      icon: <Instagram className={styles.icon} />,
+      href: LINKS.social.instagram,
+      icon: <Icon name="Instagram" className={styles.icon} />,
       ariaLabel: t('side_instagram_aria'),
     },
   ];

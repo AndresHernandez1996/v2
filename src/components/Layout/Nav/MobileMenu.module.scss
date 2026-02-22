@@ -107,8 +107,6 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    backdrop-filter: blur(0);
-    -webkit-backdrop-filter: blur(0);
     background-color: rgba(t.$ui-bg-shadow, 0);
     transition:
       opacity 240ms ease,
@@ -121,8 +119,6 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    backdrop-filter: blur(0.5rem);
-    -webkit-backdrop-filter: blur(0.5rem);
     background-color: rgba(t.$ui-bg-shadow, 0);
   }
 
@@ -208,8 +204,9 @@
 
   .languageDivider {
     color: t.$ui-text-secondary;
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
-    line-height: 1;
+    font-size: clamp(1.2rem, 4.6vw, 1.85rem);
+    line-height: 0.85;
+    font-weight: t.$font-weight-regular;
     transform: translateY(-0.08em);
   }
 
@@ -233,6 +230,10 @@
       width: 100%;
       display: inline-block;
       padding: 0.1875rem 1.25rem 1.25rem;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 }

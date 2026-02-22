@@ -1,9 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BREAKPOINTS } from '@/constants/breakpoints';
+import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import { useMenuFocusTrap } from '@/hooks/useMenuFocusTrap';
 import type { NavLink } from '@/types/navigation';
+import { isHomePath } from '@/utils/paths';
 import styles from './MobileMenu.module.scss';
-
-const MOBILE_BREAKPOINT = 768;
 
 type MobileMenuProps = {
   links: NavLink[];
@@ -23,34 +27,32 @@ export function MobileMenu({
   onMenuStateChange,
 }: MobileMenuProps) {
   const { i18n, t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
+  const panelRef = useRef<HTMLElement | null>(null);
+  const pendingSectionIdRef = useRef<string | null>(null);
+  const scrollRetryTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     onMenuStateChange?.(isOpen);
   }, [isOpen, onMenuStateChange]);
 
-  useEffect(() => {
-    const previous = document.body.style.overflow;
-
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('mobile-menu-open');
-    } else {
-      document.body.classList.remove('mobile-menu-open');
-    }
-
-    return () => {
-      document.body.style.overflow = previous;
-      document.body.classList.remove('mobile-menu-open');
-    };
-  }, [isOpen]);
+  useBodyScrollLock(isOpen, { className: 'mobile-menu-open' });
+  useMenuFocusTrap({
+    isOpen,
+    triggerRef: buttonRef,
+    contentRef: navRef,
+    fallbackRef: panelRef,
+    onRequestClose: () => setIsOpen(false),
+  });
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth > MOBILE_BREAKPOINT) {
+      if (window.innerWidth > BREAKPOINTS.md) {
         setIsOpen(false);
       }
     };
@@ -63,55 +65,19 @@ export function MobileMenu({
   }, []);
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-        return;
-      }
-
-      if (!isOpen || event.key !== 'Tab') {
-        return;
-      }
-
-      const focusables = [
-        buttonRef.current,
-        ...Array.from(
-          navRef.current?.querySelectorAll<HTMLElement>('a, button') ?? [],
-        ),
-      ].filter(Boolean) as HTMLElement[];
-
-      if (focusables.length <= 1) {
-        event.preventDefault();
-        return;
-      }
-
-      const firstFocusable = focusables[0];
-      const lastFocusable = focusables[focusables.length - 1];
-
-      if (event.shiftKey && document.activeElement === firstFocusable) {
-        event.preventDefault();
-        lastFocusable.focus();
-      }
-
-      if (!event.shiftKey && document.activeElement === lastFocusable) {
-        event.preventDefault();
-        firstFocusable.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
+      if (scrollRetryTimerRef.current !== null) {
+        window.clearTimeout(scrollRetryTimerRef.current);
+      }
     };
-  }, [isOpen]);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {
       return;
     }
 
-    const onClickOutside = (event: MouseEvent) => {
+    const onPointerDown = (event: PointerEvent) => {
       if (!wrapperRef.current) {
         return;
       }
@@ -121,10 +87,10 @@ export function MobileMenu({
       }
     };
 
-    document.addEventListener('mousedown', onClickOutside);
+    document.addEventListener('pointerdown', onPointerDown);
 
     return () => {
-      document.removeEventListener('mousedown', onClickOutside);
+      document.removeEventListener('pointerdown', onPointerDown);
     };
   }, [isOpen]);
 
@@ -144,6 +110,68 @@ export function MobileMenu({
 
     void i18n.changeLanguage(language);
   };
+
+  const tryScrollToSection = useCallback(function tryScrollToSection(
+    sectionId: string,
+    attemptsLeft = 12,
+    retryDelayMs = 80,
+  ) {
+    if (scrollRetryTimerRef.current !== null) {
+      window.clearTimeout(scrollRetryTimerRef.current);
+      scrollRetryTimerRef.current = null;
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      pendingSectionIdRef.current = null;
+      return;
+    }
+
+    if (attemptsLeft <= 0) {
+      return;
+    }
+
+    scrollRetryTimerRef.current = window.setTimeout(() => {
+      tryScrollToSection(sectionId, attemptsLeft - 1, retryDelayMs);
+    }, retryDelayMs);
+  }, []);
+
+  const handleSectionLinkClick = (
+    event: ReactMouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (!href.startsWith('/#')) {
+      setIsOpen(false);
+      return;
+    }
+
+    event.preventDefault();
+    setIsOpen(false);
+
+    const sectionId = href.slice(2);
+    const isOnHome = isHomePath(location.pathname);
+    pendingSectionIdRef.current = sectionId;
+
+    if (isOnHome) {
+      navigate(href, { replace: false });
+      window.requestAnimationFrame(() => {
+        tryScrollToSection(sectionId);
+      });
+      return;
+    }
+
+    navigate(href, { replace: false });
+  };
+
+  useEffect(() => {
+    const sectionId = pendingSectionIdRef.current ?? location.hash.slice(1);
+    if (!sectionId || !isHomePath(location.pathname)) {
+      return;
+    }
+
+    tryScrollToSection(sectionId);
+  }, [location.pathname, location.hash, tryScrollToSection]);
 
   return (
     <div ref={wrapperRef} className={styles.menu}>
@@ -171,18 +199,23 @@ export function MobileMenu({
       />
 
       <aside
+        ref={panelRef}
         id="mobile-navigation"
         className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}
         role="dialog"
-        aria-modal={isOpen}
+        aria-modal={isOpen ? true : undefined}
         aria-label={panelLabel}
         aria-hidden={!isOpen}
+        tabIndex={-1}
       >
         <nav ref={navRef} className={styles.sidebarNav} aria-label={linksLabel}>
           <ol className={styles.sidebarLinks}>
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} onClick={() => setIsOpen(false)}>
+                <a
+                  href={link.href}
+                  onClick={(event) => handleSectionLinkClick(event, link.href)}
+                >
                   {link.label}
                 </a>
               </li>

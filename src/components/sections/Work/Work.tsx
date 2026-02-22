@@ -1,6 +1,6 @@
 import { createRef, useEffect, useMemo, useRef } from 'react';
 import styles from './Work.module.scss';
-import { D20 } from '@/components/icons/D20';
+import { Icon } from '@/components/icons';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
@@ -11,7 +11,7 @@ import work1Image from '@/assets/work/work1.png';
 import work2Image from '@/assets/work/work2.png';
 import work3Image from '@/assets/work/work3.png';
 import capstoneImage from '@/assets/work/capstone.png';
-import { WORK_PROJECT_LINKS } from '@/utils/links';
+import { LINKS } from '@/constants/links';
 
 export function Work() {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_1_description'),
         stack: t('work_project_1_stack'),
-        projectUrl: WORK_PROJECT_LINKS.shelftia,
+        projectUrl: LINKS.work.projects.shelftia,
         imageAlt: t('work_project_1_image_alt'),
         align: 'right' as const,
         image: work1Image,
@@ -34,7 +34,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_2_description'),
         stack: t('work_project_2_stack'),
-        projectUrl: WORK_PROJECT_LINKS.iwRobot,
+        projectUrl: LINKS.work.projects.iwRobot,
         imageAlt: t('work_project_2_image_alt'),
         align: 'left' as const,
         image: work2Image,
@@ -44,7 +44,7 @@ export function Work() {
         kicker: t('work_featured_label'),
         description: t('work_project_3_description'),
         stack: t('work_project_3_stack'),
-        projectUrl: WORK_PROJECT_LINKS.automationPlatform,
+        projectUrl: LINKS.work.projects.automationPlatform,
         imageAlt: t('work_project_3_image_alt'),
         align: 'right' as const,
         image: work3Image,
@@ -54,7 +54,7 @@ export function Work() {
         kicker: t('work_capstone_label'),
         description: t('work_project_4_description'),
         stack: t('work_project_4_stack'),
-        projectUrl: WORK_PROJECT_LINKS.capstone,
+        projectUrl: LINKS.work.projects.capstone,
         imageAlt: t('work_project_4_image_alt'),
         align: 'left' as const,
         image: capstoneImage,
@@ -89,7 +89,7 @@ export function Work() {
   return (
     <section id="work" className={styles.section} aria-labelledby="work-title">
       <h2 ref={revealTitle} id="work-title" className={styles.title}>
-        <D20 className={styles.titleIcon} />
+        <Icon name="D20" className={styles.titleIcon} />
         <span>{t('work_title')}</span>
       </h2>
 

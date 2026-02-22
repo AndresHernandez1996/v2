@@ -2,8 +2,7 @@ import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './Experience.module.scss';
-import { D20 } from '@/components/icons/D20';
-import { D6 } from '@/components/icons/D6';
+import { Icon } from '@/components/icons';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
@@ -73,7 +72,7 @@ export function Experience() {
       aria-labelledby="experience-title"
     >
       <h2 id="experience-title" className={styles.title}>
-        <D20 className={styles.titleIcon} />
+        <Icon name="D20" className={styles.titleIcon} />
         <span>{t('experience_title')}</span>
       </h2>
 
@@ -142,7 +141,7 @@ export function Experience() {
           <ul className={styles.highlights}>
             {activeItem.highlightsKeys.map((highlightKey) => (
               <li key={highlightKey}>
-                <D6 className={styles.bulletIcon} />
+                <Icon name="D6" className={styles.bulletIcon} />
                 <span>{t(highlightKey)}</span>
               </li>
             ))}

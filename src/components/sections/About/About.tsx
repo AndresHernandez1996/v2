@@ -8,7 +8,7 @@ import tailwindIcon from '@/assets/about/Tailwind.webp';
 import sassIcon from '@/assets/about/Sass.webp';
 import antdIcon from '@/assets/about/Antd.webp';
 import yayoImage from '@/assets/about/yayo.png';
-import { D20 } from '@/components/icons/D20';
+import { Icon } from '@/components/icons';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
@@ -49,7 +49,7 @@ export function About() {
       <div className={styles.inner}>
         <div className={styles.textColumn}>
           <h2 id="about-title" className={styles.title}>
-            <D20 className={styles.titleIcon} />
+            <Icon name="D20" className={styles.titleIcon} />
             <span>{t('about_title')}</span>
           </h2>
 

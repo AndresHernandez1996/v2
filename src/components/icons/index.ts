@@ -4,6 +4,7 @@ export { Cross } from './Cross';
 export { D6 } from './D6';
 export { D20 } from './D20';
 export { GitHub } from './GitHub';
+export { Icon } from './Icon';
 export { IconLoader } from './IconLoader';
 export { Instagram } from './Instagram';
 export { Isotipo } from './Isotipo';

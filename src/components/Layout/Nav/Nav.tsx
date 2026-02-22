@@ -1,110 +1,115 @@
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
+import { useNavScrollState } from '@/hooks/useNavScrollState';
+import { useViewportBreakpoint } from '@/hooks/useViewportBreakpoint';
 import type { NavLink } from '@/types/navigation';
 import { NAV_ANIMATION } from '@/utils/animations';
-import { NAV_SECTION_LINKS } from '@/utils/links';
+import { LINKS } from '@/constants/links';
+import { MEDIA_QUERIES } from '@/constants/breakpoints';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
 type NavProps = {
+  isHome?: boolean;
   onHomeClick?: () => void;
 };
 
-export function Nav({ onHomeClick }: NavProps) {
+const cx = (...values: Array<string | false>) =>
+  values.filter(Boolean).join(' ');
+
+export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const { t } = useTranslation();
-  // Viewport + header behavior state
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
-  const [scrolledToTop, setScrolledToTop] = useState(() =>
-    typeof window === 'undefined' ? true : window.scrollY < 50,
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Shared mount animation control (disabled on mobile / reduced motion)
-  const { isMounted, prefersReducedMotion } = useAnimatedMount({
-    delayMs: isMobileViewport ? 0 : NAV_ANIMATION.mountDelayMs,
+  const [selectedHref, setSelectedHref] = useState<string | null>(null);
+  const isMobileViewport = useViewportBreakpoint(MEDIA_QUERIES.maxMd);
+  const { scrollDirection, scrolledToTop } = useNavScrollState({
+    isLocked: isMenuOpen,
   });
-  const shouldAnimateNav = !prefersReducedMotion && !isMobileViewport;
 
-  // Navigation links (desktop + mobile menu)
-  const links: NavLink[] = [
-    { href: NAV_SECTION_LINKS.about, label: t('nav_about') },
-    { href: NAV_SECTION_LINKS.experience, label: t('nav_experience') },
-    { href: NAV_SECTION_LINKS.work, label: t('nav_work') },
-    { href: NAV_SECTION_LINKS.contact, label: t('nav_contact') },
-  ];
+  // Shared mount animation state (disabled later on mobile/reduced-motion paths).
+  const { isMounted, prefersReducedMotion } = useAnimatedMount({
+    delayMs: isHome && !isMobileViewport ? NAV_ANIMATION.mountDelayMs : 0,
+  });
+  const shouldAnimateNav = isHome && !prefersReducedMotion && !isMobileViewport;
+
+  // Single link source used by desktop links and mobile menu.
+  const links: NavLink[] = useMemo(
+    () => [
+      { href: LINKS.navigation.sections.about, label: t('nav_about') },
+      {
+        href: LINKS.navigation.sections.experience,
+        label: t('nav_experience'),
+      },
+      { href: LINKS.navigation.sections.work, label: t('nav_work') },
+      { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
+    ],
+    [t],
+  );
 
   useEffect(() => {
-    // Track mobile breakpoint to avoid initial nav animation glitches
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-    const updateViewport = () => setIsMobileViewport(mobileQuery.matches);
-    updateViewport();
-    mobileQuery.addEventListener('change', updateViewport);
+    if (!selectedHref) {
+      return;
+    }
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      const clickedNavLink = target?.closest('[data-nav-link="true"]');
+
+      if (!clickedNavLink) {
+        setSelectedHref(null);
+      }
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
 
     return () => {
-      mobileQuery.removeEventListener('change', updateViewport);
+      document.removeEventListener('pointerdown', onPointerDown);
     };
-  }, []);
+  }, [selectedHref]);
 
-  useEffect(() => {
-    // Hide/reveal header based on scroll direction when menu is closed
-    let lastScrollY = window.scrollY;
-
-    const onScroll = () => {
-      if (isMenuOpen) {
-        return;
-      }
-
-      const current = window.scrollY;
-      setScrolledToTop(current < 50);
-
-      if (Math.abs(current - lastScrollY) < 6) {
-        return;
-      }
-
-      setScrollDirection(current > lastScrollY ? 'down' : 'up');
-      lastScrollY = current > 0 ? current : 0;
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [isMenuOpen]);
-
-  const headerClassName = [
+  const headerClassName = cx(
     styles.header,
-    isMenuOpen ? styles.headerMenuOpen : '',
-    !scrolledToTop ? styles.headerScrolled : '',
-    !scrolledToTop && scrollDirection === 'up' ? styles.headerUp : '',
-    !scrolledToTop && scrollDirection === 'down' ? styles.headerDown : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+    isMenuOpen && styles.headerMenuOpen,
+    !scrolledToTop && styles.headerScrolled,
+    !scrolledToTop && scrollDirection === 'up' && styles.headerUp,
+    !scrolledToTop && scrollDirection === 'down' && styles.headerDown,
+  );
 
   // Required by CSSTransition to avoid findDOMNode
   const brandRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
 
-  const brandNode = (
+  // Home uses callback flow (e.g., replay loader); non-home uses router navigation.
+  const brandNode = isHome ? (
     <a
       className={styles.brand}
       href="/"
       aria-label={t('nav_go_to_hero')}
       onClick={(event) => {
+        if (!onHomeClick) {
+          return;
+        }
+
         event.preventDefault();
-        onHomeClick?.();
+        onHomeClick();
       }}
     >
       <div className={styles.logo} aria-hidden="true">
         <Isotipo className={styles.logoIcon} />
       </div>
     </a>
+  ) : (
+    <Link className={styles.brand} to="/" aria-label={t('nav_go_to_hero')}>
+      <div className={styles.logo} aria-hidden="true">
+        <Isotipo className={styles.logoIcon} />
+      </div>
+    </Link>
   );
 
   const actionsNode = (
@@ -112,7 +117,16 @@ export function Nav({ onHomeClick }: NavProps) {
       <ul className={styles.links} aria-label={t('nav_links_label')}>
         {links.map((link) => (
           <li key={link.href}>
-            <a href={link.href}>{link.label}</a>
+            <a
+              href={link.href}
+              data-nav-link="true"
+              className={
+                link.href === selectedHref ? styles.linkActive : undefined
+              }
+              onClick={() => setSelectedHref(link.href)}
+            >
+              {link.label}
+            </a>
           </li>
         ))}
       </ul>
@@ -123,14 +137,14 @@ export function Nav({ onHomeClick }: NavProps) {
   return (
     <header className={headerClassName}>
       <nav className={styles.nav} aria-label={t('nav_aria_main')}>
-        {/* On mobile/reduced-motion: render immediately without transitions */}
+        {/* Mobile/reduced motion path: render immediately without mount transitions. */}
         {!shouldAnimateNav ? (
           <>
             <div className={styles.navItem}>{brandNode}</div>
             <div className={styles.navItem}>{actionsNode}</div>
           </>
         ) : (
-          // On desktop: staggered mount animation for brand and desktop actions
+          // Desktop path: stagger brand and actions for a simple nav entrance.
           <TransitionGroup component={null}>
             {isMounted ? (
               <CSSTransition
