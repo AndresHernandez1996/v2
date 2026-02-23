@@ -6,7 +6,13 @@ import { BREAKPOINTS } from '@/constants/breakpoints';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
 import { useMenuFocusTrap } from '@/hooks/useMenuFocusTrap';
 import type { NavLink } from '@/types/navigation';
-import { isHomePath } from '@/utils/paths';
+import {
+  getLocaleFromPath,
+  getLocalizedHomePath,
+  getSectionIdFromHref,
+  isHomePath,
+  normalizePathname,
+} from '@/utils/paths';
 import styles from './MobileMenu.module.scss';
 
 type MobileMenuProps = {
@@ -100,14 +106,17 @@ export function MobileMenu({
   )
     ? 'es'
     : 'en';
+  const localeFromPath =
+    getLocaleFromPath(location.pathname) ?? currentLanguage;
 
   const handleLanguageChange = (language: 'en' | 'es') => {
     setIsOpen(false);
 
-    if (currentLanguage === language) {
+    if (localeFromPath === language && currentLanguage === language) {
       return;
     }
 
+    navigate(`${getLocalizedHomePath(language)}${location.hash}`);
     void i18n.changeLanguage(language);
   };
 
@@ -141,7 +150,8 @@ export function MobileMenu({
     event: ReactMouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
-    if (!href.startsWith('/#')) {
+    const sectionId = getSectionIdFromHref(href);
+    if (!sectionId) {
       setIsOpen(false);
       return;
     }
@@ -149,11 +159,13 @@ export function MobileMenu({
     event.preventDefault();
     setIsOpen(false);
 
-    const sectionId = href.slice(2);
+    const targetPath = normalizePathname(href.split('#')[0] || '/');
+    const currentPath = normalizePathname(location.pathname);
+    const isSamePath = currentPath === targetPath;
     const isOnHome = isHomePath(location.pathname);
     pendingSectionIdRef.current = sectionId;
 
-    if (isOnHome) {
+    if (isOnHome && isSamePath) {
       navigate(href, { replace: false });
       window.requestAnimationFrame(() => {
         tryScrollToSection(sectionId);
@@ -224,9 +236,9 @@ export function MobileMenu({
           <div className={styles.languageRow} aria-label={t('language_label')}>
             <button
               type="button"
-              className={`${styles.languageOption} ${currentLanguage === 'en' ? styles.languageOptionActive : ''}`}
+              className={`${styles.languageOption} ${localeFromPath === 'en' ? styles.languageOptionActive : ''}`}
               onClick={() => handleLanguageChange('en')}
-              aria-pressed={currentLanguage === 'en'}
+              aria-pressed={localeFromPath === 'en'}
             >
               {t('language_short_en')}
             </button>
@@ -235,9 +247,9 @@ export function MobileMenu({
             </span>
             <button
               type="button"
-              className={`${styles.languageOption} ${currentLanguage === 'es' ? styles.languageOptionActive : ''}`}
+              className={`${styles.languageOption} ${localeFromPath === 'es' ? styles.languageOptionActive : ''}`}
               onClick={() => handleLanguageChange('es')}
-              aria-pressed={currentLanguage === 'es'}
+              aria-pressed={localeFromPath === 'es'}
             >
               {t('language_short_es')}
             </button>

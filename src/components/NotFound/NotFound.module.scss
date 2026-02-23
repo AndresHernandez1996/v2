@@ -1,6 +1,8 @@
 @use '../../styles/tokens' as t;
 
 .main {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: grid;
   place-items: center;

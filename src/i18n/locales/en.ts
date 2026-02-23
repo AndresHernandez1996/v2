@@ -1,7 +1,7 @@
 export const en = {
-  title: 'Andrés Hernández Frontend Engineer',
+  title: 'Andres Hernandez Frontend Engineer',
   subtitle:
-    'Andrés is a front-end developer who focuses on building scalable, accessible, and user-centered web applications. He transforms ideas into high-performance digital experiences through modern technologies and clean, intentional design.',
+    'Andres is a front-end developer who focuses on building scalable, accessible, and user-centered web applications. He transforms ideas into high-performance digital experiences through modern technologies and clean, intentional design.',
   language_label: 'Language',
   language_current: 'Current: {{lng}}',
   language_switch_to_english: 'English',
@@ -50,7 +50,7 @@ export const en = {
     ' capable of designing and building applications with robust architecture, scalability, and clean system design.',
   about_tech_label: 'Some technologies I work with:',
   about_tech_aria: 'Technologies',
-  about_image_alt: 'Andrés Hernández portrait',
+  about_image_alt: 'Andres Hernandez portrait',
   experience_title: 'Experience',
   experience_tablist_aria: 'Companies',
   experience_tab_aria: 'Show experience for {{company}}',
