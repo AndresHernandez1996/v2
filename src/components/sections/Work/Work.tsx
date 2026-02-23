@@ -147,6 +147,8 @@ export function Work() {
           </TransitionGroup>
         )}
       </ul>
+
+      <p className={styles.footnote}>{t('work_confidential_note')}</p>
     </section>
   );
 }

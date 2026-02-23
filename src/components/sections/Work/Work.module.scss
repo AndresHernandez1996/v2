@@ -26,6 +26,14 @@
     margin-top 260ms ease;
 }
 
+.footnote {
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+  color: t.$ui-text-subtle;
+  font-size: t.$font-size-xs;
+  line-height: t.$line-height-relaxed;
+  text-align: center;
+}
+
 .cardItem {
   margin: 0;
 }
@@ -215,5 +223,9 @@
 
   .imagePlaceholder {
     margin-top: 0;
+  }
+
+  .footnote {
+    text-align: left;
   }
 }

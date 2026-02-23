@@ -23,7 +23,7 @@ export function Loader({ finishLoading }: LoaderProps) {
       };
     }
 
-    const mountTimeout = window.setTimeout(() => setIsMounted(true), 80);
+    const mountTimeout = window.setTimeout(() => setIsMounted(true), 40);
     const loaderEl = loaderRef.current;
     const logoEl = logoRef.current?.querySelector<HTMLElement>('#loader-logo');
     const headLayerEl =
@@ -56,7 +56,7 @@ export function Loader({ finishLoading }: LoaderProps) {
     }
 
     if (headLayerEl) {
-      headLayerEl.style.clipPath = 'inset(100% 0% 0% 0%)';
+      headLayerEl.style.clipPath = 'inset(0% 0% 100% 0%)';
     }
 
     const timeline = createTimeline({
@@ -75,12 +75,12 @@ export function Loader({ finishLoading }: LoaderProps) {
     timeline
       .add(headPaths ?? [], {
         delay: 120,
-        duration: 700,
+        duration: 450,
         ease: 'inOutQuart',
         strokeDashoffset: 0,
       })
       .add(headPaths ?? [], {
-        duration: 340,
+        duration: 150,
         ease: 'inOutSine',
         fillOpacity: 1,
         strokeOpacity: 0,
@@ -88,24 +88,24 @@ export function Loader({ finishLoading }: LoaderProps) {
 
     timeline
       .add(yLayerEl ?? [], {
-        duration: 200,
+        duration: 320,
         ease: 'inOutSine',
         opacity: 1,
       })
       .add(yPaths ?? [], {
-        duration: 720,
+        duration: 320,
         ease: 'inOutSine',
         strokeDashoffset: 0,
       })
       .add(yPaths ?? [], {
-        duration: 320,
+        duration: 160,
         ease: 'inOutSine',
         fillOpacity: 1,
         strokeOpacity: 0,
       })
       .add(logoEl ?? [], {
-        delay: 420,
-        duration: 260,
+        delay: 220,
+        duration: 320,
         ease: 'inOutSine',
         opacity: 0,
         scale: 0.1,
@@ -113,7 +113,7 @@ export function Loader({ finishLoading }: LoaderProps) {
 
     if (loaderEl) {
       timeline.add(loaderEl, {
-        duration: 220,
+        duration: 120,
         ease: 'inOutSine',
         opacity: 0,
       });

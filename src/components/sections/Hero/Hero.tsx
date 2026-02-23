@@ -10,13 +10,15 @@ import { LINKS } from '@/constants/links';
 type HeroItemId = 'kicker' | 'title' | 'subtitle' | 'text' | 'cta';
 
 export function Hero(): ReactElement {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isMounted, prefersReducedMotion } = useAnimatedMount({
     delayMs: HERO_ANIMATION.navDelayMs,
   });
   const heroTitleId = 'hero-title';
   const heroSubtitleId = 'hero-subtitle';
   const heroDescriptionId = 'hero-description';
+  const currentLanguage = i18n.resolvedLanguage?.startsWith('es') ? 'es' : 'en';
+  const resumeUrl = LINKS.profile.resumes[currentLanguage];
 
   const items: Array<{ id: HeroItemId; node: ReactNode }> = [
     { id: 'kicker', node: <p className={styles.kicker}>{t('hero_kicker')}</p> },
@@ -49,7 +51,7 @@ export function Hero(): ReactElement {
       node: (
         <a
           className={styles.resumeButton}
-          href={LINKS.profile.resume}
+          href={resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t('hero_cta_aria')}

@@ -37,7 +37,7 @@ export const en = {
   hero_cta_aria: 'Download resume',
   about_title: 'About me',
   about_p1:
-    "Hi! I'm Andrés Hernández. I enjoy building management applications from scratch. My passion for development began in 2019 after experimenting with my browser developer tools and discovering how the web actually works behind the scenes.",
+    "Hi! I'm Andrés Hernández, aka Yayo. I enjoy building management applications from scratch. My passion for development began in 2019 after experimenting with my browser developer tools and discovering how the web actually works behind the scenes.",
   about_p2_prefix: "I've had the opportunity to work with a ",
   about_p2_highlight_1: 'start-up, large companies',
   about_p2_middle: ', and a ',
@@ -137,6 +137,8 @@ export const en = {
   work_project_4_stack: 'ReactJs | Hooks | CSS | Vercel | Figma',
   work_project_4_image_alt:
     'Little Lemon reservation UI from the Meta Professional Course capstone project',
+  work_confidential_note:
+    'Some projects cannot be shown publicly due to NDAs and confidentiality agreements.',
   contact_kicker: "Let's build something meaningful",
   contact_title: 'Get In Touch',
   contact_text:

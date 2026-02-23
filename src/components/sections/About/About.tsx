@@ -1,18 +1,12 @@
 import { useEffect, useRef } from 'react';
 import styles from './About.module.scss';
-import jsIcon from '@/assets/about/JS.webp';
-import reactIcon from '@/assets/about/React.webp';
-import tsIcon from '@/assets/about/TS.webp';
-import nextIcon from '@/assets/about/NextJs.webp';
-import tailwindIcon from '@/assets/about/Tailwind.webp';
-import sassIcon from '@/assets/about/Sass.webp';
-import antdIcon from '@/assets/about/Antd.webp';
-import yayoImage from '@/assets/about/yayo.png';
 import { Icon } from '@/components/icons';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import sr from '@/utils/sr';
 import { srConfig } from '@/utils/srConfig';
 import { useTranslation } from 'react-i18next';
+import { Tooltip } from '@/components/Tooltip/Tooltip';
+import { ABOUT_IMAGE, ABOUT_TECHNOLOGIES } from '@/constants/about';
 
 export function About() {
   const { t } = useTranslation();
@@ -27,16 +21,6 @@ export function About() {
 
     sr.reveal(node, srConfig());
   }, [prefersReducedMotion]);
-
-  const technologies = [
-    { src: jsIcon, alt: 'JavaScript' },
-    { src: reactIcon, alt: 'React' },
-    { src: tsIcon, alt: 'TypeScript' },
-    { src: nextIcon, alt: 'Next.js' },
-    { src: tailwindIcon, alt: 'Tailwind CSS' },
-    { src: sassIcon, alt: 'Sass' },
-    { src: antdIcon, alt: 'Ant Design' },
-  ] as const;
 
   return (
     <section
@@ -75,16 +59,23 @@ export function About() {
           <p className={styles.techLabel}>{t('about_tech_label')}</p>
 
           <ul className={styles.techList} aria-label={t('about_tech_aria')}>
-            {technologies.map((technology) => (
+            {ABOUT_TECHNOLOGIES.map((technology) => (
               <li key={technology.alt} className={styles.techItem}>
-                <img
-                  src={technology.src}
-                  alt={technology.alt}
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <Tooltip
+                  content={technology.alt}
+                  className={styles.techTooltip}
+                >
+                  <span className={styles.techIcon}>
+                    <img
+                      src={technology.src}
+                      alt={technology.alt}
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                </Tooltip>
               </li>
             ))}
           </ul>
@@ -92,7 +83,7 @@ export function About() {
 
         <div className={styles.imagePlaceholder}>
           <img
-            src={yayoImage}
+            src={ABOUT_IMAGE}
             alt={t('about_image_alt')}
             width={512}
             height={512}
