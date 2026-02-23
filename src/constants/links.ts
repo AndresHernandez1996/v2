@@ -30,7 +30,10 @@ export const LINKS = {
     },
   },
   profile: {
-    resume: '/front_end_developer_andres_hernandez_en.pdf',
+    resumes: {
+      en: '/Andres_Hernandez_Frontend_Developer_EN.pdf',
+      es: '/Andres_Hernandez_Frontend_Developer_ES.pdf',
+    },
   },
   social: {
     github: 'https://github.com/AndresHernandez1996/',
