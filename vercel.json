@@ -1,11 +1,12 @@
 {
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "^/$",
+      "status": 308,
+      "dest": "/en"
     },
     {
-      "src": "^/$",
-      "dest": "/index.html"
+      "handle": "filesystem"
     },
     {
       "src": "^/(en|es)/?$",
