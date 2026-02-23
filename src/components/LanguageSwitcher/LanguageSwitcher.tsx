@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/icons';
 import { assertNever } from '@/lib/assertNever';
+import { getLocaleFromPath, getLocalizedHomePath } from '@/utils/paths';
 import styles from './LanguageSwitcher.module.scss';
 
 type SupportedLanguage = 'en' | 'es';
@@ -10,6 +12,8 @@ const LANGUAGES: SupportedLanguage[] = ['en', 'es'];
 
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,8 +22,10 @@ export function LanguageSwitcher() {
   )
     ? 'es'
     : 'en';
+  const localeFromPath =
+    getLocaleFromPath(location.pathname) ?? currentLanguage;
 
-  const availableLanguages = LANGUAGES.filter((lng) => lng !== currentLanguage);
+  const availableLanguages = LANGUAGES.filter((lng) => lng !== localeFromPath);
 
   useEffect(() => {
     if (!isOpen) {
@@ -52,6 +58,12 @@ export function LanguageSwitcher() {
   }, [isOpen]);
 
   const handleLanguageChange = (nextLanguage: SupportedLanguage) => {
+    if (localeFromPath === nextLanguage && currentLanguage === nextLanguage) {
+      setIsOpen(false);
+      return;
+    }
+
+    navigate(`${getLocalizedHomePath(nextLanguage)}${location.hash}`);
     void i18n.changeLanguage(nextLanguage);
     setIsOpen(false);
   };

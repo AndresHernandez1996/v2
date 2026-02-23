@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Isotipo } from '@/components/icons/Isotipo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
@@ -12,6 +12,12 @@ import type { NavLink } from '@/types/navigation';
 import { NAV_ANIMATION } from '@/utils/animations';
 import { LINKS } from '@/constants/links';
 import { MEDIA_QUERIES } from '@/constants/breakpoints';
+import {
+  buildLocalizedSectionHref,
+  getLocaleFromPath,
+  getLocalizedHomePath,
+  getSectionIdFromHref,
+} from '@/utils/paths';
 import { MobileMenu } from './MobileMenu';
 import styles from './Nav.module.scss';
 
@@ -25,6 +31,7 @@ const cx = (...values: Array<string | false>) =>
 
 export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const { t } = useTranslation();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedHref, setSelectedHref] = useState<string | null>(null);
   const isMobileViewport = useViewportBreakpoint(MEDIA_QUERIES.maxMd);
@@ -38,18 +45,43 @@ export function Nav({ onHomeClick, isHome = false }: NavProps) {
   });
   const shouldAnimateNav = isHome && !prefersReducedMotion && !isMobileViewport;
 
+  const locale = getLocaleFromPath(location.pathname) ?? 'en';
+  const localizedHomePath = getLocalizedHomePath(locale);
+
   // Single link source used by desktop links and mobile menu.
   const links: NavLink[] = useMemo(
     () => [
-      { href: LINKS.navigation.sections.about, label: t('nav_about') },
       {
-        href: LINKS.navigation.sections.experience,
+        href: buildLocalizedSectionHref(
+          locale,
+          getSectionIdFromHref(LINKS.navigation.sections.about) ?? 'about',
+        ),
+        label: t('nav_about'),
+      },
+      {
+        href: buildLocalizedSectionHref(
+          locale,
+          getSectionIdFromHref(LINKS.navigation.sections.experience) ??
+            'experience',
+        ),
         label: t('nav_experience'),
       },
-      { href: LINKS.navigation.sections.work, label: t('nav_work') },
-      { href: LINKS.navigation.sections.contact, label: t('nav_contact') },
+      {
+        href: buildLocalizedSectionHref(
+          locale,
+          getSectionIdFromHref(LINKS.navigation.sections.work) ?? 'work',
+        ),
+        label: t('nav_work'),
+      },
+      {
+        href: buildLocalizedSectionHref(
+          locale,
+          getSectionIdFromHref(LINKS.navigation.sections.contact) ?? 'contact',
+        ),
+        label: t('nav_contact'),
+      },
     ],
-    [t],
+    [locale, t],
   );
 
   useEffect(() => {
@@ -89,7 +121,7 @@ export function Nav({ onHomeClick, isHome = false }: NavProps) {
   const brandNode = isHome ? (
     <a
       className={styles.brand}
-      href="/"
+      href={localizedHomePath}
       aria-label={t('nav_go_to_hero')}
       onClick={(event) => {
         if (!onHomeClick) {
@@ -105,7 +137,11 @@ export function Nav({ onHomeClick, isHome = false }: NavProps) {
       </div>
     </a>
   ) : (
-    <Link className={styles.brand} to="/" aria-label={t('nav_go_to_hero')}>
+    <Link
+      className={styles.brand}
+      to={localizedHomePath}
+      aria-label={t('nav_go_to_hero')}
+    >
       <div className={styles.logo} aria-hidden="true">
         <Isotipo className={styles.logoIcon} />
       </div>

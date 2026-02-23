@@ -28,12 +28,6 @@ export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
       ariaLabel: t('side_mail_aria'),
     },
     {
-      key: 'x',
-      href: LINKS.social.x,
-      icon: <Icon name="X" className={styles.icon} />,
-      ariaLabel: t('side_x_aria'),
-    },
-    {
       key: 'github',
       href: LINKS.social.github,
       icon: <Icon name="GitHub" className={styles.icon} />,
@@ -44,6 +38,12 @@ export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
       href: LINKS.social.linkedin,
       icon: <Icon name="LinkedIn" className={styles.icon} />,
       ariaLabel: t('side_linkedin_aria'),
+    },
+    {
+      key: 'x',
+      href: LINKS.social.x,
+      icon: <Icon name="X" className={styles.icon} />,
+      ariaLabel: t('side_x_aria'),
     },
     {
       key: 'instagram',
