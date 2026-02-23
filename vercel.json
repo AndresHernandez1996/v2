@@ -1,12 +1,10 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/en",
-      "permanent": true
-    }
-  ],
   "routes": [
+    {
+      "src": "^/$",
+      "status": 308,
+      "dest": "/en"
+    },
     {
       "handle": "filesystem"
     },
