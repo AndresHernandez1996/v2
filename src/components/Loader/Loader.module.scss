@@ -14,7 +14,7 @@
 .logoWrapper {
   width: min(150px, 36vw);
   opacity: 0;
-  transition: opacity 180ms ease;
+  transition: opacity 120ms ease;
 
   &.isMounted {
     opacity: 1;
