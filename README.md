@@ -1,4 +1,4 @@
-# V2 Portfolio Starter
+# V2 Portfolio (README pending)
 
 Frontend v2 project built with React + TypeScript + Vite, using SCSS for styling, i18n (`en` / `es`), animejs, and entrance animations with ScrollReveal.
 
