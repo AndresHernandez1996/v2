@@ -1,0 +1,64 @@
+@use '../../styles/tokens' as t;
+
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid t.$ui-focus;
+    outline-offset: 2px;
+  }
+}
+
+.bubble {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translate(-50%, 4px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid t.$ui-border;
+  border-radius: t.$radius-sm;
+  background: t.$ui-bg-contrast;
+  color: t.$ui-text;
+  font-size: t.$font-size-xs;
+  line-height: 1.2;
+  box-shadow: t.$shadow-sm;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid t.$ui-bg-contrast;
+  }
+}
+
+.open .bubble {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    transition: none;
+  }
+}

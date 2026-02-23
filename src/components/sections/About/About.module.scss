@@ -59,12 +59,7 @@
   gap: clamp(0.5rem, 1.8vw, 1rem);
   border-radius: 999px;
   background: t.$ui-text-secondary;
-  overflow-x: auto;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: visible;
 }
 
 .techItem {
@@ -76,8 +71,23 @@
   flex: 0 0 auto;
   border-radius: 999px;
   background: t.$ui-text-secondary;
-  overflow: hidden;
+  overflow: visible;
+}
 
+.techIcon {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.techTooltip {
+  width: 100%;
+  height: 100%;
+}
+
+.techIcon {
   img {
     width: 100%;
     height: 100%;
