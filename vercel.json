@@ -1,7 +1,8 @@
 {
-  "redirects": [{ "source": "/", "destination": "/en", "permanent": true }],
-  "rewrites": [
-    { "source": "/en", "destination": "/index.html" },
-    { "source": "/es", "destination": "/index.html" }
+  "routes": [
+    { "src": "^/$", "status": 308, "headers": { "Location": "/en" } },
+    { "handle": "filesystem" },
+    { "src": "^/(en|es)/?$", "dest": "/index.html" },
+    { "src": "/.*", "status": 404, "dest": "/index.html" }
   ]
 }
