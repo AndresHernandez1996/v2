@@ -12,12 +12,10 @@ type SideItem = {
 };
 
 type SideProps = {
-  isHome?: boolean;
   mode?: 'fixed' | 'inline';
 };
 
-export function Side({ isHome: _isHome, mode = 'fixed' }: SideProps) {
-  console.log(_isHome);
+export function Side({ mode = 'fixed' }: SideProps) {
   const { t } = useTranslation();
 
   const items: SideItem[] = [

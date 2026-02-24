@@ -63,7 +63,7 @@ export function Layout({ children }: LayoutProps) {
       ) : (
         <>
           <Nav isHome={isHome} />
-          <Side isHome={isHome} />
+          <Side />
           <MainContainer>{children}</MainContainer>
         </>
       )}
