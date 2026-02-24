@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@/components/icons';
+import { useLocaleRouting } from '@/hooks/useLocaleRouting';
 import { assertNever } from '@/lib/assertNever';
 import styles from './LanguageSwitcher.module.scss';
 
@@ -9,17 +10,12 @@ type SupportedLanguage = 'en' | 'es';
 const LANGUAGES: SupportedLanguage[] = ['en', 'es'];
 
 export function LanguageSwitcher() {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const { currentLocale, localeFromPath, switchLocale } = useLocaleRouting();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const currentLanguage = (i18n.resolvedLanguage ?? i18n.language).startsWith(
-    'es',
-  )
-    ? 'es'
-    : 'en';
-
-  const availableLanguages = LANGUAGES.filter((lng) => lng !== currentLanguage);
+  const availableLanguages = LANGUAGES.filter((lng) => lng !== localeFromPath);
 
   useEffect(() => {
     if (!isOpen) {
@@ -52,7 +48,12 @@ export function LanguageSwitcher() {
   }, [isOpen]);
 
   const handleLanguageChange = (nextLanguage: SupportedLanguage) => {
-    void i18n.changeLanguage(nextLanguage);
+    if (localeFromPath === nextLanguage && currentLocale === nextLanguage) {
+      setIsOpen(false);
+      return;
+    }
+
+    switchLocale(nextLanguage);
     setIsOpen(false);
   };
 
@@ -77,9 +78,7 @@ export function LanguageSwitcher() {
         aria-haspopup="menu"
         aria-label={t('language_label')}
       >
-        <span className={styles.label}>
-          {getLanguageLabel(currentLanguage)}
-        </span>
+        <span className={styles.label}>{getLanguageLabel(currentLocale)}</span>
         <Icon
           name="ChevronDown"
           className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}

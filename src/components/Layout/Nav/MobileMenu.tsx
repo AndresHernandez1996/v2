@@ -4,9 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BREAKPOINTS } from '@/constants/breakpoints';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import { useLocaleRouting } from '@/hooks/useLocaleRouting';
 import { useMenuFocusTrap } from '@/hooks/useMenuFocusTrap';
 import type { NavLink } from '@/types/navigation';
-import { isHomePath } from '@/utils/paths';
+import {
+  getSectionIdFromHref,
+  isHomePath,
+  normalizePathname,
+} from '@/utils/paths';
 import styles from './MobileMenu.module.scss';
 
 type MobileMenuProps = {
@@ -26,7 +31,8 @@ export function MobileMenu({
   linksLabel,
   onMenuStateChange,
 }: MobileMenuProps) {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const { currentLocale, localeFromPath, switchLocale } = useLocaleRouting();
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -95,20 +101,15 @@ export function MobileMenu({
   }, [isOpen]);
 
   const buttonLabel = isOpen ? closeLabel : openLabel;
-  const currentLanguage = (i18n.resolvedLanguage ?? i18n.language).startsWith(
-    'es',
-  )
-    ? 'es'
-    : 'en';
 
   const handleLanguageChange = (language: 'en' | 'es') => {
     setIsOpen(false);
 
-    if (currentLanguage === language) {
+    if (localeFromPath === language && currentLocale === language) {
       return;
     }
 
-    void i18n.changeLanguage(language);
+    switchLocale(language);
   };
 
   const tryScrollToSection = useCallback(function tryScrollToSection(
@@ -141,7 +142,8 @@ export function MobileMenu({
     event: ReactMouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
-    if (!href.startsWith('/#')) {
+    const sectionId = getSectionIdFromHref(href);
+    if (!sectionId) {
       setIsOpen(false);
       return;
     }
@@ -149,11 +151,13 @@ export function MobileMenu({
     event.preventDefault();
     setIsOpen(false);
 
-    const sectionId = href.slice(2);
+    const targetPath = normalizePathname(href.split('#')[0] || '/');
+    const currentPath = normalizePathname(location.pathname);
+    const isSamePath = currentPath === targetPath;
     const isOnHome = isHomePath(location.pathname);
     pendingSectionIdRef.current = sectionId;
 
-    if (isOnHome) {
+    if (isOnHome && isSamePath) {
       navigate(href, { replace: false });
       window.requestAnimationFrame(() => {
         tryScrollToSection(sectionId);
@@ -224,9 +228,9 @@ export function MobileMenu({
           <div className={styles.languageRow} aria-label={t('language_label')}>
             <button
               type="button"
-              className={`${styles.languageOption} ${currentLanguage === 'en' ? styles.languageOptionActive : ''}`}
+              className={`${styles.languageOption} ${localeFromPath === 'en' ? styles.languageOptionActive : ''}`}
               onClick={() => handleLanguageChange('en')}
-              aria-pressed={currentLanguage === 'en'}
+              aria-pressed={localeFromPath === 'en'}
             >
               {t('language_short_en')}
             </button>
@@ -235,9 +239,9 @@ export function MobileMenu({
             </span>
             <button
               type="button"
-              className={`${styles.languageOption} ${currentLanguage === 'es' ? styles.languageOptionActive : ''}`}
+              className={`${styles.languageOption} ${localeFromPath === 'es' ? styles.languageOptionActive : ''}`}
               onClick={() => handleLanguageChange('es')}
-              aria-pressed={currentLanguage === 'es'}
+              aria-pressed={localeFromPath === 'es'}
             >
               {t('language_short_es')}
             </button>

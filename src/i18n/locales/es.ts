@@ -1,9 +1,9 @@
 import type { TranslationSchema } from './en';
 
 export const es = {
-  title: 'Andrés Hernández Ingeniero Front-end',
+  title: 'Andres Hernandez Ingeniero Front-end',
   subtitle:
-    'Andrés es un desarrollador front-end enfocado en construir aplicaciones web escalables, accesibles y centradas en las personas. Transforma ideas en experiencias digitales de alto rendimiento mediante tecnologías modernas y un diseño limpio e intencional.',
+    'Andres es un desarrollador front-end enfocado en construir aplicaciones web escalables, accesibles y centradas en las personas. Transforma ideas en experiencias digitales de alto rendimiento mediante tecnologías modernas y un diseño limpio e intencional.',
   language_label: 'Idioma',
   language_current: 'Actual: {{lng}}',
   language_switch_to_english: 'Inglés',
@@ -52,7 +52,7 @@ export const es = {
     ' capaz de diseñar y construir aplicaciones con arquitectura robusta, escalabilidad y diseño limpio de sistemas.',
   about_tech_label: 'Algunas tecnologías con las que trabajo:',
   about_tech_aria: 'Tecnologías',
-  about_image_alt: 'Retrato de Andrés Hernández',
+  about_image_alt: 'Retrato de Andres Hernandez',
   experience_title: 'Experiencia',
   experience_tablist_aria: 'Empresas',
   experience_tab_aria: 'Mostrar experiencia de {{company}}',

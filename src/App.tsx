@@ -7,8 +7,17 @@ import { NotFoundSeo } from './components/SEO/NotFoundSeo';
 import { lazyNamed } from './utils/lazyNamed';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { useLocation } from 'react-router-dom';
-import { isHomePath } from './utils/paths';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import i18n from './i18n';
+import {
+  DEFAULT_LOCALE,
+  getLocaleFromPath,
+  getLocalizedHomePath,
+  isHomePath,
+  isRootHomePath,
+  resolveLocaleFromLanguage,
+} from './utils/paths';
 
 // Lazy-loaded sections keep the initial bundle focused on above-the-fold content.
 const About = lazyNamed(
@@ -27,7 +36,31 @@ const Contact = lazyNamed(
 
 export default function App() {
   const location = useLocation();
-  const isNotFoundPath = !isHomePath(location.pathname);
+  const navigate = useNavigate();
+  const localeFromPath = getLocaleFromPath(location.pathname);
+  const isRootPath = isRootHomePath(location.pathname);
+  const isNotFoundPath = !isHomePath(location.pathname) && !isRootPath;
+
+  useEffect(() => {
+    if (isRootPath) {
+      navigate(`${getLocalizedHomePath(DEFAULT_LOCALE)}${location.hash}`, {
+        replace: true,
+      });
+      return;
+    }
+
+    if (!localeFromPath) {
+      return;
+    }
+
+    const currentLanguage = resolveLocaleFromLanguage(
+      i18n.resolvedLanguage ?? i18n.language,
+    );
+
+    if (currentLanguage !== localeFromPath) {
+      void i18n.changeLanguage(localeFromPath);
+    }
+  }, [isRootPath, localeFromPath, location.hash, navigate]);
 
   if (isNotFoundPath) {
     return (
