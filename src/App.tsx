@@ -16,6 +16,7 @@ import {
   getLocalizedHomePath,
   isHomePath,
   isRootHomePath,
+  resolveLocaleFromLanguage,
 } from './utils/paths';
 
 // Lazy-loaded sections keep the initial bundle focused on above-the-fold content.
@@ -52,11 +53,9 @@ export default function App() {
       return;
     }
 
-    const currentLanguage = (i18n.resolvedLanguage ?? i18n.language).startsWith(
-      'es',
-    )
-      ? 'es'
-      : 'en';
+    const currentLanguage = resolveLocaleFromLanguage(
+      i18n.resolvedLanguage ?? i18n.language,
+    );
 
     if (currentLanguage !== localeFromPath) {
       void i18n.changeLanguage(localeFromPath);

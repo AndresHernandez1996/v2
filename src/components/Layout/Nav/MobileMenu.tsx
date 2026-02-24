@@ -4,11 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BREAKPOINTS } from '@/constants/breakpoints';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import { useLocaleRouting } from '@/hooks/useLocaleRouting';
 import { useMenuFocusTrap } from '@/hooks/useMenuFocusTrap';
 import type { NavLink } from '@/types/navigation';
 import {
-  getLocaleFromPath,
-  getLocalizedHomePath,
   getSectionIdFromHref,
   isHomePath,
   normalizePathname,
@@ -32,7 +31,8 @@ export function MobileMenu({
   linksLabel,
   onMenuStateChange,
 }: MobileMenuProps) {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const { currentLocale, localeFromPath, switchLocale } = useLocaleRouting();
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -101,23 +101,15 @@ export function MobileMenu({
   }, [isOpen]);
 
   const buttonLabel = isOpen ? closeLabel : openLabel;
-  const currentLanguage = (i18n.resolvedLanguage ?? i18n.language).startsWith(
-    'es',
-  )
-    ? 'es'
-    : 'en';
-  const localeFromPath =
-    getLocaleFromPath(location.pathname) ?? currentLanguage;
 
   const handleLanguageChange = (language: 'en' | 'es') => {
     setIsOpen(false);
 
-    if (localeFromPath === language && currentLanguage === language) {
+    if (localeFromPath === language && currentLocale === language) {
       return;
     }
 
-    navigate(`${getLocalizedHomePath(language)}${location.hash}`);
-    void i18n.changeLanguage(language);
+    switchLocale(language);
   };
 
   const tryScrollToSection = useCallback(function tryScrollToSection(

@@ -28,6 +28,12 @@ export function getLocalizedHomePath(locale: SupportedLocale): string {
   return `/${locale}`;
 }
 
+export function resolveLocaleFromLanguage(
+  language: string | null | undefined,
+): SupportedLocale {
+  return language?.startsWith('es') ? 'es' : 'en';
+}
+
 export function getAlternateLocale(locale: SupportedLocale): SupportedLocale {
   return locale === 'en' ? 'es' : 'en';
 }

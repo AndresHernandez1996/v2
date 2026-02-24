@@ -6,6 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useAnimatedMount } from '@/hooks/useAnimatedMount';
 import { HERO_ANIMATION } from '@/utils/animations';
 import { LINKS } from '@/constants/links';
+import { resolveLocaleFromLanguage } from '@/utils/paths';
 
 type HeroItemId = 'kicker' | 'title' | 'subtitle' | 'text' | 'cta';
 
@@ -17,7 +18,9 @@ export function Hero(): ReactElement {
   const heroTitleId = 'hero-title';
   const heroSubtitleId = 'hero-subtitle';
   const heroDescriptionId = 'hero-description';
-  const currentLanguage = i18n.resolvedLanguage?.startsWith('es') ? 'es' : 'en';
+  const currentLanguage = resolveLocaleFromLanguage(
+    i18n.resolvedLanguage ?? i18n.language,
+  );
   const resumeUrl = LINKS.profile.resumes[currentLanguage];
 
   const items: Array<{ id: HeroItemId; node: ReactNode }> = [
