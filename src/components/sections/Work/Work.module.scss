@@ -73,6 +73,10 @@
     text-align: right;
   }
 
+  .cardTitleRow {
+    justify-content: flex-end;
+  }
+
   .imagePlaceholder {
     order: 2;
   }
@@ -90,6 +94,10 @@
     order: 2;
     text-align: left;
   }
+
+  .cardTitleRow {
+    justify-content: flex-start;
+  }
 }
 
 .kicker {
@@ -101,8 +109,34 @@
 }
 
 .cardTitle {
-  margin: 0 0 1rem;
+  margin: 0;
   line-height: t.$line-height-snug;
+}
+
+.cardTitleRow {
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardTitleLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  text-decoration: none;
+  transition: color 180ms ease;
+
+  &:hover {
+    color: t.$ui-accent-hover;
+  }
+}
+
+.externalIcon {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .cardDescription {
@@ -193,6 +227,10 @@
     .imagePlaceholder {
       order: initial;
       text-align: left;
+    }
+
+    .cardTitleRow {
+      justify-content: flex-start;
     }
   }
 

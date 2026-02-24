@@ -3,6 +3,7 @@ import { ChevronDown } from './ChevronDown';
 import { Cross } from './Cross';
 import { D6 } from './D6';
 import { D20 } from './D20';
+import { External } from './External';
 import { GitHub } from './GitHub';
 import { IconLoader } from './IconLoader';
 import { Instagram } from './Instagram';
@@ -18,6 +19,7 @@ export type IconName =
   | 'Cross'
   | 'D6'
   | 'D20'
+  | 'External'
   | 'GitHub'
   | 'Instagram'
   | 'Isotipo'
@@ -47,6 +49,8 @@ export function Icon({ name, className }: IconProps) {
       return <D6 {...iconProps} />;
     case 'D20':
       return <D20 {...iconProps} />;
+    case 'External':
+      return <External {...iconProps} />;
     case 'GitHub':
       return <GitHub {...iconProps} />;
     case 'Instagram':
